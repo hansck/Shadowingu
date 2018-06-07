@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Tab -->
+	<style name="CustomTabText" parent="TextAppearance.AppCompat.Button">
+		<item name="android:textSize">@dimen/text_body</item>
+		<item name="android:textAllCaps">true</item>
+		<item name="android:textColor">@color/text_light_1</item>
+	</style>
+
+	<!-- Floating Button -->
+	<style name="CustomFloatingLabel" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/color_primary</item>
+		<item name="android:textSize">@dimen/text_body</item>
+	</style>
+
+	<!-- Edit Text -->
+	<style name="CustomEditTextTheme">
+		<item name="android:imeOptions">actionNext</item>
+		<item name="android:singleLine">true</item>
+		<item name="colorControlNormal">@color/line</item>
+		<item name="colorControlActivated">@color/color_primary</item>
+		<item name="android:textColorPrimary">@color/text_dark</item>
+		<item name="android:textSize">@dimen/text_body</item>
+	</style>
+
+	<style name="CustomEditText">
+		<item name="android:theme">@style/CustomEditTextTheme</item>
+		<item name="android:paddingTop">@dimen/item_margin_tiny</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<!-- Text -->
+	<style name="CaptionRegular">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/text_light_1</item>
+		<item name="android:textSize">@dimen/text_caption</item>
+	</style>
+
+	<style name="CaptionMedium" parent="CaptionRegular">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="ParentText">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/text_dark</item>
+	</style>
+
+	<style name="BodyRegular" parent="ParentText">
+		<item name="android:textSize">@dimen/text_body</item>
+	</style>
+
+	<style name="BodyMedium" parent="BodyRegular">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="SubheadingRegular" parent="ParentText">
+		<item name="android:textSize">@dimen/text_subheading</item>
+		<item name="android:textColor">@color/text_dark</item>
+	</style>
+
+	<style name="SubheadingMedium" parent="SubheadingRegular">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="SectionText" parent="ParentText">
+		<item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+		<item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+		<item name="android:layout_centerVertical">true</item>
+		<item name="android:textSize">@dimen/text_subheading</item>
+	</style>
+
+	<style name="SectionTitle" parent="SectionText">
+		<item name="android:paddingTop">@dimen/item_margin_small</item>
+		<item name="android:paddingBottom">@dimen/item_margin_small</item>
+	</style>
+
+	<style name="TitleRegular" parent="ParentText">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/text_dark</item>
+		<item name="android:textSize">@dimen/text_title</item>
+	</style>
+
+	<style name="TitleMedium" parent="TitleRegular">
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="ClickableRegular">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:clickable">true</item>
+		<item name="android:background">@drawable/bg_clickable</item>
+		<item name="android:padding">@dimen/item_margin_tiny</item>
+		<item name="android:textSize">@dimen/text_body</item>
+		<item name="android:textColor">@color/color_accent</item>
+	</style>
+
+	<style name="ClickableMedium" parent="ClickableRegular">
+		<item name="android:textStyle">bold</item>
+	</style>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="CustomTab" parent="Widget.Design.TabLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="tabTextAppearance">@style/CustomTabText</item>
+		<item name="tabSelectedTextColor">@color/color_accent</item>
+		<item name="tabIndicatorColor">@color/color_accent</item>
+		<item name="android:minHeight">?attr/actionBarSize</item>
+		<item name="android:textStyle">bold</item>
+		<item name="tabGravity">fill</item>
+		<item name="tabMode">fixed</item>
+		<item name="tabBackground">@drawable/bg_tab</item>
+	</style>
+
+	<style name="SeparatorLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/separator_height</item>
+		<item name="android:background">@color/text_light_4</item>
+	</style>
+
+	<style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+		<item name="android:windowBackground">@drawable/bg_splash_screen</item>
+	</style>
+</resources>
