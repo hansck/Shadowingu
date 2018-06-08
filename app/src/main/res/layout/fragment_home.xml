@@ -3,6 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/bg_light_1"
                 android:padding="@dimen/item_margin_normal"
                 tools:context=".screen.home.HomeFragment">
 

@@ -3,15 +3,12 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bg_light_1"
-                android:padding="@dimen/item_margin_normal"
-                tools:context=".screen.shop.ShopFragment">
+                tools:context=".screen.chooseword.SelectWordFragment">
 
 	<android.support.v7.widget.RecyclerView
-		android:id="@+id/achievementList"
+		android:id="@+id/wordList"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/gem"
 		android:layout_marginTop="@dimen/item_margin_normal"
 		android:orientation="vertical"/>
 </RelativeLayout>

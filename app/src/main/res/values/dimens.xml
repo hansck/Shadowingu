@@ -50,6 +50,7 @@
 	<dimen name="circle_claim">20dp</dimen>
 
 	<!-- Typography -->
+	<dimen name="text_word">50sp</dimen>
 	<dimen name="text_title">20sp</dimen>
 	<dimen name="text_subheading">16sp</dimen>
 	<dimen name="text_body">14sp</dimen>
