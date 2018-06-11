@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.support.v4.content.LocalBroadcastManager
-import com.hansck.shadowingu.presentation.BaseApplication
+import com.hansck.shadowingu.presentation.App
 
 /**
  * Created by nandawperdana.
@@ -75,7 +75,7 @@ class ConnectivityReceiver : BroadcastReceiver() {
 
         val isConnected: Boolean
             get() {
-                val cm = BaseApplication.getInstance.getApplicationContext()
+                val cm = App.getInstance.getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork = cm.activeNetworkInfo
                 return activeNetwork != null && activeNetwork.isConnectedOrConnecting

@@ -17,7 +17,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.presentation.BaseApplication
+import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.presentation.base.BaseView
 import com.hansck.shadowingu.util.ConnectivityReceiver
 import com.hansck.shadowingu.util.ConnectivityReceiver.Companion.IS_NETWORK_AVAILABLE
@@ -27,13 +27,13 @@ open class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        BaseApplication.getInstance.connected = isOnline()
+        App.getInstance.connected = isOnline()
 
         val intentFilter = IntentFilter(ConnectivityReceiver.NETWORK_AVAILABLE_ACTION)
         LocalBroadcastManager.getInstance(this).registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val isConnected = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false)
-                BaseApplication.getInstance.connected = isConnected
+                App.getInstance.connected = isConnected
                 if (!isConnected)
                     showToast(getString(R.string.no_internet_alert))
             }
