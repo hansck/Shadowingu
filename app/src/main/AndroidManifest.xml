@@ -14,15 +14,18 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name=".screen.MainActivity">
-
-		</activity>
-		<activity android:name=".screen.tab.TabActivity">
+		<activity
+			android:name=".screen.main.MainActivity"
+			android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
+		</activity>
+		<activity
+			android:name=".screen.play.PlayActivity"
+			android:screenOrientation="portrait">
 		</activity>
 
 		<!-- Receiver -->
@@ -36,9 +39,6 @@
 				<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
 			</intent-filter>
 		</receiver>
-
-		<activity android:name=".screen.play.PlayActivity">
-		</activity>
 	</application>
 
 </manifest>

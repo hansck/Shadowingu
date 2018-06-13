@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bg_light_1"
-                tools:context=".screen.tab.TabActivity">
+                tools:context=".screen.tab.TabFragment">
 
 	<android.support.design.widget.TabLayout
 		android:id="@+id/tab"

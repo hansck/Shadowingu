@@ -2,14 +2,12 @@ package com.hansck.shadowingu.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-@Entity(foreignKeys = arrayOf(ForeignKey(entity = Stage::class,
-        parentColumns = arrayOf("idStage"), childColumns = arrayOf("stage"))))
+@Entity
 data class Audio(
         @PrimaryKey(autoGenerate = true)
         var idAudio: Long,
@@ -54,8 +52,8 @@ data class Audio(
                 Audio(17, "クラス", "クラス", "Kurasu", "Class", "kurasu", 2),
                 Audio(18, "授業", "じゅぎょう", "Jugyou", "Lesson", "jugyou", 2),
                 Audio(19, "友達", "ともだち", "Tomodachi", "Friend", "tomodachi", 2),
-
                 Audio(20, "本", "ほん", "Hon", "Book", "hon", 2),
+
                 Audio(21, "勉強おします", "べんきょうおします", "Benkyou o shimasu", "Study", "benkyouoshimasu", 3),
                 Audio(22, "習います", "ならいます", "Naraimasu", "Learn", "naraimasu", 3),
                 Audio(23, "読みます", "よみます", "Yomimasu", "Read", "yomimasu", 3),

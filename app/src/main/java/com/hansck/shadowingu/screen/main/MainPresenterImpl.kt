@@ -1,29 +1,29 @@
-package com.hansck.shadowingu.screen.play
+package com.hansck.shadowingu.screen.main
 
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
-import com.hansck.shadowingu.presentation.presenter.PlayPresenter
-import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
+import com.hansck.shadowingu.presentation.presenter.MainPresenter
+import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
 import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, QueryListener {
+class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, QueryListener {
 
     private var interactor = DBInteractor(this)
 
-    override fun presentState(state: PlayPresenter.PlayView.ViewState) {
-        Log.i(PlayActivity::class.java.simpleName, state.name)
+    override fun presentState(state: MainPresenter.MainView.ViewState) {
+        Log.i(MainActivity::class.java.simpleName, state.name)
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_WORDS -> {
+            LOAD_USER -> {
                 presentState(LOADING)
-                interactor.getAudios()
+                interactor.getUsers()
             }
-            PLAY -> view.showState(PLAY)
+            LOAD_TAB -> view.showState(LOAD_TAB)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }
@@ -58,8 +58,8 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_AUDIOS) {
-            presentState(PLAY)
+        if (route == QueryEnum.GET_USERS) {
+            presentState(LOAD_TAB)
         }
     }
 

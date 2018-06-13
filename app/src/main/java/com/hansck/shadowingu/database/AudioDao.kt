@@ -1,20 +1,21 @@
-package com.hansck.shadowingu.dao
+package com.hansck.shadowingu.database
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import com.hansck.shadowingu.model.Avatar
+import com.hansck.shadowingu.model.Audio
+import io.reactivex.Maybe
 
 /**
  * Created by Hans CK on 11-Jun-18.
  */
 @Dao
-interface AvatarDao {
+interface AudioDao {
 
-    @Query("SELECT * FROM avatar")
-    fun getAll(): List<Avatar>
+    @Query("SELECT * FROM audio")
+    fun getAll(): Maybe<List<Audio>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(avatar: Avatar)
+    fun insertAll(vararg audios: Audio)
 }

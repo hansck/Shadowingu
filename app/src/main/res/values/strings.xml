@@ -4,7 +4,11 @@
 	<string name="failed_request_general">Sorry.. Something went wrong.</string>
 	<string name="show_description">Show Description</string>
 	<string name="click_to_shadowing">Click to start shadowing</string>
-
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="home">Home</string>
+	<string name="play">Play</string>
+	<string name="learn">Learn</string>
+	<string name="achievements">Achievements</string>
+	<string name="shop">Shop</string>
+	<string name="leaderbaoard">Leaderboard</string>
+	<string name="choose_word">Choose Word</string>
 </resources>

@@ -1,19 +1,19 @@
 package com.hansck.shadowingu.presentation.presenter
 
 import com.hansck.shadowingu.presentation.base.BasePresenter
-import com.hansck.shadowingu.screen.chooseword.ChooseWordViewModel
+import com.hansck.shadowingu.screen.play.PlayViewModel
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-interface ChooseWordPresenter : BasePresenter {
+interface MainPresenter : BasePresenter {
 
-    interface ChooseWordView {
+    interface MainView {
         /**
          * This enum is used for determine the current state of this screen
          */
         enum class ViewState {
-            IDLE, LOADING, LOAD_WORDS, SHOW_WORDS, SHOW_SCREEN_STATE, ERROR
+            IDLE, LOADING, LOAD_USER, LOAD_TAB, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {
@@ -32,7 +32,7 @@ interface ChooseWordPresenter : BasePresenter {
          *
          * @return
          */
-        fun doRetrieveModel(): ChooseWordViewModel
+        fun doRetrieveModel(): PlayViewModel
     }
 
     /**
@@ -40,5 +40,5 @@ interface ChooseWordPresenter : BasePresenter {
      *
      * @param state
      */
-    fun presentState(state: ChooseWordView.ViewState)
+    fun presentState(state: MainView.ViewState)
 }

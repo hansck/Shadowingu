@@ -1,10 +1,9 @@
 package com.hansck.shadowingu.presentation
 
 import android.app.Application
-import android.arch.persistence.room.Room
 import android.content.Context
 import android.net.ConnectivityManager
-import com.hansck.shadowingu.dao.AppDatabase
+import com.hansck.shadowingu.database.AppDatabase
 
 
 /**
@@ -34,7 +33,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        database =  Room.databaseBuilder(this, AppDatabase::class.java, "shadowingu-db").build()
+        database = AppDatabase.getInstance(this)
     }
 
     fun isConnected(): Boolean {

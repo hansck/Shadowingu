@@ -1,14 +1,32 @@
 package com.hansck.shadowingu.screen.home
 
+import android.util.Log
+import com.hansck.shadowingu.database.DBInteractor
+import com.hansck.shadowingu.database.QueryEnum
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
+import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewState.*
+import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter {
+class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, QueryListener {
+
+    private var interactor = DBInteractor(this)
 
     override fun presentState(state: HomePresenter.HomeView.ViewState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i(HomeFragment::class.java.simpleName, state.name)
+        when (state) {
+            IDLE -> view.showState(IDLE)
+            LOADING -> view.showState(LOADING)
+            LOAD_STAGES -> {
+                presentState(LOADING)
+                interactor.getStages()
+            }
+            SHOW_STAGES -> view.showState(SHOW_STAGES)
+            SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
+            ERROR -> view.showState(ERROR)
+        }
     }
 
     override fun onAttach() {
@@ -37,5 +55,15 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter {
 
     override fun onError(message: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onQuerySucceed(route: QueryEnum) {
+        if (route == QueryEnum.GET_STAGES) {
+            presentState(SHOW_STAGES)
+        }
+    }
+
+    override fun onQueryFailed(route: QueryEnum, throwable: Throwable) {
+        presentState(ERROR)
     }
 }

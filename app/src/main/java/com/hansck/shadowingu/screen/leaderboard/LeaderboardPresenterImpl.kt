@@ -1,15 +1,31 @@
 package com.hansck.shadowingu.screen.leaderboard
 
-import com.hansck.shadowingu.presentation.presenter.HomePresenter
+import android.util.Log
+import com.hansck.shadowingu.database.DBInteractor
+import com.hansck.shadowingu.database.QueryEnum
 import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter
+import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter.LeaderboardView.ViewState.*
+import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) : LeaderboardPresenter {
+class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) : LeaderboardPresenter, QueryListener {
+
+    private var interactor = DBInteractor(this)
 
     override fun presentState(state: LeaderboardPresenter.LeaderboardView.ViewState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i(LeaderboardFragment::class.java.simpleName, state.name)
+        when (state) {
+            IDLE -> view.showState(IDLE)
+            LOADING -> view.showState(LOADING)
+            LOAD_LEADERBOARD -> {
+                presentState(LOADING)
+            }
+            SHOW_LEADERBOARD -> view.showState(SHOW_LEADERBOARD)
+            SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
+            ERROR -> view.showState(ERROR)
+        }
     }
 
     override fun onAttach() {
@@ -37,6 +53,14 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
     }
 
     override fun onError(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onQuerySucceed(route: QueryEnum) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onQueryFailed(route: QueryEnum, throwable: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

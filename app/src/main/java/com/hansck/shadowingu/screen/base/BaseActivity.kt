@@ -75,7 +75,7 @@ open class BaseActivity : AppCompatActivity(), BaseView {
             }
             val ft = fm.beginTransaction()
             ft.setCustomAnimations(R.anim.enter_right, R.anim.exit_left)
-//            ft.replace(R.id.contentFrame, fragment)
+            ft.replace(R.id.contentFrame, fragment)
             ft.commitAllowingStateLoss()
         }
     }

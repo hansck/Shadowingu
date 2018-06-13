@@ -1,6 +1,8 @@
 package com.hansck.shadowingu.screen.tab
 
+import android.util.Log
 import com.hansck.shadowingu.presentation.presenter.TabPresenter
+import com.hansck.shadowingu.presentation.presenter.TabPresenter.TabView.ViewState.*
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -8,7 +10,14 @@ import com.hansck.shadowingu.presentation.presenter.TabPresenter
 class TabPresenterImpl(val view: TabPresenter.TabView) : TabPresenter {
 
     override fun presentState(state: TabPresenter.TabView.ViewState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.i(TabFragment::class.java.simpleName, state.name)
+        when (state) {
+            IDLE -> view.showState(IDLE)
+            LOADING -> view.showState(LOADING)
+            SHOW_TAB -> view.showState(SHOW_TAB)
+            SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
+            ERROR -> view.showState(ERROR)
+        }
     }
 
     override fun onAttach() {
