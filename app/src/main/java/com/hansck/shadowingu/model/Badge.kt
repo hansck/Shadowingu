@@ -24,12 +24,14 @@ data class Badge(
         @ColumnInfo(name = "unlock")
         var unlock: Boolean) {
 
-    fun populateData(): Array<Badge> {
-        return arrayOf(
-                Badge(1, "Perfecto", "Finish a stage without a single fail.", "", false),
-                Badge(2, "Completionist", "Finish all stages.", "", false),
-                Badge(3, "Rich Buyer!", "Buy your first avatar.", "", false),
-                Badge(4, "Maximus", "Has reach maximum level.", "", false),
-                Badge(5, "Don't Give Up", "Game over for the first time.", "", false))
+    companion object {
+        fun populateData(): Array<Badge> {
+            return arrayOf(
+                    Badge(1, "Perfecto", "Finish a stage without a single fail.", "", false),
+                    Badge(2, "Completionist", "Finish all stages.", "", false),
+                    Badge(3, "Rich Buyer!", "Buy your first avatar.", "", false),
+                    Badge(4, "Maximus", "Has reach maximum level.", "", false),
+                    Badge(5, "Don't Give Up", "Game over for the first time.", "", false))
+        }
     }
 }

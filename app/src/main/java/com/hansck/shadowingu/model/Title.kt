@@ -18,10 +18,12 @@ data class Title(
         @ColumnInfo(name = "minLevel")
         var minLevel: Int) {
 
-    fun populateData(): Array<Title> {
-        return arrayOf(
-                Title(1, "Apprentice", 0),
-                Title(2, "Warrior", 3),
-                Title(3, "Knight", 5))
+    companion object {
+        fun populateData(): Array<Title> {
+            return arrayOf(
+                    Title(1, "Apprentice", 0),
+                    Title(2, "Warrior", 3),
+                    Title(3, "Knight", 5))
+        }
     }
 }

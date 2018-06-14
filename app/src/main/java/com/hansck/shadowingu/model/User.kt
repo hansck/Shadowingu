@@ -25,4 +25,11 @@ data class User(
         var gem: Int,
 
         @ColumnInfo(name = "image")
-        var image: String)
+        var image: String) {
+
+    companion object {
+        fun populateData(): User {
+            return User(1, "Player", 1, 0, 0, "")
+        }
+    }
+}

@@ -24,10 +24,12 @@ data class Avatar(
         @ColumnInfo(name = "unlock")
         var unlock: Boolean) {
 
-    fun populateData(): Array<Avatar> {
-        return arrayOf(
-                Avatar(1, "Avatar A", "", 1, false),
-                Avatar(2, "Avatar B", "", 2, false),
-                Avatar(3, "Avatar C", "", 2, false))
+    companion object {
+        fun populateData(): Array<Avatar> {
+            return arrayOf(
+                    Avatar(1, "Avatar A", "", 1, false),
+                    Avatar(2, "Avatar B", "", 2, false),
+                    Avatar(3, "Avatar C", "", 2, false))
+        }
     }
 }

@@ -5,7 +5,10 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import android.util.Log
 import com.hansck.shadowingu.model.*
+import java.util.concurrent.Executors
+
 
 /**
  * Created by Hans CK on 11-Jun-18.
@@ -31,10 +34,22 @@ abstract class AppDatabase : RoomDatabase() {
                             .addCallback(object : RoomDatabase.Callback() {
                                 override fun onCreate(db: SupportSQLiteDatabase) {
                                     // do something after database has been created
+                                    Log.e("DB", "MASUK CREATED")
+                                    Executors.newSingleThreadScheduledExecutor().execute({
+                                        getInstance(context)?.userDao()?.insert(User.populateData())
+                                        getInstance(context)?.stageDao()?.insertAll(Stage.populateData())
+                                        getInstance(context)?.audioDao()?.insertAll(Audio.populateData())
+                                        getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())
+                                        getInstance(context)?.titleDao()?.insertAll(Title.populateData())
+                                        getInstance(context)?.badgeDao()?.insertAll(Badge.populateData())
+                                    })
                                 }
 
                                 override fun onOpen(db: SupportSQLiteDatabase) {
                                     // do something every time database is open
+                                    Log.e("DB", "MASUK OPEN")
+                                    val currentDBPath = context.getDatabasePath("Shadowingu.db").absolutePath
+                                    Log.e("DB", "NIH HASILNYA : $currentDBPath")
                                 }
                             })
                             .build()

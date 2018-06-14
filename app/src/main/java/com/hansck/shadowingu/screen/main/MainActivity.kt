@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, MethodCallListener 
 //                this)
 
         init()
-        presenter.presentState(LOAD_TAB)
+        presenter.presentState(LOAD_USER)
     }
 
     private fun init() {

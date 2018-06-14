@@ -21,12 +21,14 @@ data class Stage(
         @ColumnInfo(name = "unlock")
         var unlock: Boolean) {
 
-    fun populateData(): Array<Stage> {
-        return arrayOf(
-                Stage(1, "School", 0, true),
-                Stage(2, "School", 0, false),
-                Stage(3, "School", 0, false),
-                Stage(4, "Canteen", 0, false),
-                Stage(5, "Canteen", 0, false))
+    companion object {
+        fun populateData(): Array<Stage> {
+            return arrayOf(
+                    Stage(1, "School", 0, true),
+                    Stage(2, "School", 0, false),
+                    Stage(3, "School", 0, false),
+                    Stage(4, "Canteen", 0, false),
+                    Stage(5, "Canteen", 0, false))
+        }
     }
 }

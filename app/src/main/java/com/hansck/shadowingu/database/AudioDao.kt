@@ -17,5 +17,5 @@ interface AudioDao {
     fun getAll(): Maybe<List<Audio>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg audios: Audio)
+    fun insertAll(audios: Array<Audio>)
 }

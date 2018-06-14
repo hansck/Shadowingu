@@ -1,5 +1,7 @@
 package com.hansck.shadowingu.database
 
+import android.util.Log
+import com.hansck.shadowingu.manager.Manager
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.util.QueryListener
@@ -37,13 +39,19 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.userDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ users -> listener.onQuerySucceed(QueryEnum.GET_USERS) })
+                ?.subscribe({ users ->
+                    run {
+                        Manager.instance.user = users[0]
+                        Log.e("Users", users[0].name)
+                        listener.onQuerySucceed(QueryEnum.GET_USERS)
+                    }
+                })
     }
     //endregion
 
     //region Stage
-    fun insertStages(vararg stages: Stage) {
-        Completable.fromAction { App.database?.stageDao()?.insertAll(*stages) }
+    fun insertStages(stages: Array<Stage>) {
+        Completable.fromAction { App.database?.stageDao()?.insertAll(stages) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
@@ -82,13 +90,19 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.stageDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ stages -> listener.onQuerySucceed(QueryEnum.GET_STAGES) })
+                ?.subscribe({ stages ->
+                    run {
+                        Manager.instance.stages.addAll(stages)
+                        Log.e("stages", stages[4].category)
+                        listener.onQuerySucceed(QueryEnum.GET_STAGES)
+                    }
+                })
     }
     //endregion
 
     //region Audio
-    fun insertAudios(vararg audios: Audio) {
-        Completable.fromAction { App.database?.audioDao()?.insertAll(*audios) }
+    fun insertAudios(audios: Array<Audio>) {
+        Completable.fromAction { App.database?.audioDao()?.insertAll(audios) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
@@ -108,13 +122,19 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.audioDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ audios -> listener.onQuerySucceed(QueryEnum.GET_AUDIOS) })
+                ?.subscribe({ audios ->
+                    run {
+                        Manager.instance.audios.addAll(audios)
+                        Log.e("audio", audios[4].furigana)
+                        listener.onQuerySucceed(QueryEnum.GET_AUDIOS)
+                    }
+                })
     }
     //endregion
 
     //regionAvatar
-    fun insertAvatars(vararg avatars: Avatar) {
-        Completable.fromAction { App.database?.avatarDao()?.insertAll(*avatars) }
+    fun insertAvatars(avatars: Array<Avatar>) {
+        Completable.fromAction { App.database?.avatarDao()?.insertAll(avatars) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
@@ -153,13 +173,19 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.avatarDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ avatars -> listener.onQuerySucceed(QueryEnum.GET_AVATARS) })
+                ?.subscribe({ avatars ->
+                    run {
+                        Manager.instance.avatars.addAll(avatars)
+                        Log.e("avatar", avatars[2].name)
+                        listener.onQuerySucceed(QueryEnum.GET_AVATARS)
+                    }
+                })
     }
     //endregion
 
     //region Title
-    fun insertTitle(vararg titles: Title) {
-        Completable.fromAction { App.database?.titleDao()?.insertAll(*titles) }
+    fun insertTitle(titles: Array<Title>) {
+        Completable.fromAction { App.database?.titleDao()?.insertAll(titles) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
@@ -198,13 +224,19 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.titleDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ titles -> listener.onQuerySucceed(QueryEnum.GET_TITLES) })
+                ?.subscribe({ titles ->
+                    run {
+                        Manager.instance.titles.addAll(titles)
+                        Log.e("title", titles[2].name)
+                        listener.onQuerySucceed(QueryEnum.GET_TITLES)
+                    }
+                })
     }
     //endregion
 
     //regionBadge
-    fun insertBadges(vararg badges: Badge) {
-        Completable.fromAction { App.database?.badgeDao()?.insertAll(*badges) }
+    fun insertBadges(badges: Array<Badge>) {
+        Completable.fromAction { App.database?.badgeDao()?.insertAll(badges) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {
@@ -243,7 +275,13 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.badgeDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ badges -> listener.onQuerySucceed(QueryEnum.GET_BADGES) })
+                ?.subscribe({ badges ->
+                    run {
+                        Manager.instance.badges.addAll(badges)
+                        Log.e("badges", badges[2].name)
+                        listener.onQuerySucceed(QueryEnum.GET_BADGES)
+                    }
+                })
     }
     //endregion
 }

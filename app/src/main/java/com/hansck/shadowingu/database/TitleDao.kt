@@ -14,7 +14,7 @@ interface TitleDao {
     fun getAll(): Maybe<List<Title>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg titles: Title)
+    fun insertAll(titles: Array<Title>)
 
     @Update
     fun updateTitle(title: Title)

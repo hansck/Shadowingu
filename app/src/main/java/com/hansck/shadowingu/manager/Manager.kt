@@ -7,14 +7,14 @@ import com.hansck.shadowingu.model.*
  */
 class Manager {
 
-    lateinit var user: User
-    lateinit var stages: ArrayList<Stage>
-    lateinit var audios: ArrayList<Audio>
-    lateinit var avatars: ArrayList<Avatar>
-    lateinit var titles: ArrayList<Title>
-    lateinit var badges: ArrayList<Badge>
-
     companion object {
         val instance = Manager
+
+        lateinit var user: User
+        var stages: ArrayList<Stage> = ArrayList()
+        var audios: ArrayList<Audio> = ArrayList()
+        var avatars: ArrayList<Avatar> = ArrayList()
+        var titles: ArrayList<Title> = ArrayList()
+        var badges: ArrayList<Badge> = ArrayList()
     }
 }

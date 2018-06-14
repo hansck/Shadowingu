@@ -14,7 +14,7 @@ interface StageDao {
     fun getAll(): Maybe<List<Stage>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg stages: Stage)
+    fun insertAll(stages: Array<Stage>)
 
     @Update
     fun updateStage(stage: Stage)
