@@ -1,8 +1,11 @@
 package com.hansck.shadowingu.database
 
 import android.util.Log
-import com.hansck.shadowingu.manager.Manager
-import com.hansck.shadowingu.model.*
+import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.model.Avatar
+import com.hansck.shadowingu.model.Badge
+import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Title
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.util.QueryListener
 import io.reactivex.Completable
@@ -18,55 +21,21 @@ import io.reactivex.schedulers.Schedulers
 class DBInteractor(var listener: QueryListener) {
 
     //region User
-    fun insertorUpdateUser(user: User) {
-        Completable.fromAction { App.database?.userDao()?.insert(user) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.INSERT_UPDATE_USER)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.INSERT_UPDATE_USER, e)
-                    }
-                })
-    }
-
     fun getUsers() {
         App.database?.userDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ users ->
+                ?.subscribe { users ->
                     run {
                         Manager.instance.user = users[0]
                         Log.e("Users", users[0].name)
                         listener.onQuerySucceed(QueryEnum.GET_USERS)
                     }
-                })
+                }
     }
     //endregion
 
     //region Stage
-    fun insertStages(stages: Array<Stage>) {
-        Completable.fromAction { App.database?.stageDao()?.insertAll(stages) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.INSERT_STAGES)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.INSERT_STAGES, e)
-                    }
-                })
-    }
-
     fun updateStage(stage: Stage) {
         Completable.fromAction { App.database?.stageDao()?.updateStage(stage) }
                 .subscribeOn(Schedulers.io())
@@ -90,66 +59,32 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.stageDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ stages ->
+                ?.subscribe { stages ->
                     run {
-                        Manager.instance.stages.addAll(stages)
+                        Manager.instance.addStages(stages)
                         Log.e("stages", stages[4].category)
                         listener.onQuerySucceed(QueryEnum.GET_STAGES)
                     }
-                })
+                }
     }
     //endregion
 
     //region Audio
-    fun insertAudios(audios: Array<Audio>) {
-        Completable.fromAction { App.database?.audioDao()?.insertAll(audios) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.UPDATE_AUDIO)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.UPDATE_AUDIO, e)
-                    }
-                })
-    }
-
     fun getAudios() {
         App.database?.audioDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ audios ->
+                ?.subscribe { audios ->
                     run {
-                        Manager.instance.audios.addAll(audios)
+                        Manager.instance.addAudios(audios)
                         Log.e("audio", audios[4].furigana)
                         listener.onQuerySucceed(QueryEnum.GET_AUDIOS)
                     }
-                })
+                }
     }
     //endregion
 
     //regionAvatar
-    fun insertAvatars(avatars: Array<Avatar>) {
-        Completable.fromAction { App.database?.avatarDao()?.insertAll(avatars) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.INSERT_AVATARS)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.INSERT_AVATARS, e)
-                    }
-                })
-    }
-
     fun updateAvatar(avatar: Avatar) {
         Completable.fromAction { App.database?.avatarDao()?.updateAvatar(avatar) }
                 .subscribeOn(Schedulers.io())
@@ -173,34 +108,17 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.avatarDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ avatars ->
+                ?.subscribe { avatars ->
                     run {
-                        Manager.instance.avatars.addAll(avatars)
+                        Manager.instance.addAvatars(avatars)
                         Log.e("avatar", avatars[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_AVATARS)
                     }
-                })
+                }
     }
     //endregion
 
     //region Title
-    fun insertTitle(titles: Array<Title>) {
-        Completable.fromAction { App.database?.titleDao()?.insertAll(titles) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.INSERT_TITLES)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.INSERT_TITLES, e)
-                    }
-                })
-    }
-
     fun updateTitle(title: Title) {
         Completable.fromAction { App.database?.titleDao()?.updateTitle(title) }
                 .subscribeOn(Schedulers.io())
@@ -224,34 +142,17 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.titleDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ titles ->
+                ?.subscribe { titles ->
                     run {
-                        Manager.instance.titles.addAll(titles)
+                        Manager.instance.addTitles(titles)
                         Log.e("title", titles[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_TITLES)
                     }
-                })
+                }
     }
     //endregion
 
     //regionBadge
-    fun insertBadges(badges: Array<Badge>) {
-        Completable.fromAction { App.database?.badgeDao()?.insertAll(badges) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {}
-
-                    override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.INSERT_BADGES)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.INSERT_BADGES, e)
-                    }
-                })
-    }
-
     fun updateBadge(badge: Badge) {
         Completable.fromAction { App.database?.badgeDao()?.updateBadge(badge) }
                 .subscribeOn(Schedulers.io())
@@ -275,13 +176,13 @@ class DBInteractor(var listener: QueryListener) {
         App.database?.badgeDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ badges ->
+                ?.subscribe { badges ->
                     run {
-                        Manager.instance.badges.addAll(badges)
+                        Manager.instance.addBadges(badges)
                         Log.e("badges", badges[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_BADGES)
                     }
-                })
+                }
     }
     //endregion
 }

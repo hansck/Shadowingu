@@ -19,11 +19,7 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, Query
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_STAGES -> {
-                presentState(LOADING)
-                interactor.getStages()
-            }
-            SHOW_STAGES -> view.showState(SHOW_STAGES)
+            SHOW_ITEMS -> view.showState(SHOW_ITEMS)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }
@@ -59,7 +55,7 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, Query
 
     override fun onQuerySucceed(route: QueryEnum) {
         if (route == QueryEnum.GET_STAGES) {
-            presentState(SHOW_STAGES)
+            presentState(SHOW_ITEMS)
         }
     }
 

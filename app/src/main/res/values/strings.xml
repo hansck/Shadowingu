@@ -11,4 +11,9 @@
 	<string name="shop">Shop</string>
 	<string name="leaderbaoard">Leaderboard</string>
 	<string name="choose_word">Choose Word</string>
+	<string name="your_progress">Your Progress</string>
+	<string name="active">Active</string>
+	<string name="set_active">Set Active</string>
+	<string name="buy">Buy</string>
+	<string name="price">Price : %1$s GEM</string>
 </resources>

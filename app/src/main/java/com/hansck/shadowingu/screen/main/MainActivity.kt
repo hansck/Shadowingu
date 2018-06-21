@@ -60,5 +60,6 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, MethodCallListener 
         val fragment: BaseFragment = TabFragment()
         fragment.arguments = bundle
         navigateTo(fm, fragment)
+        presenter.presentState(IDLE)
     }
 }

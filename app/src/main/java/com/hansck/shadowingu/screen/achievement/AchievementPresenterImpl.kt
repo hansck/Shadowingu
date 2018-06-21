@@ -15,14 +15,10 @@ class AchievementPresenterImpl(val view: AchievementPresenter.AchievementView) :
     private var interactor = DBInteractor(this)
 
     override fun presentState(state: AchievementPresenter.AchievementView.ViewState) {
-        Log.i(AchievementFragment::class.java.simpleName, state.name)
+        Log.i(AchievementActivity::class.java.simpleName, state.name)
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_ACHIEVEMENT -> {
-                presentState(LOADING)
-                interactor.getBadges()
-            }
             SHOW_ACHIEVEMENT -> view.showState(SHOW_ACHIEVEMENT)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)

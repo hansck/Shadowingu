@@ -21,7 +21,7 @@
 
 			<TextView
 				style="@style/TitleMedium"
-				tools:text="Your Progress"/>
+				android:text="@string/your_progress"/>
 
 			<ProgressBar
 				android:id="@+id/progressBar"

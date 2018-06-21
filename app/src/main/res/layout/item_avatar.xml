@@ -30,7 +30,7 @@
 				style="@style/ButtonTheme"
 				android:layout_alignParentEnd="true"
 				android:layout_alignParentRight="true"
-				android:text="BUY"
+				android:text="@string/buy"
 				android:visibility="gone"/>
 
 			<Button
@@ -38,7 +38,7 @@
 				style="@style/ButtonTheme"
 				android:layout_alignParentEnd="true"
 				android:layout_alignParentRight="true"
-				android:text="SET ACTIVE"
+				android:text="@string/set_active"
 				android:visibility="gone"/>
 
 			<TextView
@@ -47,8 +47,8 @@
 				android:layout_width="wrap_content"
 				android:layout_alignParentEnd="true"
 				android:layout_alignParentRight="true"
-				android:visibility="visible"
-				tools:text="ACTIVE"/>
+				android:text="@string/active"
+				android:visibility="visible"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"

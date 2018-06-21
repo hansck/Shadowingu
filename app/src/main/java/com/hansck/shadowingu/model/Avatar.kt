@@ -15,6 +15,9 @@ data class Avatar(
         @ColumnInfo(name = "name")
         var name: String,
 
+        @ColumnInfo(name = "description")
+        var description: String,
+
         @ColumnInfo(name = "image")
         var image: String,
 
@@ -27,9 +30,9 @@ data class Avatar(
     companion object {
         fun populateData(): Array<Avatar> {
             return arrayOf(
-                    Avatar(1, "Avatar A", "", 1, false),
-                    Avatar(2, "Avatar B", "", 2, false),
-                    Avatar(3, "Avatar C", "", 2, false))
+                    Avatar(1, "Avatar A", "This is description", "", 1, false),
+                    Avatar(2, "Avatar B", "This is description", "", 2, false),
+                    Avatar(3, "Avatar C", "This is description", "", 2, false))
         }
     }
 }

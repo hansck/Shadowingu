@@ -9,13 +9,14 @@
                                     card_view:cardUseCompatPadding="true">
 
 	<LinearLayout
+		android:id="@+id/badgeContainer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
 		<ImageView
 			android:id="@+id/picture"
-			android:layout_width="@dimen/avatar_medium"
-			android:layout_height="@dimen/avatar_medium"
+			android:layout_width="@dimen/avatar_small"
+			android:layout_height="@dimen/avatar_small"
 			tools:src="@drawable/ic_person"/>
 
 		<LinearLayout

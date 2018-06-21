@@ -22,5 +22,15 @@
 			android:focusable="true"
 			android:scaleType="centerCrop"
 			tools:src="@drawable/ic_default_image"/>
+
+		<TextView
+			android:id="@+id/idStage"
+			style="@style/TitleMedium"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="@dimen/item_margin_normal"
+			android:layout_marginStart="@dimen/item_margin_normal"
+			android:gravity="start"
+			android:textSize="50sp"
+			tools:text="1"/>
 	</RelativeLayout>
 </android.support.v7.widget.CardView>

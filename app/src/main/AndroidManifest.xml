@@ -28,6 +28,10 @@
 			android:name=".screen.play.PlayActivity"
 			android:screenOrientation="portrait">
 		</activity>
+		<activity
+			android:name=".screen.achievement.AchievementActivity"
+			android:screenOrientation="portrait">
+		</activity>
 
 		<!-- Receiver -->
 		<receiver

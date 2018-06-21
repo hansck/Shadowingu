@@ -23,6 +23,18 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
                 presentState(LOADING)
                 interactor.getUsers()
             }
+            LOAD_STAGES -> {
+                interactor.getStages()
+            }
+            LOAD_TITLES -> {
+                interactor.getTitles()
+            }
+            LOAD_BADGES -> {
+                interactor.getBadges()
+            }
+            LOAD_AUDIOS -> {
+                interactor.getAudios()
+            }
             LOAD_TAB -> view.showState(LOAD_TAB)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
@@ -58,8 +70,15 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_USERS) {
-            presentState(LOAD_TAB)
+        when (route) {
+            QueryEnum.GET_USERS -> presentState(LOAD_STAGES)
+            QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
+            QueryEnum.GET_TITLES -> presentState(LOAD_BADGES)
+            QueryEnum.GET_BADGES -> presentState(LOAD_AUDIOS)
+            QueryEnum.GET_AUDIOS -> presentState(LOAD_TAB)
+            else -> {
+                presentState(LOAD_TAB)
+            }
         }
     }
 
