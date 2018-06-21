@@ -30,6 +30,11 @@
 				android:layout_height="@dimen/icon_list_medium"
 				android:indeterminate="false"
 				android:progress="75"/>
+
+			<TextView
+				android:id="@+id/progressDesc"
+				style="@style/SubheadingRegular"
+				tools:text="You have finished 20% of all learning materials"/>
 		</LinearLayout>
 
 		<LinearLayout

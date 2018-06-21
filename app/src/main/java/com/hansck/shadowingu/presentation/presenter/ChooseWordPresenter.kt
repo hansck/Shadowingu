@@ -13,7 +13,7 @@ interface ChooseWordPresenter : BasePresenter {
          * This enum is used for determine the current state of this screen
          */
         enum class ViewState {
-            IDLE, LOADING, LOAD_WORDS, SHOW_WORDS, SHOW_SCREEN_STATE, ERROR
+            IDLE, LOADING, SHOW_WORDS, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {

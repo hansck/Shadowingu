@@ -76,9 +76,9 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { audios ->
                     run {
-                        Manager.instance.addAudios(audios)
+                        Manager.instance.addWords(audios)
                         Log.e("audio", audios[4].furigana)
-                        listener.onQuerySucceed(QueryEnum.GET_AUDIOS)
+                        listener.onQuerySucceed(QueryEnum.GET_WORDS)
                     }
                 }
     }

@@ -9,13 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
+import com.hansck.shadowingu.model.Stage
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.presentation.adapter.StagesAdapter
-import com.hansck.shadowingu.presentation.customview.OnListItemSelected
+import com.hansck.shadowingu.presentation.customview.OnStageSelected
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter.LearnView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
-import com.hansck.shadowingu.screen.play.PlayActivity
+import com.hansck.shadowingu.screen.chooseword.ChooseWordActivity
 import com.hansck.shadowingu.util.ListDivider
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * A simple [Fragment] subclass.
  *
  */
-class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnListItemSelected {
+class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected {
 
     private lateinit var presenter: LearnPresenterImpl
     private lateinit var model: LearnViewModel
@@ -60,8 +61,9 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnListItemSelect
 
     override fun doRetrieveModel(): LearnViewModel = this.model
 
-    override fun onClick(position: Int) {
-        val intent = Intent(activity, PlayActivity::class.java)
+    override fun onStageSelected(stage: Stage) {
+        val intent = Intent(activity, ChooseWordActivity::class.java)
+        intent.putExtra("idStage", stage.idStage)
         startActivity(intent)
     }
 
@@ -71,6 +73,9 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnListItemSelect
         stageList.addItemDecoration(ListDivider(activity!!, R.drawable.bg_divider_full))
 
         doRetrieveModel().setStages()
+        val percentage = doRetrieveModel().getProgressPercentage()
+        progressBar.progress = percentage
+        progressDesc.text = getString(R.string.your_progress_desc, percentage, percentage)
         adapter = StagesAdapter(doRetrieveModel().stages, this)
 
         // show the data

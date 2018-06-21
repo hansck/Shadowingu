@@ -15,14 +15,10 @@ class ChooseWordPresenterImpl(val view: ChooseWordPresenter.ChooseWordView) : Ch
     private var interactor = DBInteractor(this)
 
     override fun presentState(state: ChooseWordPresenter.ChooseWordView.ViewState) {
-        Log.i(ChooseWordFragment::class.java.simpleName, state.name)
+        Log.i(ChooseWordActivity::class.java.simpleName, state.name)
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_WORDS -> {
-                presentState(LOADING)
-                interactor.getAudios()
-            }
             SHOW_WORDS -> view.showState(SHOW_WORDS)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
@@ -58,7 +54,7 @@ class ChooseWordPresenterImpl(val view: ChooseWordPresenter.ChooseWordView) : Ch
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_AUDIOS) {
+        if (route == QueryEnum.GET_WORDS) {
             presentState(SHOW_WORDS)
         }
     }

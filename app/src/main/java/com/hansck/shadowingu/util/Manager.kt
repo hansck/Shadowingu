@@ -13,7 +13,7 @@ class Manager {
 
     lateinit var user: User
     var stages: ArrayList<Stage> = ArrayList()
-    var audios: ArrayList<Audio> = ArrayList()
+    var words: ArrayList<Word> = ArrayList()
     var avatars: ArrayList<Avatar> = ArrayList()
     var titles: ArrayList<Title> = ArrayList()
     var badges: ArrayList<Badge> = ArrayList()
@@ -23,9 +23,9 @@ class Manager {
         stages.addAll(list)
     }
 
-    fun addAudios(list: List<Audio>) {
-        audios.clear()
-        audios.addAll(list)
+    fun addWords(list: List<Word>) {
+        words.clear()
+        words.addAll(list)
     }
 
     fun addAvatars(list: List<Avatar>) {
@@ -51,5 +51,9 @@ class Manager {
             }
         }
         return activeTitle
+    }
+
+    fun getWordById(id: Int): Word {
+        return words.first { it.idWord == id }
     }
 }

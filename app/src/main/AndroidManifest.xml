@@ -26,10 +26,17 @@
 		</activity>
 		<activity
 			android:name=".screen.play.PlayActivity"
+			android:label="@string/play"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:name=".screen.achievement.AchievementActivity"
+			android:label="@string/achievements"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".screen.chooseword.ChooseWordActivity"
+			android:label="@string/choose_word"
 			android:screenOrientation="portrait">
 		</activity>
 
@@ -44,6 +51,9 @@
 				<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
 			</intent-filter>
 		</receiver>
+
+		<activity android:name=".screen.learnword.LearnWordActivity">
+		</activity>
 	</application>
 
 </manifest>

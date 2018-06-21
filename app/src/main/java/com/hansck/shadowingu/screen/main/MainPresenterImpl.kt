@@ -75,7 +75,7 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
             QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
             QueryEnum.GET_TITLES -> presentState(LOAD_BADGES)
             QueryEnum.GET_BADGES -> presentState(LOAD_AUDIOS)
-            QueryEnum.GET_AUDIOS -> presentState(LOAD_TAB)
+            QueryEnum.GET_WORDS -> presentState(LOAD_TAB)
             else -> {
                 presentState(LOAD_TAB)
             }

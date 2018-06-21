@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -32,17 +33,25 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center">
 
-				<TextView
-					android:id="@+id/word"
-					style="@style/Word"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					android:background="@drawable/bg_border"
-					android:paddingBottom="@dimen/item_margin_normal"
-					android:paddingEnd="@dimen/item_margin_large"
-					android:paddingStart="@dimen/item_margin_large"
-					android:paddingTop="@dimen/item_margin_normal"
-					tools:text="私"/>
+				<android.support.v7.widget.CardView
+					android:id="@+id/kanjiContainer"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					card_view:cardCornerRadius="@dimen/card_radius"
+					card_view:cardElevation="@dimen/card_elevation"
+					card_view:cardUseCompatPadding="true">
+
+					<TextView
+						android:id="@+id/word"
+						style="@style/Word"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						android:paddingBottom="@dimen/item_margin_normal"
+						android:paddingEnd="@dimen/item_margin_large"
+						android:paddingStart="@dimen/item_margin_large"
+						android:paddingTop="@dimen/item_margin_normal"
+						tools:text="私"/>
+				</android.support.v7.widget.CardView>
 
 				<ImageButton
 					android:id="@+id/btnVoice"
@@ -65,35 +74,44 @@
 				android:layout_marginTop="@dimen/item_margin_normal"
 				android:text="@string/show_description"/>
 
-			<LinearLayout
+			<android.support.v7.widget.CardView
 				android:id="@+id/descriptionContainer"
-				android:layout_width="200dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:background="@drawable/bg_border"
-				android:orientation="vertical">
+				android:layout_gravity="center_horizontal"
+				card_view:cardCornerRadius="@dimen/card_radius"
+				card_view:cardElevation="@dimen/card_elevation"
+				card_view:cardUseCompatPadding="true">
 
-				<TextView
-					android:id="@+id/furigana"
-					style="@style/SubheadingRegular"
+				<LinearLayout
 					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="わたし"/>
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:orientation="vertical"
+					android:padding="@dimen/item_margin_normal">
 
-				<TextView
-					android:id="@+id/romaji"
-					style="@style/SubheadingRegular"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="watashi"/>
+					<TextView
+						android:id="@+id/furigana"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="わたし"/>
 
-				<TextView
-					android:id="@+id/meaning"
-					style="@style/SubheadingRegular"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="I"/>
-			</LinearLayout>
+					<TextView
+						android:id="@+id/romaji"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="watashi"/>
+
+					<TextView
+						android:id="@+id/meaning"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="I"/>
+				</LinearLayout>
+			</android.support.v7.widget.CardView>
 
 			<ImageButton
 				android:id="@+id/btnShadowing"

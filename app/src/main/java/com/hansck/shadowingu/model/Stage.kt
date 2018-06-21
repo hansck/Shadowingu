@@ -18,13 +18,13 @@ data class Stage(
         @ColumnInfo(name = "fastestTime")
         var fastestTime: Long,
 
-        @ColumnInfo(name = "unlock")
-        var unlock: Boolean) {
+        @ColumnInfo(name = "cleared")
+        var cleared: Boolean) {
 
     companion object {
         fun populateData(): Array<Stage> {
             return arrayOf(
-                    Stage(1, "School", 0, true),
+                    Stage(1, "School", 0, false),
                     Stage(2, "School", 0, false),
                     Stage(3, "School", 0, false),
                     Stage(4, "Canteen", 0, false),

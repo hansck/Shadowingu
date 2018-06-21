@@ -58,7 +58,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_AUDIOS) {
+        if (route == QueryEnum.GET_WORDS) {
             presentState(PLAY)
         }
     }

@@ -13,12 +13,12 @@ import java.util.concurrent.Executors
 /**
  * Created by Hans CK on 11-Jun-18.
  */
-@Database(entities = [(User::class), (Audio::class), (Stage::class), (Avatar::class), (Title::class), (Badge::class)], version = 2)
+@Database(entities = [(User::class), (Word::class), (Stage::class), (Avatar::class), (Title::class), (Badge::class)], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun stageDao(): StageDao
-    abstract fun audioDao(): AudioDao
+    abstract fun audioDao(): WordDao
     abstract fun avatarDao(): AvatarDao
     abstract fun titleDao(): TitleDao
     abstract fun badgeDao(): BadgeDao
@@ -38,7 +38,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     Executors.newSingleThreadScheduledExecutor().execute {
                                         getInstance(context)?.userDao()?.insert(User.populateData())
                                         getInstance(context)?.stageDao()?.insertAll(Stage.populateData())
-                                        getInstance(context)?.audioDao()?.insertAll(Audio.populateData())
+                                        getInstance(context)?.audioDao()?.insertAll(Word.populateData())
                                         getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())
                                         getInstance(context)?.titleDao()?.insertAll(Title.populateData())
                                         getInstance(context)?.badgeDao()?.insertAll(Badge.populateData())

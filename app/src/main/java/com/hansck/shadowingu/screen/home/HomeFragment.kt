@@ -9,25 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.model.Stage
 import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.presentation.adapter.StagesAdapter
 import com.hansck.shadowingu.presentation.customview.OnBadgeSelected
-import com.hansck.shadowingu.presentation.customview.OnListItemSelected
+import com.hansck.shadowingu.presentation.customview.OnStageSelected
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
 import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewState.*
 import com.hansck.shadowingu.screen.achievement.AchievementActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.ListDivider
+import com.hansck.shadowingu.util.Manager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnListItemSelected, OnBadgeSelected {
+class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, OnBadgeSelected {
 
     private lateinit var presenter: HomePresenterImpl
     private lateinit var model: HomeViewModel
@@ -66,8 +67,9 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnListItemSelected,
 
     override fun doRetrieveModel(): HomeViewModel = this.model
 
-    override fun onClick(position: Int) {
+    override fun onStageSelected(stage: Stage) {
         val intent = Intent(activity, PlayActivity::class.java)
+        intent.putExtra("idStage", stage.idStage)
         startActivity(intent)
     }
 

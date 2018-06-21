@@ -3,6 +3,7 @@
 	<string name="no_internet_alert">Sorry.. No internet connection available.</string>
 	<string name="failed_request_general">Sorry.. Something went wrong.</string>
 	<string name="show_description">Show Description</string>
+	<string name="description">Description</string>
 	<string name="click_to_shadowing">Click to start shadowing</string>
 	<string name="home">Home</string>
 	<string name="play">Play</string>
@@ -12,6 +13,7 @@
 	<string name="leaderbaoard">Leaderboard</string>
 	<string name="choose_word">Choose Word</string>
 	<string name="your_progress">Your Progress</string>
+	<string name="your_progress_desc">You have finished %1$s%% of all learning materials</string>
 	<string name="active">Active</string>
 	<string name="set_active">Set Active</string>
 	<string name="buy">Buy</string>

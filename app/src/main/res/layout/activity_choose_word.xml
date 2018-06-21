@@ -3,12 +3,11 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".screen.chooseword.SelectWordFragment">
+                tools:context=".screen.chooseword.ChooseWordActivity">
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/wordList"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/item_margin_normal"
 		android:orientation="vertical"/>
 </RelativeLayout>
