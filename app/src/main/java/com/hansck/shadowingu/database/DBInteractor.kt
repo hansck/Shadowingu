@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.database
 
 import android.util.Log
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.model.Avatar
 import com.hansck.shadowingu.model.Badge
 import com.hansck.shadowingu.model.Stage
@@ -27,7 +27,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { users ->
                     run {
-                        Manager.instance.user = users[0]
+                        DataManager.instance.user = users[0]
                         Log.e("Users", users[0].name)
                         listener.onQuerySucceed(QueryEnum.GET_USERS)
                     }
@@ -61,7 +61,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { stages ->
                     run {
-                        Manager.instance.addStages(stages)
+                        DataManager.instance.addStages(stages)
                         Log.e("stages", stages[4].category)
                         listener.onQuerySucceed(QueryEnum.GET_STAGES)
                     }
@@ -76,7 +76,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { audios ->
                     run {
-                        Manager.instance.addWords(audios)
+                        DataManager.instance.addWords(audios)
                         Log.e("audio", audios[4].furigana)
                         listener.onQuerySucceed(QueryEnum.GET_WORDS)
                     }
@@ -110,7 +110,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { avatars ->
                     run {
-                        Manager.instance.addAvatars(avatars)
+                        DataManager.instance.addAvatars(avatars)
                         Log.e("avatar", avatars[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_AVATARS)
                     }
@@ -144,7 +144,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { titles ->
                     run {
-                        Manager.instance.addTitles(titles)
+                        DataManager.instance.addTitles(titles)
                         Log.e("title", titles[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_TITLES)
                     }
@@ -178,7 +178,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe { badges ->
                     run {
-                        Manager.instance.addBadges(badges)
+                        DataManager.instance.addBadges(badges)
                         Log.e("badges", badges[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_BADGES)
                     }

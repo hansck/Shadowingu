@@ -1,15 +1,21 @@
 package com.hansck.shadowingu.screen.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import com.google.android.gms.auth.api.Auth
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.MainPresenter
 import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
+import com.hansck.shadowingu.screen.login.LoginActivity
 import com.hansck.shadowingu.screen.play.PlayViewModel
 import com.hansck.shadowingu.screen.tab.TabFragment
+import com.hansck.shadowingu.util.AuthManager
 import com.hansck.shadowingu.util.MethodCallListener
 
 
@@ -30,6 +36,21 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, MethodCallListener 
 
         init()
         presenter.presentState(LOAD_USER)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_sign_out) {
+            onSignOut()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun init() {
@@ -61,5 +82,18 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, MethodCallListener 
         fragment.arguments = bundle
         navigateTo(fm, fragment)
         presenter.presentState(IDLE)
+    }
+
+    private fun onSignOut() {
+        AuthManager.instance.auth.signOut()
+        Auth.GoogleSignInApi.signOut(AuthManager.instance.googleApiClient).setResultCallback {
+            goToLogin()
+        }
+    }
+
+    private fun goToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

@@ -5,10 +5,10 @@ import com.hansck.shadowingu.model.*
 /**
  * Created by Hans CK on 13-Jun-18.
  */
-class Manager {
+class DataManager {
 
     companion object {
-        val instance = Manager()
+        val instance = DataManager()
     }
 
     lateinit var user: User
@@ -17,6 +17,7 @@ class Manager {
     var avatars: ArrayList<Avatar> = ArrayList()
     var titles: ArrayList<Title> = ArrayList()
     var badges: ArrayList<Badge> = ArrayList()
+    var leaderboardUsers: ArrayList<LeaderboardUser> = ArrayList()
 
     fun addStages(list: List<Stage>) {
         stages.clear()
@@ -41,6 +42,10 @@ class Manager {
     fun addBadges(list: List<Badge>) {
         badges.clear()
         badges.addAll(list)
+    }
+
+    fun addLeaderboardUser(user: LeaderboardUser) {
+        leaderboardUsers.add(user)
     }
 
     fun getActiveTitle(): Title {

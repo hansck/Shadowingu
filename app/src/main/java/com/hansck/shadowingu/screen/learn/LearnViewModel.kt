@@ -3,7 +3,7 @@ package com.hansck.shadowingu.screen.learn
 import android.content.Context
 import com.hansck.shadowingu.model.Stage
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -14,7 +14,7 @@ class LearnViewModel(var context: Context?) {
     var stages: ArrayList<Stage> = ArrayList()
 
     fun setStages() {
-        stages = Manager.instance.stages
+        stages = DataManager.instance.stages
 
         categories.clear()
         val titles: ArrayList<String> = ArrayList()

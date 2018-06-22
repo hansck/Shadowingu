@@ -56,7 +56,7 @@ class AchievementActivity : BaseActivity(), AchievementPresenter.AchievementView
 
     override fun doRetrieveModel(): AchievementViewModel = this.model
 
-    fun showBadges(){
+    fun showBadges() {
         doRetrieveModel().setBadges()
         badgesList.setHasFixedSize(true)
         badgesList.layoutManager = LinearLayoutManager(this)

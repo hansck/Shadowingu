@@ -25,6 +25,7 @@
 	<color name="ic_open">#0288D1</color>
 	<color name="ic_approved">#64BB84</color>
 	<color name="ic_processed">#FEA74C</color>
+	<color name="ic_sign_in">#E02F2F</color>
 	<color name="line">#E7F3FE</color>
 
 	<!-- TEXT COLOR -->

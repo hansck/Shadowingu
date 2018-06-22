@@ -7,6 +7,12 @@ import android.Manifest
  */
 class Constants {
 
+    object Database {
+        const val USER = "user"
+        const val EMAIL = "email"
+        const val LEVEL = "level"
+    }
+
     object Permissions {
         val CAMERA = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }

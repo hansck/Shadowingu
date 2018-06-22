@@ -1,10 +1,17 @@
 package com.hansck.shadowingu.screen.leaderboard
 
 import android.util.Log
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.model.LeaderboardUser
 import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter
 import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter.LeaderboardView.ViewState.*
+import com.hansck.shadowingu.util.Constants
+import com.hansck.shadowingu.util.DataManager
+import com.hansck.shadowingu.util.FirebaseDB
 import com.hansck.shadowingu.util.QueryListener
 
 /**
@@ -21,6 +28,7 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
             LOADING -> view.showState(LOADING)
             LOAD_LEADERBOARD -> {
                 presentState(LOADING)
+                getUsers()
             }
             SHOW_LEADERBOARD -> view.showState(SHOW_LEADERBOARD)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
@@ -62,5 +70,23 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
 
     override fun onQueryFailed(route: QueryEnum, throwable: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun getUsers() {
+        val ref = FirebaseDB.instance.getDbReference(Constants.Database.USER)
+        ref.orderByChild(Constants.Database.LEVEL).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                DataManager.instance.leaderboardUsers.clear()
+                for (postSnapshot in dataSnapshot.children) {
+                    val user = postSnapshot.getValue(LeaderboardUser::class.java)
+                    DataManager.instance.addLeaderboardUser(user!!)
+                }
+                presentState(SHOW_LEADERBOARD)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                presentState(ERROR)
+            }
+        })
     }
 }

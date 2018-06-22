@@ -27,7 +27,7 @@
 			android:orientation="vertical">
 
 			<TextView
-				android:id="@+id/profileName"
+				android:id="@+id/username"
 				style="@style/SubheadingMedium"
 				tools:text="Profile Name"/>
 

@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.screen.achievement
 
 import android.content.Context
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.model.Badge
 
 /**
@@ -12,6 +12,6 @@ class AchievementViewModel(var context: Context?) {
     var badges: ArrayList<Badge> = ArrayList()
 
     fun setBadges() {
-        badges = Manager.instance.badges
+        badges = DataManager.instance.badges
     }
 }

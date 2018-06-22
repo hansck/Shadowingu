@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.screen.home
 
 import android.content.Context
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.model.Badge
 import com.hansck.shadowingu.model.Stage
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
@@ -16,11 +16,11 @@ class HomeViewModel(var context: Context?) {
     var badges: ArrayList<Badge> = ArrayList()
 
     fun setBadges() {
-        badges = Manager.instance.badges
+        badges = DataManager.instance.badges
     }
 
     fun setStages() {
-        stages = Manager.instance.stages
+        stages = DataManager.instance.stages
 
         categories.clear()
         val titles: ArrayList<String> = ArrayList()

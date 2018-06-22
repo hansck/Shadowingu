@@ -12,7 +12,7 @@ import com.hansck.shadowingu.presentation.adapter.AvatarsAdapter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter.ShopView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.fragment_shop.*
 
 /**
@@ -41,7 +41,7 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView {
         this.model = ShopViewModel(activity)
         this.presenter = ShopPresenterImpl(this)
 
-        gem.text = Manager.instance.user.gem.toString()
+        gem.text = DataManager.instance.user.gem.toString()
     }
 
     override fun showState(viewState: ShopPresenter.ShopView.ViewState) {

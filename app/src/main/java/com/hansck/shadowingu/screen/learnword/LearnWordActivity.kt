@@ -8,10 +8,6 @@ import com.hansck.shadowingu.presentation.presenter.LearnWordPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnWordPresenter.LearnWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_learn_word.*
-import android.media.MediaPlayer.OnCompletionListener
-
-
-
 
 class LearnWordActivity : BaseActivity(), LearnWordPresenter.LearnWordView {
 

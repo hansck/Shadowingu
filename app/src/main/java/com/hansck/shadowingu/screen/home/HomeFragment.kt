@@ -21,7 +21,7 @@ import com.hansck.shadowingu.screen.achievement.AchievementActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.ListDivider
-import com.hansck.shadowingu.util.Manager
+import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -50,9 +50,9 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         this.model = HomeViewModel(activity)
         this.presenter = HomePresenterImpl(this)
 
-        profileName.text = Manager.instance.user.name
-        title.text = Manager.instance.getActiveTitle().name
-        exp.text = Manager.instance.user.exp.toString()
+        profileName.text = DataManager.instance.user.name
+        title.text = DataManager.instance.getActiveTitle().name
+        exp.text = DataManager.instance.user.exp.toString()
 //        ImageUtil.instance.setImage(activity!!, Manager.user.image, image)
     }
 

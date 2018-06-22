@@ -18,4 +18,6 @@
 	<string name="set_active">Set Active</string>
 	<string name="buy">Buy</string>
 	<string name="price">Price : %1$s GEM</string>
+	<string name="start_now">Start Now</string>
+	<string name="sign_in_with_google">Sign In with Google</string>
 </resources>
