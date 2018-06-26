@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_achievements.*
  */
 class AchievementActivity : BaseActivity(), AchievementPresenter.AchievementView {
 
-    private lateinit var presenter: AchievementPresenterImpl
     private lateinit var model: AchievementViewModel
+    private lateinit var presenter: AchievementPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

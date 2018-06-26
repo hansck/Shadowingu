@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class Badge(
         @PrimaryKey
-        var idBadge: Long = 0,
+        var idBadge: Int = 0,
 
         @ColumnInfo(name = "name")
         var name: String = "",
@@ -27,11 +27,11 @@ data class Badge(
     companion object {
         fun populateData(): Array<Badge> {
             return arrayOf(
-                    Badge(1, "Perfecto", "Finish a stage without a single fail.", "", false),
-                    Badge(2, "Completionist", "Finish all stages.", "", false),
-                    Badge(3, "Rich Buyer!", "Buy your first avatar.", "", false),
-                    Badge(4, "Maximus", "Has reach maximum level.", "", false),
-                    Badge(5, "Don't Give Up", "Game over for the first time.", "", false))
+                    Badge(1, "Perfecto", "Finish a stage without a single fail.", "ic_person", false),
+                    Badge(2, "Completionist", "Finish all stages.", "ic_person", false),
+                    Badge(3, "Rich Buyer!", "Buy your first avatar.", "ic_person", false),
+                    Badge(4, "Maximus", "Has reach maximum level.", "ic_person", false),
+                    Badge(5, "Don't Give Up", "Game over for the first time.", "ic_person", false))
         }
     }
 }

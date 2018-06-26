@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.Badge
 import com.hansck.shadowingu.presentation.customview.OnBadgeSelected
-import com.hansck.shadowingu.util.ImageUtil
+import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.item_badge.view.*
 
 /**
@@ -40,7 +40,7 @@ class BadgesIconAdapter(private val items: ArrayList<Badge>, private val listene
         }
 
         fun bind(badge: Badge) = with(itemView) {
-            ImageUtil.instance.setImageByName(context, "ic_person", picture)
+            Common.instance.setImageByName(context, badge.image, picture)
         }
     }
 }

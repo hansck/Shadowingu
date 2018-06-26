@@ -48,7 +48,7 @@
 				android:layout_alignParentEnd="true"
 				android:layout_alignParentRight="true"
 				android:text="@string/active"
-				android:visibility="visible"/>
+				android:visibility="gone"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"

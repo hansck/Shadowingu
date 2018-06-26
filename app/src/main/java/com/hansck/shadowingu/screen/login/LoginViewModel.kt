@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.hansck.shadowingu.model.Badge
 import com.hansck.shadowingu.model.LeaderboardUser
+import com.hansck.shadowingu.util.AuthManager
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -12,8 +13,8 @@ class LoginViewModel(var context: Context?) {
 
     lateinit var account: GoogleSignInAccount
 
-    fun setAcct(acct: GoogleSignInAccount) {
-        account = acct
+    fun setAcct() {
+        account = AuthManager.instance.account
     }
 
     fun getUser(): LeaderboardUser {

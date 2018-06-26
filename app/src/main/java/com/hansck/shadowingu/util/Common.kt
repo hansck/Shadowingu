@@ -6,11 +6,10 @@ import android.content.pm.PackageManager
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.util.ConnectivityReceiver
-import java.text.NumberFormat
-import java.util.*
+import com.squareup.picasso.Picasso
 
 /**
  * Created by Hans CK on 1-Nov-17.
@@ -29,33 +28,25 @@ class Common private constructor() {
             tv.maxLines = 5
             snackbar.show()
         } catch (e: Exception) {
-//            val view = activity.getWindow().getDecorView().findViewById<View>(R.id.content)
-//            if (view != null) {
-//                Snackbar.make(view, text, duration).show()
-//            } else {
-////                Crashlytics.logException(e)
-//            }
+            val view = activity.window.decorView.findViewById<View>(R.id.content)
+            if (view != null) {
+                Snackbar.make(view, text, duration).show()
+            } else {
+//                Crashlytics.logException(e)
+            }
         }
     }
 
-    fun showAlertToast(activity: Activity, text: String) {
-        showToast(activity, text, Snackbar.LENGTH_LONG)
+    fun setImageByUrl(context: Context, url: String, view: ImageView) {
+        Picasso.with(context).load(url).placeholder(R.drawable.ic_default_image).error(R.drawable.ic_default_image).into(view)
     }
 
-    fun showSuccessToast(activity: Activity, text: String) {
-        showToast(activity, text, Snackbar.LENGTH_SHORT)
+    fun setImageByName(context: Context, imageName: String, view: ImageView) {
+        view.setImageResource(Common.instance.getResourceId(context, "drawable", imageName))
     }
 
-    fun showErrorMessage(activity: Activity) {
-        if (!ConnectivityReceiver.isConnected) {
-//            showAlertToast(activity, activity.getString(R.string.no_internet_alert))
-        } else {
-//            showAlertToast(activity, activity.getString(R.string.failed_request_general))
-        }
-    }
-
-    fun formatPrice(amount: Float): String {
-        return NumberFormat.getCurrencyInstance(Locale("in", "ID")).format(amount)
+    fun getResourceId(context: Context, type: String, identifier: String): Int {
+        return context.resources.getIdentifier(identifier, type, context.packageName)
     }
 
     fun hideSoftKeyboard(activity: Activity) {
@@ -82,49 +73,5 @@ class Common private constructor() {
         }
         return true
     }
-
-    fun getQueryString(root: String, map: Map<String, String>?): String {
-        var query = root
-        if (map != null) {
-            query += "?"
-            val treemap = TreeMap(map)
-            for ((key, value) in treemap) {
-                query += "$key=$value&"
-            }
-            query = query.substring(0, query.length - 1)
-        }
-        return query
-    }
-    //endregion
-
-    //region API Calls
-    //	public void updateNotificationBadge(final Context context) {
-    //		if (UserManager.getInstance().getActiveUser() != null) {
-    //			if (UserManager.getInstance().isTokenExpired()) {
-    //				UserManager.getInstance().relogin((Activity) context, new APICall() {
-    //					@Override
-    //					public void run() {
-    //						updateNotificationBadge(context);
-    //					}
-    //				});
-    //			} else {
-    //				NotificationAPIRequest.getInstance().getUnreadNotification(new CallbackResponse<NotificationUnreadResponse>() {
-    //					@Override
-    //					public void run() {
-    //						Response<NotificationUnreadResponse> response = getResponse();
-    //						if (response.isSuccessful()) {
-    //							NotificationUnreadResponse unread = response.body();
-    //							setNotificationBadge(context, unread.getValue().getUnread());
-    //						}
-    //					}
-    //				}, new CallbackError() {
-    //					@Override
-    //					public void run() {
-    //						//Actually do nothing
-    //					}
-    //				});
-    //			}
-    //		}
-    //	}
     //endregion
 }

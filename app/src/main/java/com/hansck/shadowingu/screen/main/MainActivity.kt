@@ -16,10 +16,10 @@ import com.hansck.shadowingu.screen.login.LoginActivity
 import com.hansck.shadowingu.screen.play.PlayViewModel
 import com.hansck.shadowingu.screen.tab.TabFragment
 import com.hansck.shadowingu.util.AuthManager
-import com.hansck.shadowingu.util.MethodCallListener
+import com.hansck.shadowingu.util.VoiceSimilarityListener
 
 
-class MainActivity : BaseActivity(), MainPresenter.MainView, MethodCallListener {
+class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityListener {
 
     private lateinit var model: MainViewModel
     private lateinit var presenter: MainPresenter

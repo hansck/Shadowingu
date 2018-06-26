@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.Badge
-import com.hansck.shadowingu.util.ImageUtil
+import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.item_badge.view.*
 
 /**
@@ -30,7 +30,7 @@ class BadgesAdapter(private val items: ArrayList<Badge>) : RecyclerView.Adapter<
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(badge: Badge) = with(itemView) {
-            ImageUtil.instance.setImageByName(context, "ic_person", picture)
+            Common.instance.setImageByName(context, badge.image, picture)
             badgeName.text = badge.name
             description.text = badge.description
 

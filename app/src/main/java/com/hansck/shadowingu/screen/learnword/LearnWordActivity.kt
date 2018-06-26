@@ -7,12 +7,13 @@ import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.LearnWordPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnWordPresenter.LearnWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseActivity
+import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.activity_learn_word.*
 
 class LearnWordActivity : BaseActivity(), LearnWordPresenter.LearnWordView {
 
-    private lateinit var presenter: LearnWordPresenterImpl
     private lateinit var model: LearnWordViewModel
+    private lateinit var presenter: LearnWordPresenter
     private lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +60,7 @@ class LearnWordActivity : BaseActivity(), LearnWordPresenter.LearnWordView {
         romaji.text = word.romaji
         meaning.text = word.meaning
         btnVoice.setOnClickListener {
-            val mPlayer = MediaPlayer.create(this, resources.getIdentifier(word.audio, "raw", packageName))
+            val mPlayer = MediaPlayer.create(this, Common.instance.getResourceId(this, "raw", word.audio))
             mPlayer.setOnCompletionListener { mp -> mp.release() }
             mPlayer.start()
         }

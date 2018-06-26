@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_choose_word.*
  */
 class ChooseWordActivity : BaseActivity(), ChooseWordPresenter.ChooseWordView, OnWordSelected {
 
-    private lateinit var presenter: ChooseWordPresenterImpl
     private lateinit var model: ChooseWordViewModel
+    private lateinit var presenter: ChooseWordPresenter
     private lateinit var bundle: Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,6 @@ class ChooseWordActivity : BaseActivity(), ChooseWordPresenter.ChooseWordView, O
         setContentView(R.layout.activity_choose_word)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         init()
-        presenter.presentState(SHOW_WORDS)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -44,6 +43,7 @@ class ChooseWordActivity : BaseActivity(), ChooseWordPresenter.ChooseWordView, O
     private fun init() {
         this.model = ChooseWordViewModel(this)
         this.presenter = ChooseWordPresenterImpl(this)
+        presenter.presentState(SHOW_WORDS)
     }
 
     override fun showState(viewState: ChooseWordPresenter.ChooseWordView.ViewState) {
@@ -64,10 +64,11 @@ class ChooseWordActivity : BaseActivity(), ChooseWordPresenter.ChooseWordView, O
     }
 
     private fun showWords() {
-        doRetrieveModel().setWords()
+        bundle = intent.extras
+        doRetrieveModel().setWords(bundle.getInt("idStage"))
         bundle = intent.extras
         wordList.setHasFixedSize(true)
         wordList.layoutManager = GridLayoutManager(this, 2)
-        wordList.adapter = WordAdapter(ArrayList(doRetrieveModel().getWordsByStage(bundle.getInt("idStage"))), this)
+        wordList.adapter = WordAdapter(ArrayList(doRetrieveModel().words), this)
     }
 }

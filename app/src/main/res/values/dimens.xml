@@ -19,6 +19,7 @@
 	<dimen name="avatar_large">120dp</dimen>
 	<dimen name="avatar_medium">88dp</dimen>
 	<dimen name="avatar_small">64dp</dimen>
+	<dimen name="avatar_tiny">30dp</dimen>
 
 	<dimen name="thumbnail_large">250dp</dimen>
 	<dimen name="thumbnail">200dp</dimen>

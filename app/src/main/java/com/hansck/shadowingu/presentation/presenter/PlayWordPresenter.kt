@@ -1,19 +1,19 @@
 package com.hansck.shadowingu.presentation.presenter
 
 import com.hansck.shadowingu.presentation.base.BasePresenter
-import com.hansck.shadowingu.screen.login.LoginViewModel
+import com.hansck.shadowingu.screen.playword.PlayWordViewModel
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-interface LoginPresenter : BasePresenter {
+interface PlayWordPresenter : BasePresenter {
 
-    interface LoginView {
+    interface PlayWordView {
         /**
          * This enum is used for determine the current state of this screen
          */
         enum class ViewState {
-            IDLE, LOADING, ATTEMPT_LOGIN, UPDATE_USER, ENTER, SHOW_SCREEN_STATE, ERROR
+            IDLE, LOADING, SHOW_WORD, NEXT_WORD, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {
@@ -32,7 +32,7 @@ interface LoginPresenter : BasePresenter {
          *
          * @return
          */
-        fun doRetrieveModel(): LoginViewModel
+        fun doRetrieveModel(): PlayWordViewModel
     }
 
     /**
@@ -40,5 +40,5 @@ interface LoginPresenter : BasePresenter {
      *
      * @param state
      */
-    fun presentState(state: LoginView.ViewState)
+    fun presentState(state: PlayWordView.ViewState)
 }

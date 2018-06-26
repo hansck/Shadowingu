@@ -20,12 +20,13 @@ import com.hansck.shadowingu.screen.main.MainActivity
 import com.hansck.shadowingu.util.AuthManager
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.FirebaseDB
+import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
 
-    private lateinit var presenter: LoginPresenterImpl
     private lateinit var model: LoginViewModel
+    private lateinit var presenter: LoginPresenter
     private lateinit var listener: FirebaseAuth.AuthStateListener
     private val RC_SIGN_IN = 9001
 
@@ -35,7 +36,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
 
         AuthManager.instance.initAuth(this)
         val preference = getSharedPreferences("preference", Context.MODE_PRIVATE)
-        AuthManager.instance.keyStore = preference
+        PersistentManager.instance.keyStore = preference
 
         init()
         presenter.presentState(IDLE)
@@ -117,7 +118,8 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                     if (!task.isSuccessful) {
                         presenter.presentState(ERROR)
                     } else {
-                        doRetrieveModel().setAcct(acct)
+                        AuthManager.instance.account = acct
+                        doRetrieveModel().setAcct()
                         checkUser()
                     }
                 }
@@ -134,7 +136,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
         val user = doRetrieveModel().getUser()
         val id = FirebaseDB.instance.getKey(Constants.Database.USER)!!
         FirebaseDB.instance.getDbReference(Constants.Database.USER).child(id).setValue(user)
-        presenter.presentState(ENTER)
+        presenter.presentState(UPDATE_USER)
     }
 
     private fun checkUser() {

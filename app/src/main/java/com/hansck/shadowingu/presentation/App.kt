@@ -35,13 +35,4 @@ class App : Application() {
         instance = this
         database = AppDatabase.getInstance(this)
     }
-
-    fun isConnected(): Boolean {
-        val cm = applicationContext
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val activeNetwork = cm.activeNetworkInfo
-        connected = activeNetwork != null && activeNetwork.isConnectedOrConnecting
-        return connected
-    }
 }

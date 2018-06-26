@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_tab.*
 
 class TabFragment : BaseFragment(), TabPresenter.TabView {
 
-    private lateinit var presenter: TabPresenterImpl
     private lateinit var model: TabViewModel
+    private lateinit var presenter: TabPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -1,38 +1,26 @@
-package com.hansck.shadowingu.screen.login
+package com.hansck.shadowingu.screen.playword
 
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
-import com.hansck.shadowingu.model.User
-import com.hansck.shadowingu.presentation.presenter.LoginPresenter
-import com.hansck.shadowingu.presentation.presenter.LoginPresenter.LoginView.ViewState.*
-import com.hansck.shadowingu.util.AuthManager
+import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
+import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
 import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-class LoginPresenterImpl(val view: LoginPresenter.LoginView) : LoginPresenter, QueryListener {
+class PlayWordPresenterImpl(val view: PlayWordPresenter.PlayWordView) : PlayWordPresenter, QueryListener {
 
     private var interactor = DBInteractor(this)
 
-    override fun presentState(state: LoginPresenter.LoginView.ViewState) {
-        Log.i(LoginViewModel::class.java.simpleName, state.name)
+    override fun presentState(state: PlayWordPresenter.PlayWordView.ViewState) {
+        Log.i(PlayWordFragment::class.java.simpleName, state.name)
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            ATTEMPT_LOGIN -> {
-                presentState(LOADING)
-                view.showState(ATTEMPT_LOGIN)
-            }
-            ENTER -> {
-                view.showState(ENTER)
-            }
-            UPDATE_USER -> {
-                val user = User(1, AuthManager.instance.account.displayName!!, 1, 0, 0,
-                        AuthManager.instance.account.photoUrl.toString())
-                interactor.insertorUpdateUser(user)
-            }
+            SHOW_WORD -> view.showState(SHOW_WORD)
+            NEXT_WORD -> view.showState(NEXT_WORD)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }
@@ -67,8 +55,8 @@ class LoginPresenterImpl(val view: LoginPresenter.LoginView) : LoginPresenter, Q
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.UPDATE_USER) {
-            presentState(ENTER)
+        if (route == QueryEnum.GET_WORDS) {
+            presentState(SHOW_WORD)
         }
     }
 

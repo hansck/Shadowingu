@@ -106,7 +106,7 @@
 		<item name="android:clickable">true</item>
 		<item name="android:background">@drawable/bg_clickable</item>
 		<item name="android:padding">@dimen/item_margin_tiny</item>
-		<item name="android:textSize">@dimen/text_body</item>
+		<item name="android:textSize">@dimen/text_subheading</item>
 		<item name="android:textColor">@color/color_accent</item>
 	</style>
 

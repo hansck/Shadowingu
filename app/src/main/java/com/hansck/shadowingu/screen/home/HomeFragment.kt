@@ -20,7 +20,7 @@ import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewS
 import com.hansck.shadowingu.screen.achievement.AchievementActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
-import com.hansck.shadowingu.util.ListDivider
+import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -30,8 +30,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, OnBadgeSelected {
 
-    private lateinit var presenter: HomePresenterImpl
     private lateinit var model: HomeViewModel
+    private lateinit var presenter: HomePresenter
     private lateinit var adapter: StagesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         profileName.text = DataManager.instance.user.name
         title.text = DataManager.instance.getActiveTitle().name
         exp.text = DataManager.instance.user.exp.toString()
-//        ImageUtil.instance.setImage(activity!!, Manager.user.image, image)
+        Common.instance.setImageByUrl(activity!!, "TES", picture)
     }
 
     override fun showState(viewState: HomePresenter.HomeView.ViewState) {
@@ -83,7 +83,6 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         doRetrieveModel().setStages()
         stageList.setHasFixedSize(true)
         stageList.layoutManager = LinearLayoutManager(context)
-        stageList.addItemDecoration(ListDivider(activity!!, R.drawable.bg_divider_full))
         adapter = StagesAdapter(doRetrieveModel().stages, this)
 
         // show the data

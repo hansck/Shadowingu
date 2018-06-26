@@ -25,7 +25,6 @@ class AuthManager : GoogleApiClient.OnConnectionFailedListener {
     lateinit var account: GoogleSignInAccount
     lateinit var auth: FirebaseAuth
     lateinit var firebaseUser: FirebaseUser
-    lateinit var keyStore: SharedPreferences
 
     fun initAuth(activity: FragmentActivity) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -42,10 +41,6 @@ class AuthManager : GoogleApiClient.OnConnectionFailedListener {
         }
 
         auth = FirebaseAuth.getInstance()
-    }
-
-    fun clearKeyStore() {
-        keyStore.edit().clear().apply()
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {

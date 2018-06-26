@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class Title(
         @PrimaryKey
-        var idTitle: Long,
+        var idTitle: Int,
 
         @ColumnInfo(name = "name")
         var name: String,

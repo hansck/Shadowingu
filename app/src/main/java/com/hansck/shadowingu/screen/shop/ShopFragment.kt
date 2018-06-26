@@ -9,20 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.adapter.AvatarsAdapter
+import com.hansck.shadowingu.presentation.customview.OnAvatarSelected
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter.ShopView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.util.DataManager
+import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.fragment_shop.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class ShopFragment : BaseFragment(), ShopPresenter.ShopView {
+class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
 
-    private lateinit var presenter: ShopPresenterImpl
     private lateinit var model: ShopViewModel
+    private lateinit var presenter: ShopPresenter
     private lateinit var adapter: AvatarsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,11 +57,20 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView {
 
     override fun doRetrieveModel(): ShopViewModel = this.model
 
+    override fun onAvatarActivate(id: Int) {
+        PersistentManager.instance.setActiveAvatar(id)
+        avatarList.adapter.notifyDataSetChanged()
+    }
+
+    override fun onAvatarBought(id: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun showAvatars() {
         doRetrieveModel().setAvatars()
         avatarList.setHasFixedSize(true)
         avatarList.layoutManager = LinearLayoutManager(context)
-        avatarList.adapter = AvatarsAdapter(doRetrieveModel().avatars)
+        avatarList.adapter = AvatarsAdapter(doRetrieveModel().avatars, this)
         presenter.presentState(IDLE)
     }
 }

@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.fragment_leaderboard.*
  */
 class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView {
 
-    private lateinit var presenter: LeaderboardPresenterImpl
     private lateinit var model: LeaderboardViewModel
+    private lateinit var presenter: LeaderboardPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

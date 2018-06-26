@@ -1,12 +1,9 @@
 package com.hansck.shadowingu.database
 
 import android.util.Log
-import com.hansck.shadowingu.util.DataManager
-import com.hansck.shadowingu.model.Avatar
-import com.hansck.shadowingu.model.Badge
-import com.hansck.shadowingu.model.Stage
-import com.hansck.shadowingu.model.Title
+import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
+import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.util.QueryListener
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -21,6 +18,25 @@ import io.reactivex.schedulers.Schedulers
 class DBInteractor(var listener: QueryListener) {
 
     //region User
+    fun insertorUpdateUser(user: User) {
+        Completable.fromAction { App.database?.userDao()?.insert(user) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : CompletableObserver {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onComplete() {
+                        listener.onQuerySucceed(QueryEnum.UPDATE_USER)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        listener.onQueryFailed(QueryEnum.UPDATE_USER, e)
+                    }
+                })
+    }
+
     fun getUsers() {
         App.database?.userDao()?.getAll()
                 ?.subscribeOn(Schedulers.io())

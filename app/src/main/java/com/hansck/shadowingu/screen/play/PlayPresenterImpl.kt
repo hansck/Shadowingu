@@ -19,11 +19,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_WORDS -> {
-                presentState(LOADING)
-                interactor.getAudios()
-            }
-            PLAY -> view.showState(PLAY)
+            SHOW_WORD_SCREEN -> view.showState(SHOW_WORD_SCREEN)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }
@@ -59,7 +55,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 
     override fun onQuerySucceed(route: QueryEnum) {
         if (route == QueryEnum.GET_WORDS) {
-            presentState(PLAY)
+            presentState(SHOW_WORD_SCREEN)
         }
     }
 

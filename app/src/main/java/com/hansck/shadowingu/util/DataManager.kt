@@ -58,7 +58,22 @@ class DataManager {
         return activeTitle
     }
 
-    fun getWordById(id: Int): Word {
-        return words.first { it.idWord == id }
+    fun getWordById(idWord: Int): Word {
+        return words.first { it.idWord == idWord }
+    }
+
+    fun getWordsByStage(idStage: Int): List<Word> {
+        return words.filter { it.stage == idStage }
+    }
+
+    fun getUnclearLevel(): Int {
+        var unclearLevel = 1
+        for (stage in stages) {
+            if (!stage.cleared) {
+                unclearLevel = stage.idStage
+                break
+            }
+        }
+        return unclearLevel
     }
 }

@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class Avatar(
         @PrimaryKey
-        var idAvatar: Long,
+        var idAvatar: Int,
 
         @ColumnInfo(name = "name")
         var name: String,
@@ -30,9 +30,9 @@ data class Avatar(
     companion object {
         fun populateData(): Array<Avatar> {
             return arrayOf(
-                    Avatar(1, "Avatar A", "This is description", "", 1, false),
-                    Avatar(2, "Avatar B", "This is description", "", 2, false),
-                    Avatar(3, "Avatar C", "This is description", "", 2, false))
+                    Avatar(1, "Avatar A", "This is description", "ic_person", 1, true),
+                    Avatar(2, "Avatar B", "This is description", "ic_person", 2, true),
+                    Avatar(3, "Avatar C", "This is description", "ic_person", 2, false))
         }
     }
 }

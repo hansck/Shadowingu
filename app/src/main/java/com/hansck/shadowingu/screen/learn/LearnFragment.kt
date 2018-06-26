@@ -17,7 +17,6 @@ import com.hansck.shadowingu.presentation.presenter.LearnPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter.LearnView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.chooseword.ChooseWordActivity
-import com.hansck.shadowingu.util.ListDivider
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -26,8 +25,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected {
 
-    private lateinit var presenter: LearnPresenterImpl
     private lateinit var model: LearnViewModel
+    private lateinit var presenter: LearnPresenter
     private lateinit var adapter: StagesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +69,6 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
     private fun showStages() {
         stageList.setHasFixedSize(true)
         stageList.layoutManager = LinearLayoutManager(context)
-        stageList.addItemDecoration(ListDivider(activity!!, R.drawable.bg_divider_full))
 
         doRetrieveModel().setStages()
         val percentage = doRetrieveModel().getProgressPercentage()

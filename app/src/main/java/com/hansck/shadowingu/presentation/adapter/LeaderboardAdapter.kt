@@ -1,13 +1,14 @@
 package com.hansck.shadowingu.presentation.adapter
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.LeaderboardUser
-import com.hansck.shadowingu.presentation.customview.OnStageSelected
-import com.hansck.shadowingu.util.ImageUtil
+import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.item_user.view.*
 import java.util.*
 
@@ -35,7 +36,17 @@ class LeaderboardAdapter(private val items: ArrayList<LeaderboardUser>)
         fun bind(user: LeaderboardUser) = with(itemView) {
             username.text = user.name
             title.text = user.level.toString()
-            ImageUtil.instance.setImage(context, user.image, picture)
+            Common.instance.setImageByUrl(context, user.image, picture)
+            for (badge in user.badges) {
+                if (!badge.unlock)
+                    addBadges(context, badgesContainer, badge.image)
+            }
+        }
+
+        private fun addBadges(context: Context, container: LinearLayout, imageName: String) {
+            val menuView = LayoutInflater.from(context).inflate(R.layout.item_badge_icon_small, container, false)
+            Common.instance.setImageByName(context, imageName, menuView.findViewById(R.id.picture))
+            container.addView(menuView)
         }
     }
 }

@@ -9,13 +9,9 @@ import com.hansck.shadowingu.util.DataManager
  */
 class ChooseWordViewModel(var context: Context?) {
 
-    var words: ArrayList<Word> = ArrayList()
+    var words: List<Word> = ArrayList()
 
-    fun setWords() {
-        words = DataManager.instance.words
-    }
-
-    fun getWordsByStage(stage: Int): List<Word> {
-        return words.filter { it.stage == stage }
+    fun setWords(idStage: Int) {
+        words = DataManager.instance.getWordsByStage(idStage)
     }
 }

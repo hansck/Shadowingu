@@ -26,7 +26,7 @@ public class Calculation {
 
 	double[] tes1 = new double[12];
 	double[] tes2 = new double[12];
-	MethodCallListener listener;
+	VoiceSimilarityListener listener;
 
 	public Calculation() {
 	}
@@ -35,7 +35,7 @@ public class Calculation {
 		return instance;
 	}
 
-	public void calculateMFCC(final Context context, final int file1, final int file2, final MethodCallListener listener) {
+	public void calculateMFCC(final Context context, final int file1, final int file2, final VoiceSimilarityListener listener) {
 
 		this.listener = listener;
 		index = 0;
