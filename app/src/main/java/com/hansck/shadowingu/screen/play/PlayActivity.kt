@@ -2,7 +2,6 @@ package com.hansck.shadowingu.screen.play
 
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
@@ -26,7 +25,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
         this.model = PlayViewModel(this)
         this.presenter = PlayPresenterImpl(this)
         fm = supportFragmentManager
-        doRetrieveModel().setWords(intent.extras.getInt("idStage"))
+        doRetrieveModel().setData(intent.extras.getInt("idStage"))
         presenter.presentState(SHOW_WORD_SCREEN)
     }
 
@@ -42,12 +41,17 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
     override fun doRetrieveModel(): PlayViewModel = this.model
 
     private fun showFragment() {
-        val fragment: BaseFragment = PlayWordFragment()
-        val bundle = Bundle()
-        bundle.putInt("idWord", doRetrieveModel().currentWordId)
-        fragment.arguments = bundle
-        navigateTo(fm, fragment)
-        doRetrieveModel().currentWordId++
+        if (doRetrieveModel().count <= 10) {
+            val fragment: BaseFragment = PlayWordFragment()
+            val bundle = Bundle()
+            bundle.putInt("idWord", doRetrieveModel().currentWordId)
+            fragment.arguments = bundle
+            navigateTo(fm, fragment)
+            doRetrieveModel().setCount()
+        } else {
+            doRetrieveModel().calculatePlayResult()
+            presenter.presentState(UPDATE_STAGE)
+        }
         presenter.presentState(IDLE)
     }
 }

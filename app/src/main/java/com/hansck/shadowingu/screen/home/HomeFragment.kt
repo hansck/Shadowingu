@@ -21,7 +21,6 @@ import com.hansck.shadowingu.screen.achievement.AchievementActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
-import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -50,9 +49,11 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         this.model = HomeViewModel(activity)
         this.presenter = HomePresenterImpl(this)
 
-        profileName.text = DataManager.instance.user.name
-        title.text = DataManager.instance.getActiveTitle().name
-        exp.text = DataManager.instance.user.exp.toString()
+        doRetrieveModel().setData()
+
+        profileName.text = doRetrieveModel().user.name
+        exp.text = doRetrieveModel().user.exp.toString()
+        title.text = doRetrieveModel().getActiveTitle().name
         Common.instance.setImageByUrl(activity!!, "TES", picture)
     }
 
@@ -93,7 +94,6 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         stageList.adapter = mSectionedAdapter
 
         // Set Badge List
-        doRetrieveModel().setBadges()
         badgesList.setHasFixedSize(true)
         badgesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         badgesList.adapter = BadgesIconAdapter(doRetrieveModel().badges, this)

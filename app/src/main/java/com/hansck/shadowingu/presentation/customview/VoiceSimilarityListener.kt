@@ -1,4 +1,4 @@
-package com.hansck.shadowingu.util
+package com.hansck.shadowingu.presentation.customview
 
 /**
  * Created by Hans CK on 26-Jun-18.

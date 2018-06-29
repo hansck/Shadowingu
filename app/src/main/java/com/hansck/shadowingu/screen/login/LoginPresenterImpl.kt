@@ -7,7 +7,7 @@ import com.hansck.shadowingu.model.User
 import com.hansck.shadowingu.presentation.presenter.LoginPresenter
 import com.hansck.shadowingu.presentation.presenter.LoginPresenter.LoginView.ViewState.*
 import com.hansck.shadowingu.util.AuthManager
-import com.hansck.shadowingu.util.QueryListener
+import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -31,7 +31,7 @@ class LoginPresenterImpl(val view: LoginPresenter.LoginView) : LoginPresenter, Q
             UPDATE_USER -> {
                 val user = User(1, AuthManager.instance.account.displayName!!, 1, 0, 0,
                         AuthManager.instance.account.photoUrl.toString())
-                interactor.insertorUpdateUser(user)
+                interactor.insertOrUpdateUser(user)
             }
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)

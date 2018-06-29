@@ -30,9 +30,9 @@ data class Avatar(
     companion object {
         fun populateData(): Array<Avatar> {
             return arrayOf(
-                    Avatar(1, "Avatar A", "This is description", "ic_person", 1, true),
-                    Avatar(2, "Avatar B", "This is description", "ic_person", 2, true),
-                    Avatar(3, "Avatar C", "This is description", "ic_person", 2, false))
+                    Avatar(0, "Avatar A", "This is description", "ic_person", 1, true),
+                    Avatar(1, "Avatar B", "This is description", "ic_person", 2, true),
+                    Avatar(2, "Avatar C", "This is description", "ic_person", 2, false))
         }
     }
 }

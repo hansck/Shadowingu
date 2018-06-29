@@ -73,7 +73,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
         doRetrieveModel().setStages()
         val percentage = doRetrieveModel().getProgressPercentage()
         progressBar.progress = percentage
-        progressDesc.text = getString(R.string.your_progress_desc, percentage, percentage)
+        progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
         adapter = StagesAdapter(doRetrieveModel().stages, this)
 
         // show the data

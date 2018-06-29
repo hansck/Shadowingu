@@ -29,7 +29,7 @@ data class User(
 
     companion object {
         fun populateData(): User {
-            return User(1, "Player", 1, 0, 0, "")
+            return User(0, "Player", 1, 0, 0, "")
         }
     }
 }

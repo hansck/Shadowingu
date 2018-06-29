@@ -6,6 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import com.hansck.shadowingu.model.Badge
+import com.hansck.shadowingu.model.User
 import io.reactivex.Maybe
 
 /**
@@ -18,7 +19,7 @@ interface BadgeDao {
     fun getAll(): Maybe<List<Badge>>
 
     @Insert(onConflict = REPLACE)
-    fun insertAll(badges: Array<Badge>)
+    fun insertAll(badges: List<Badge>)
 
     @Update
     fun updateBadge(badge: Badge)

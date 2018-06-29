@@ -12,7 +12,7 @@ import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter.Leaderb
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.util.FirebaseDB
-import com.hansck.shadowingu.util.QueryListener
+import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.

@@ -1,4 +1,4 @@
-package com.hansck.shadowingu.util
+package com.hansck.shadowingu.presentation.customview
 
 import com.hansck.shadowingu.database.QueryEnum
 

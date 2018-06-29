@@ -16,7 +16,7 @@ import com.hansck.shadowingu.screen.login.LoginActivity
 import com.hansck.shadowingu.screen.play.PlayViewModel
 import com.hansck.shadowingu.screen.tab.TabFragment
 import com.hansck.shadowingu.util.AuthManager
-import com.hansck.shadowingu.util.VoiceSimilarityListener
+import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 
 
 class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityListener {

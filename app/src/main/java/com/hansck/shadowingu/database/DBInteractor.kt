@@ -3,8 +3,8 @@ package com.hansck.shadowingu.database
 import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.util.DataManager
-import com.hansck.shadowingu.util.QueryListener
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class DBInteractor(var listener: QueryListener) {
 
     //region User
-    fun insertorUpdateUser(user: User) {
+    fun insertOrUpdateUser(user: User) {
         Completable.fromAction { App.database?.userDao()?.insert(user) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -93,7 +93,7 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { audios ->
                     run {
                         DataManager.instance.addWords(audios)
-                        Log.e("audio", audios[4].furigana)
+                        Log.e("audio", audios[0].furigana)
                         listener.onQuerySucceed(QueryEnum.GET_WORDS)
                     }
                 }
@@ -111,11 +111,11 @@ class DBInteractor(var listener: QueryListener) {
                     }
 
                     override fun onComplete() {
-                        listener.onQuerySucceed(QueryEnum.UPDATE_AVATAR)
+                        listener.onQuerySucceed(QueryEnum.BUY_AVATAR)
                     }
 
                     override fun onError(e: Throwable) {
-                        listener.onQueryFailed(QueryEnum.UPDATE_AVATAR, e)
+                        listener.onQueryFailed(QueryEnum.BUY_AVATAR, e)
                     }
                 })
     }
@@ -169,6 +169,25 @@ class DBInteractor(var listener: QueryListener) {
     //endregion
 
     //regionBadge
+    fun updateBadges(badges: ArrayList<Badge>) {
+        Completable.fromAction { App.database?.badgeDao()?.insertAll(badges) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : CompletableObserver {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onComplete() {
+                        listener.onQuerySucceed(QueryEnum.UPDATE_BADGE)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        listener.onQueryFailed(QueryEnum.UPDATE_BADGE, e)
+                    }
+                })
+    }
+
     fun updateBadge(badge: Badge) {
         Completable.fromAction { App.database?.badgeDao()?.updateBadge(badge) }
                 .subscribeOn(Schedulers.io())

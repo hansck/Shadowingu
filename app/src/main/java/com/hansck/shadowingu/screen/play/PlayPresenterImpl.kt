@@ -3,9 +3,9 @@ package com.hansck.shadowingu.screen.play
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
-import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -20,6 +20,10 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
             SHOW_WORD_SCREEN -> view.showState(SHOW_WORD_SCREEN)
+            SHOW_PLAY_RESULT -> view.showState(SHOW_PLAY_RESULT)
+            UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
+            UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().stage)
+            UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }
@@ -54,8 +58,11 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_WORDS) {
-            presentState(SHOW_WORD_SCREEN)
+        when (route) {
+            QueryEnum.UPDATE_USER -> presentState(UPDATE_STAGE)
+            QueryEnum.UPDATE_STAGE -> presentState(UPDATE_BADGE)
+            QueryEnum.UPDATE_BADGE -> presentState(SHOW_PLAY_RESULT)
+            else -> presentState(SHOW_PLAY_RESULT)
         }
     }
 

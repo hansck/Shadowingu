@@ -45,17 +45,8 @@ class DataManager {
     }
 
     fun addLeaderboardUser(user: LeaderboardUser) {
+        leaderboardUsers.clear()
         leaderboardUsers.add(user)
-    }
-
-    fun getActiveTitle(): Title {
-        lateinit var activeTitle: Title
-        for (title in titles) {
-            if (title.minLevel <= user.level) {
-                activeTitle = title
-            }
-        }
-        return activeTitle
     }
 
     fun getWordById(idWord: Int): Word {

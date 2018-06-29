@@ -3,9 +3,10 @@ package com.hansck.shadowingu.screen.shop
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter.ShopView.ViewState.*
-import com.hansck.shadowingu.util.QueryListener
+
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -23,6 +24,20 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
                 presentState(LOADING)
                 interactor.getAvatars()
             }
+            BUY_AVATAR -> {
+                presentState(LOADING)
+                interactor.updateAvatar(view.doRetrieveModel().boughtAvatar)
+            }
+            UPDATE_GEM -> {
+                presentState(LOADING)
+                interactor.insertOrUpdateUser(view.doRetrieveModel().user)
+            }
+            UPDATE_BADGE -> {
+                presentState(LOADING)
+                // Unlock Rich Buyer Badge
+                interactor.updateBadge(view.doRetrieveModel().badges[2])
+            }
+            SHOW_UPDATED_AVATARS -> view.showState(SHOW_UPDATED_AVATARS)
             SHOW_AVATARS -> view.showState(SHOW_AVATARS)
             ERROR -> view.showState(ERROR)
         }
@@ -57,8 +72,23 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_AVATARS) {
-            presentState(SHOW_AVATARS)
+        when (route) {
+            QueryEnum.GET_AVATARS -> {
+                presentState(SHOW_AVATARS)
+            }
+            QueryEnum.BUY_AVATAR -> {
+                presentState(UPDATE_GEM)
+            }
+            QueryEnum.UPDATE_USER -> {
+                if (view.doRetrieveModel().isFirstBuy) {
+                    presentState(UPDATE_BADGE)
+                } else {
+                    presentState(SHOW_UPDATED_AVATARS)
+                }
+            }
+            QueryEnum.UPDATE_BADGE -> {
+                presentState(SHOW_UPDATED_AVATARS)
+            }
         }
     }
 

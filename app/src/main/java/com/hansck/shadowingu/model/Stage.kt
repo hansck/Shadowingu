@@ -24,11 +24,11 @@ data class Stage(
     companion object {
         fun populateData(): Array<Stage> {
             return arrayOf(
+                    Stage(0, "School", 0, false),
                     Stage(1, "School", 0, false),
                     Stage(2, "School", 0, false),
-                    Stage(3, "School", 0, false),
-                    Stage(4, "Canteen", 0, false),
-                    Stage(5, "Canteen", 0, false))
+                    Stage(3, "Canteen", 0, false),
+                    Stage(4, "Canteen", 0, false))
         }
     }
 }

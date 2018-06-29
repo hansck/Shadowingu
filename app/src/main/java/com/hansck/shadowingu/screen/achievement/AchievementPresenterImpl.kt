@@ -1,18 +1,13 @@
 package com.hansck.shadowingu.screen.achievement
 
 import android.util.Log
-import com.hansck.shadowingu.database.DBInteractor
-import com.hansck.shadowingu.database.QueryEnum
 import com.hansck.shadowingu.presentation.presenter.AchievementPresenter
 import com.hansck.shadowingu.presentation.presenter.AchievementPresenter.AchievementView.ViewState.*
-import com.hansck.shadowingu.util.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
  */
-class AchievementPresenterImpl(val view: AchievementPresenter.AchievementView) : AchievementPresenter, QueryListener {
-
-    private var interactor = DBInteractor(this)
+class AchievementPresenterImpl(val view: AchievementPresenter.AchievementView) : AchievementPresenter {
 
     override fun presentState(state: AchievementPresenter.AchievementView.ViewState) {
         Log.i(AchievementActivity::class.java.simpleName, state.name)
@@ -51,15 +46,5 @@ class AchievementPresenterImpl(val view: AchievementPresenter.AchievementView) :
 
     override fun onError(message: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_BADGES) {
-            presentState(SHOW_ACHIEVEMENT)
-        }
-    }
-
-    override fun onQueryFailed(route: QueryEnum, throwable: Throwable) {
-        presentState(ERROR)
     }
 }

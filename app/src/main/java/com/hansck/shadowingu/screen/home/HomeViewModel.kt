@@ -1,10 +1,12 @@
 package com.hansck.shadowingu.screen.home
 
 import android.content.Context
-import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.model.Badge
 import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Title
+import com.hansck.shadowingu.model.User
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
+import com.hansck.shadowingu.util.DataManager
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -14,8 +16,12 @@ class HomeViewModel(var context: Context?) {
     val categories = ArrayList<SectionListAdapter.Section>()
     var stages: ArrayList<Stage> = ArrayList()
     var badges: ArrayList<Badge> = ArrayList()
+    var titles: ArrayList<Title> = ArrayList()
+    lateinit var user: User
 
-    fun setBadges() {
+    fun setData() {
+        user = DataManager.instance.user
+        titles = DataManager.instance.titles
         badges = DataManager.instance.badges
     }
 
@@ -30,5 +36,15 @@ class HomeViewModel(var context: Context?) {
                 categories.add(SectionListAdapter.Section(i, stages[i].category))
             }
         }
+    }
+
+    fun getActiveTitle(): Title {
+        lateinit var activeTitle: Title
+        for (title in titles) {
+            if (title.minLevel <= user.level) {
+                activeTitle = title
+            }
+        }
+        return activeTitle
     }
 }

@@ -23,7 +23,7 @@ class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarsAdapter.ViewHolder {
-        val inflatedView = parent.inflate(R.layout.item_avatar)
+        val inflatedView = parent.inflate(layoutRes = R.layout.item_avatar)
         return ViewHolder(inflatedView, listener)
     }
 

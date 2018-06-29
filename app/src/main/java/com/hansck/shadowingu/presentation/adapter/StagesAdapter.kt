@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.Stage
 import com.hansck.shadowingu.presentation.customview.OnStageSelected
+import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.item_stage.view.*
 import java.util.*
@@ -34,7 +35,7 @@ class StagesAdapter(private val items: ArrayList<Stage>, private val listener: O
 
         fun bind(stage: Stage) = with(itemView) {
             idStage.text = stage.idStage.toString()
-            if (stage.idStage == 1 || stage.idStage < DataManager.instance.getUnclearLevel()) {
+            if (stage.idStage == Constants.General.FIRST_LEVEL || stage.idStage < DataManager.instance.getUnclearLevel()) {
                 image.setOnClickListener { listener.onStageSelected(stage) }
             }
         }

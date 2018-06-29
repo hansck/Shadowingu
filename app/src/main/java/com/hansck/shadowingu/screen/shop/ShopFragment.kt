@@ -13,7 +13,6 @@ import com.hansck.shadowingu.presentation.customview.OnAvatarSelected
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter.ShopView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
-import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.fragment_shop.*
 
@@ -43,7 +42,8 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
         this.model = ShopViewModel(activity)
         this.presenter = ShopPresenterImpl(this)
 
-        gem.text = DataManager.instance.user.gem.toString()
+        doRetrieveModel().setData()
+        gem.text = doRetrieveModel().user.gem.toString()
     }
 
     override fun showState(viewState: ShopPresenter.ShopView.ViewState) {
@@ -51,6 +51,7 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
             IDLE -> showProgress(false)
             LOADING -> showProgress(true)
             SHOW_AVATARS -> showAvatars()
+            SHOW_UPDATED_AVATARS -> showUpdatedAvatars()
             ERROR -> showError(null, getString(R.string.failed_request_general))
         }
     }
@@ -63,7 +64,16 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
     }
 
     override fun onAvatarBought(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val gem = doRetrieveModel().user.gem
+        val price = doRetrieveModel().avatars[id].price
+        if (gem <= price) {
+            doRetrieveModel().buyAvatar(id)
+            presenter.presentState(BUY_AVATAR)
+        }
+    }
+
+    private fun showUpdatedAvatars() {
+        avatarList.adapter.notifyDataSetChanged()
     }
 
     private fun showAvatars() {

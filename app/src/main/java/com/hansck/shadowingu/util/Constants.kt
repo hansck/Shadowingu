@@ -9,44 +9,25 @@ class Constants {
 
     object Database {
         const val USER = "user"
-        const val EMAIL = "email"
         const val LEVEL = "level"
+    }
+
+    object Preferences {
+        const val ACTIVE_AVATAR = "activeAvatar"
+        const val PERFECT_PLAY = "perfectPlay"
+        const val FIRST_BUY = "firstBuy"
+        const val FIRST_GAME_OVER = "firstGameOver"
+        const val MAX_LEVEL = "maxLevel"
+        const val ALL_STAGE_CLEAR = "allStageClear"
+    }
+
+    object General {
+        const val FIRST_LEVEL = 0
+        const val MAX_LEVEL = 5
+        const val MAX_STAGE = 5
     }
 
     object Permissions {
         val CAMERA = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
-
-    object General {
-        const val PREFERENCE = "prefs"
-        const val USERS = "users"
-        const val CLAIMS = "claims"
-        const val CYCLES = "cycles"
-    }
-
-    object User {
-        const val USER_ID = "userID"
-        const val EMAIL = "email"
-        const val ID_TOKEN = "idToken"
-        const val ACCESS_TOKEN = "accessToken"
-        const val NAME = "name"
-    }
-
-    object DateFormat {
-        const val DATE = "dd MMMM yyyy"
-        const val DATE_FULL = "yyyy-MM-dd HH:mm:ss"
-        const val DATETIME = "yyyyMMddHHmmss"
-        const val FULL_SHORT = "EEE, d MMM yyyy"
-        const val FULL_LONG = "EEEE, d MMMM yyyy"
-    }
-
-    object Service {
-        const val ADD_PHOTO = "addPhoto"
-    }
-
-    object Connection {
-        var BEARER = "bearer"
-        var TIME_OUT = 5
-        var TYPE = "type"
     }
 }

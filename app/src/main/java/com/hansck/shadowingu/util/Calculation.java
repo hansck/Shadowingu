@@ -3,6 +3,8 @@ package com.hansck.shadowingu.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener;
+
 import java.io.InputStream;
 import java.util.Arrays;
 
