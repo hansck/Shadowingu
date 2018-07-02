@@ -3,9 +3,9 @@ package com.hansck.shadowingu.screen.main
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.MainPresenter
 import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
-import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -23,18 +23,11 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
                 presentState(LOADING)
                 interactor.getUsers()
             }
-            LOAD_STAGES -> {
-                interactor.getStages()
-            }
-            LOAD_TITLES -> {
-                interactor.getTitles()
-            }
-            LOAD_BADGES -> {
-                interactor.getBadges()
-            }
-            LOAD_AUDIOS -> {
-                interactor.getAudios()
-            }
+            LOAD_STAGES -> interactor.getStages()
+            LOAD_TITLES -> interactor.getTitles()
+            LOAD_BADGES -> interactor.getBadges()
+            LOAD_AUDIOS -> interactor.getAudios()
+            LOAD_LEVELS -> interactor.getLevels()
             LOAD_TAB -> view.showState(LOAD_TAB)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
@@ -75,7 +68,8 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
             QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
             QueryEnum.GET_TITLES -> presentState(LOAD_BADGES)
             QueryEnum.GET_BADGES -> presentState(LOAD_AUDIOS)
-            QueryEnum.GET_WORDS -> presentState(LOAD_TAB)
+            QueryEnum.GET_WORDS -> presentState(LOAD_LEVELS)
+            QueryEnum.GET_LEVELS -> presentState(LOAD_TAB)
             else -> {
                 presentState(LOAD_TAB)
             }

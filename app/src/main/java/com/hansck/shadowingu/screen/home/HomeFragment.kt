@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         profileName.text = doRetrieveModel().user.name
         exp.text = doRetrieveModel().user.exp.toString()
         title.text = doRetrieveModel().getActiveTitle().name
-        Common.instance.setImageByUrl(activity!!, "TES", picture)
+        Common.instance.setImageByName(activity!!, doRetrieveModel().user.image, picture)
     }
 
     override fun showState(viewState: HomePresenter.HomeView.ViewState) {
@@ -84,7 +84,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         doRetrieveModel().setStages()
         stageList.setHasFixedSize(true)
         stageList.layoutManager = LinearLayoutManager(context)
-        adapter = StagesAdapter(doRetrieveModel().stages, this)
+        adapter = StagesAdapter(doRetrieveModel().stages, false,this)
 
         // show the data
         val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

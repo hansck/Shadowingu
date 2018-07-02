@@ -9,7 +9,13 @@ import com.hansck.shadowingu.util.DataManager
  */
 class LeaderboardViewModel(var context: Context?) {
 
+    lateinit var currentUser: LeaderboardUser
     var users: ArrayList<LeaderboardUser> = ArrayList()
+
+    fun setCurrentUser() {
+        val user = DataManager.instance.user
+        currentUser = LeaderboardUser(user.email, user.name, user.level, user.image, 0, DataManager.instance.getUnlockBadges())
+    }
 
     fun setLeaderboard() {
         users = DataManager.instance.leaderboardUsers

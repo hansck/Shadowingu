@@ -133,9 +133,10 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
     }
 
     private fun uploadContent() {
-        val user = doRetrieveModel().getUser()
+        val user = doRetrieveModel().getLeaderboardUser()
         val id = FirebaseDB.instance.getKey(Constants.Database.USER)!!
         FirebaseDB.instance.getDbReference(Constants.Database.USER).child(id).setValue(user)
+        PersistentManager.instance.setUserKey(id)
         presenter.presentState(UPDATE_USER)
     }
 

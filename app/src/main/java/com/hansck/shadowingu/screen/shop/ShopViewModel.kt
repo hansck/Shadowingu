@@ -31,6 +31,7 @@ class ShopViewModel(var context: Context?) {
         boughtAvatar = avatars[idAvatar]
         boughtAvatar.unlock = true
         user.gem -= boughtAvatar.price
+        DataManager.instance.user = user
         checkBadge()
     }
 

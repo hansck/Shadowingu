@@ -37,21 +37,23 @@ class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener:
             avatarName.text = avatar.name
             description.text = avatar.description
             price.text = resources.getString(R.string.price, avatar.price.toString())
-            Common.instance.setImageByName(context, avatar.image, picture)
             if (avatar.unlock && PersistentManager.instance.getActiveAvatar() == avatar.idAvatar) {
                 activeText.visibility = View.VISIBLE
                 btnSetActive.visibility = View.GONE
                 btnBuy.visibility = View.GONE
+                Common.instance.setImageByName(context, avatar.unlockedImage, picture)
             } else if (avatar.unlock) {
                 btnSetActive.visibility = View.VISIBLE
                 btnSetActive.setOnClickListener { listener.onAvatarActivate(avatar.idAvatar) }
                 activeText.visibility = View.GONE
                 btnBuy.visibility = View.GONE
+                Common.instance.setImageByName(context, avatar.unlockedImage, picture)
             } else {
                 btnBuy.visibility = View.VISIBLE
                 btnBuy.setOnClickListener { listener.onAvatarBought(avatar.idAvatar) }
                 activeText.visibility = View.GONE
                 btnSetActive.visibility = View.GONE
+                Common.instance.setImageByName(context, avatar.lockedImage, picture)
             }
         }
     }

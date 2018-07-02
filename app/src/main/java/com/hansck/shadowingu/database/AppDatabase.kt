@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
 /**
  * Created by Hans CK on 11-Jun-18.
  */
-@Database(entities = [(User::class), (Word::class), (Stage::class), (Avatar::class), (Title::class), (Badge::class)], version = 2)
+@Database(entities = [(User::class), (Word::class), (Stage::class), (Avatar::class), (Title::class), (Badge::class), (Level::class)], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -22,6 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun avatarDao(): AvatarDao
     abstract fun titleDao(): TitleDao
     abstract fun badgeDao(): BadgeDao
+    abstract fun levelDao(): LevelDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null
@@ -42,6 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
                                         getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())
                                         getInstance(context)?.titleDao()?.insertAll(Title.populateData())
                                         getInstance(context)?.badgeDao()?.insertAll(Badge.populateData())
+                                        getInstance(context)?.levelDao()?.insertAll(Level.populateData())
                                     }
                                 }
 

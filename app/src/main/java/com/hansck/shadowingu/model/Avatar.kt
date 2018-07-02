@@ -18,8 +18,11 @@ data class Avatar(
         @ColumnInfo(name = "description")
         var description: String,
 
-        @ColumnInfo(name = "image")
-        var image: String,
+        @ColumnInfo(name = "lockedImage")
+        var lockedImage: String,
+
+        @ColumnInfo(name = "unlockedImage")
+        var unlockedImage: String,
 
         @ColumnInfo(name = "price")
         var price: Int,
@@ -30,9 +33,9 @@ data class Avatar(
     companion object {
         fun populateData(): Array<Avatar> {
             return arrayOf(
-                    Avatar(0, "Avatar A", "This is description", "ic_person", 1, true),
-                    Avatar(1, "Avatar B", "This is description", "ic_person", 2, true),
-                    Avatar(2, "Avatar C", "This is description", "ic_person", 2, false))
+                    Avatar(0, "Avatar A", "This is description", "ic_default_image", "ic_person", 1, true),
+                    Avatar(1, "Avatar B", "This is description", "ic_default_image", "ic_person", 2, true),
+                    Avatar(2, "Avatar C", "This is description", "ic_default_image", "ic_person", 2, false))
         }
     }
 }

@@ -32,12 +32,13 @@ class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.presentState(LOAD_LEADERBOARD)
     }
 
     private fun init() {
         this.model = LeaderboardViewModel(activity!!)
         this.presenter = LeaderboardPresenterImpl(this)
+        doRetrieveModel().setCurrentUser()
+        presenter.presentState(UPDATE_USER)
     }
 
     override fun showState(viewState: LeaderboardPresenter.LeaderboardView.ViewState) {

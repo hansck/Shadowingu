@@ -4,12 +4,16 @@ import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.presentation.customview.QueryListener
+import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
+import com.hansck.shadowingu.util.FirebaseDB
+import com.hansck.shadowingu.util.PersistentManager
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 
 /**
@@ -100,7 +104,7 @@ class DBInteractor(var listener: QueryListener) {
     }
     //endregion
 
-    //regionAvatar
+    //region Avatar
     fun updateAvatar(avatar: Avatar) {
         Completable.fromAction { App.database?.avatarDao()?.updateAvatar(avatar) }
                 .subscribeOn(Schedulers.io())
@@ -168,9 +172,9 @@ class DBInteractor(var listener: QueryListener) {
     }
     //endregion
 
-    //regionBadge
-    fun updateBadges(badges: ArrayList<Badge>) {
-        Completable.fromAction { App.database?.badgeDao()?.insertAll(badges) }
+    //region Badge
+    fun updateBadges(badges: List<Badge>) {
+        Completable.fromAction { App.database?.badgeDao()?.updateBadges(badges) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : CompletableObserver {
@@ -216,6 +220,21 @@ class DBInteractor(var listener: QueryListener) {
                         DataManager.instance.addBadges(badges)
                         Log.e("badges", badges[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_BADGES)
+                    }
+                }
+    }
+    //endregion
+
+    //region Level
+    fun getLevels() {
+        App.database?.levelDao()?.getAll()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe { levels ->
+                    run {
+                        DataManager.instance.addLevels(levels)
+                        Log.e("badges", levels[2].idLevel.toString())
+                        listener.onQuerySucceed(QueryEnum.GET_LEVELS)
                     }
                 }
     }

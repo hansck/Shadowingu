@@ -40,7 +40,11 @@ class BadgesIconAdapter(private val items: ArrayList<Badge>, private val listene
         }
 
         fun bind(badge: Badge) = with(itemView) {
-            Common.instance.setImageByName(context, badge.image, picture)
+            if (badge.unlock) {
+                Common.instance.setImageByName(context, badge.unlockedImage, picture)
+            } else {
+                Common.instance.setImageByName(context, badge.lockedImage, picture)
+            }
         }
     }
 }

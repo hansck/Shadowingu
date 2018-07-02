@@ -12,6 +12,9 @@ data class User(
         @PrimaryKey
         var idUser: Int,
 
+        @ColumnInfo(name = "email")
+        var email: String,
+
         @ColumnInfo(name = "name")
         var name: String,
 
@@ -29,7 +32,7 @@ data class User(
 
     companion object {
         fun populateData(): User {
-            return User(0, "Player", 1, 0, 0, "")
+            return User(0, "", "Player", 1, 0, 0, "ic_person")
         }
     }
 }

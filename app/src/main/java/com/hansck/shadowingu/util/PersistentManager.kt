@@ -17,6 +17,16 @@ class PersistentManager {
         keyStore.edit().clear().apply()
     }
 
+    fun setUserKey(id: String) {
+        val editor = keyStore.edit()
+        editor.putString(Constants.Database.KEY, id)
+        editor.apply()
+    }
+
+    fun getUserKey(): String {
+        return keyStore.getString(Constants.Database.KEY, "")
+    }
+
     fun setActiveAvatar(idAvatar: Int) {
         val editor = keyStore.edit()
         editor.putInt(Constants.Preferences.ACTIVE_AVATAR, idAvatar)

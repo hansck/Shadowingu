@@ -18,8 +18,11 @@ data class Badge(
         @ColumnInfo(name = "description")
         var description: String = "",
 
-        @ColumnInfo(name = "image")
-        var image: String = "",
+        @ColumnInfo(name = "lockedImage")
+        var lockedImage: String = "",
+
+        @ColumnInfo(name = "unlockedImage")
+        var unlockedImage: String = "",
 
         @ColumnInfo(name = "unlock")
         var unlock: Boolean = false) {
@@ -27,11 +30,11 @@ data class Badge(
     companion object {
         fun populateData(): Array<Badge> {
             return arrayOf(
-                    Badge(0, "Perfecto", "Finish a stage without a single fail.", "ic_person", false),
-                    Badge(1, "Completionist", "Finish all stages.", "ic_person", false),
-                    Badge(2, "Rich Buyer!", "Buy your first avatar.", "ic_person", false),
-                    Badge(3, "Maximus", "Has reach maximum level.", "ic_person", false),
-                    Badge(4, "Don't Give Up", "Game over for the first time.", "ic_person", false))
+                    Badge(0, "Perfecto", "Finish a stage without a single fail.", "ic_default_image", "ic_person", false),
+                    Badge(1, "Completionist", "Finish all stages.", "ic_default_image", "ic_person", false),
+                    Badge(2, "Rich Buyer!", "Buy your first avatar.", "ic_default_image", "ic_person", false),
+                    Badge(3, "Maximus", "Has reach maximum level.", "ic_default_image", "ic_person", false),
+                    Badge(4, "Don't Give Up", "Game over for the first time.", "ic_default_image", "ic_person", false))
         }
     }
 }

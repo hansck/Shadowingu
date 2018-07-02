@@ -30,9 +30,13 @@ class BadgesAdapter(private val items: ArrayList<Badge>) : RecyclerView.Adapter<
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(badge: Badge) = with(itemView) {
-            Common.instance.setImageByName(context, badge.image, picture)
             badgeName.text = badge.name
             description.text = badge.description
+            if (badge.unlock) {
+                Common.instance.setImageByName(context, badge.unlockedImage, picture)
+            } else {
+                Common.instance.setImageByName(context, badge.lockedImage, picture)
+            }
 
         }
     }

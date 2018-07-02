@@ -1,10 +1,7 @@
 package com.hansck.shadowingu.screen.play
 
 import android.content.Context
-import com.hansck.shadowingu.model.Badge
-import com.hansck.shadowingu.model.Stage
-import com.hansck.shadowingu.model.User
-import com.hansck.shadowingu.model.Word
+import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.util.PersistentManager
@@ -16,28 +13,51 @@ class PlayViewModel(var context: Context?) {
 
     var words: List<Word> = ArrayList()
     var badges: List<Badge> = ArrayList()
+    var levels: List<Level> = ArrayList()
     var updatedBadges: ArrayList<Badge> = ArrayList()
     lateinit var stage: Stage
     lateinit var user: User
     var currentWordId: Int = 0
     var count: Int = 10
+    var timeStart: Long = 0
+    var timeEnd: Long = 0
+    var timeElapsed: Double = 0.0
     var isPerfect: Boolean = true
     var isGameOver: Boolean = false
+    var isLevelUp: Boolean = false
 
     fun setData(idStage: Int) {
         stage = DataManager.instance.stages[idStage]
         user = DataManager.instance.user
         badges = DataManager.instance.badges
         words = DataManager.instance.getWordsByStage(idStage)
+        levels = DataManager.instance.levels
         currentWordId = words[0].idWord
     }
 
     fun setCount() {
+        if (count == 10) timeStart = System.currentTimeMillis()
         currentWordId++
         count--
     }
 
     fun calculatePlayResult() {
+        //Calculate Time
+        timeEnd = System.currentTimeMillis()
+        timeElapsed = (timeEnd - timeStart) / 1000.0
+
+        //Calculate Level and Exp
+        val userExp = user.exp + stage.exp
+        val expToLevelUp = levels[user.level].exp - userExp
+
+        if (expToLevelUp <= 0) {
+            user.level++
+            user.exp = expToLevelUp * -1
+            isLevelUp = true
+        } else {
+            user.exp = userExp
+        }
+        DataManager.instance.user = user
         checkBadges()
     }
 

@@ -13,7 +13,7 @@ interface LeaderboardPresenter : BasePresenter {
          * This enum is used for determine the current state of this screen
          */
         enum class ViewState {
-            IDLE, LOADING, LOAD_LEADERBOARD, SHOW_LEADERBOARD, SHOW_SCREEN_STATE, ERROR
+            IDLE, LOADING, UPDATE_USER, LOAD_LEADERBOARD, SHOW_LEADERBOARD, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {

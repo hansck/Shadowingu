@@ -10,6 +10,7 @@ class Constants {
     object Database {
         const val USER = "user"
         const val LEVEL = "level"
+        const val KEY = "key"
     }
 
     object Preferences {
@@ -25,6 +26,7 @@ class Constants {
         const val FIRST_LEVEL = 0
         const val MAX_LEVEL = 5
         const val MAX_STAGE = 5
+        const val MAX_LEADERBOARD = 20
     }
 
     object Permissions {
