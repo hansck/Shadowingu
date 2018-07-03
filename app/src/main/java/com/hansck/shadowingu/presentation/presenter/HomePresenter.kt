@@ -13,7 +13,7 @@ interface HomePresenter : BasePresenter {
          * This enum is used for determine the current state of this screen
          */
         enum class ViewState {
-            IDLE, LOADING, SHOW_ITEMS, SHOW_SCREEN_STATE, ERROR
+            IDLE, LOADING, SHOW_ITEMS, LOAD_BADGES, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {

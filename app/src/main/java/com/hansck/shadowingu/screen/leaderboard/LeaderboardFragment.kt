@@ -34,11 +34,15 @@ class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.presentState(UPDATE_USER)
+    }
+
     private fun init() {
         this.model = LeaderboardViewModel(activity!!)
         this.presenter = LeaderboardPresenterImpl(this)
         doRetrieveModel().setCurrentUser()
-        presenter.presentState(UPDATE_USER)
     }
 
     override fun showState(viewState: LeaderboardPresenter.LeaderboardView.ViewState) {
@@ -53,10 +57,12 @@ class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView
     override fun doRetrieveModel(): LeaderboardViewModel = this.model
 
     private fun showLeaderboard() {
-        doRetrieveModel().setLeaderboard()
-        leaderboardList.setHasFixedSize(true)
-        leaderboardList.layoutManager = LinearLayoutManager(activity)
-        leaderboardList.adapter = LeaderboardAdapter(doRetrieveModel().users)
+        if (!activity!!.isFinishing) {
+            doRetrieveModel().setLeaderboard()
+            leaderboardList.setHasFixedSize(true)
+            leaderboardList.layoutManager = LinearLayoutManager(activity)
+            leaderboardList.adapter = LeaderboardAdapter(doRetrieveModel().users)
+        }
         presenter.presentState(IDLE)
     }
 }

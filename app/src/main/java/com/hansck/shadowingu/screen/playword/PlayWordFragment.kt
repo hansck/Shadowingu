@@ -13,6 +13,10 @@ import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.fragment_play_word.*
+import be.tarsos.dsp.io.android.AudioDispatcherFactory
+import be.tarsos.dsp.AudioDispatcher
+
+
 
 class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
 
@@ -73,7 +77,12 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             }
         }
         btnRecording.setOnClickListener {
-            presenter.presentState(NEXT_WORD)
+            val sampleRate = 44100
+            val bufferSize = 8192
+            val bufferOverlap = 128
+            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
+
+//            presenter.presentState(NEXT_WORD)
         }
     }
 

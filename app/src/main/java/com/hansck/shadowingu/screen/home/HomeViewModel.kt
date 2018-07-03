@@ -22,10 +22,10 @@ class HomeViewModel(var context: Context?) {
     fun setData() {
         user = DataManager.instance.user
         titles = DataManager.instance.titles
-        badges = DataManager.instance.badges
     }
 
-    fun setStages() {
+    fun setStagesAndBadges() {
+        badges = DataManager.instance.badges
         stages = DataManager.instance.stages
 
         categories.clear()

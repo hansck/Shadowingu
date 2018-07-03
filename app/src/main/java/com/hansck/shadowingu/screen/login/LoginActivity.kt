@@ -35,7 +35,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
         setContentView(R.layout.activity_login)
 
         AuthManager.instance.initAuth(this)
-        val preference = getSharedPreferences("preference", Context.MODE_PRIVATE)
+        val preference = getSharedPreferences(Constants.Preferences.PREFERENCE, Context.MODE_PRIVATE)
         PersistentManager.instance.keyStore = preference
 
         init()
@@ -51,7 +51,9 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
         listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null) {
                 AuthManager.instance.firebaseUser = firebaseAuth.currentUser!!
-                presenter.presentState(ENTER)
+                if (PersistentManager.instance.isLogin()) {
+                    presenter.presentState(ENTER)
+                }
             }
         }
     }
@@ -71,9 +73,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
             IDLE -> showProgress(false)
             LOADING -> showProgress(true)
             ATTEMPT_LOGIN -> attemptLogin()
-            ENTER -> {
-                goToMain()
-            }
+            ENTER -> goToMain()
             ERROR -> {
                 showError(null, getString(R.string.failed_request_general))
                 presenter.presentState(IDLE)
@@ -148,6 +148,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                 for (postSnapshot in dataSnapshot.children) {
                     val user = postSnapshot.getValue(LeaderboardUser::class.java)
                     if (user?.email == doRetrieveModel().account.email) {
+                        PersistentManager.instance.setUserKey(postSnapshot.key!!)
                         isExist = true
                     }
                 }

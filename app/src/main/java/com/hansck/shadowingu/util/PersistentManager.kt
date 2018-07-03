@@ -17,6 +17,16 @@ class PersistentManager {
         keyStore.edit().clear().apply()
     }
 
+    fun isLogin(): Boolean {
+        return keyStore.getBoolean(Constants.Preferences.IS_LOGIN, false)
+    }
+
+    fun setLogin() {
+        val editor = keyStore.edit()
+        editor.putBoolean(Constants.Preferences.IS_LOGIN, true)
+        editor.apply()
+    }
+
     fun setUserKey(id: String) {
         val editor = keyStore.edit()
         editor.putString(Constants.Database.KEY, id)

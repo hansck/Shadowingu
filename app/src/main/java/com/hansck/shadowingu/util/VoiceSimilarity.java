@@ -13,14 +13,15 @@ import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.io.TarsosDSPAudioFormat;
 import be.tarsos.dsp.io.UniversalAudioInputStream;
+import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.mfcc.MFCC;
 
 /**
  * Created by Hans CK on 04-Jun-18.
  */
-public class Calculation {
+public class VoiceSimilarity {
 
-	private static Calculation instance = new Calculation();
+	private static VoiceSimilarity instance = new VoiceSimilarity();
 	private int index;
 	private int fileNum = 1;
 	private double[][] features1 = new double[2][12];
@@ -30,10 +31,10 @@ public class Calculation {
 	double[] tes2 = new double[12];
 	VoiceSimilarityListener listener;
 
-	public Calculation() {
+	public VoiceSimilarity() {
 	}
 
-	public static Calculation getInstance() {
+	public static VoiceSimilarity getInstance() {
 		return instance;
 	}
 
@@ -45,9 +46,13 @@ public class Calculation {
 		int bufferSize = 512;
 		int bufferOverlap = 128;
 
-//		new AndroidFFMPEGLocator(context);
-		InputStream inStream = context.getResources().openRawResource(fileNum == 1 ? file1 : file2);
-		AudioDispatcher dispatcher = new AudioDispatcher(new UniversalAudioInputStream(inStream, new TarsosDSPAudioFormat(sampleRate, bufferSize, 1, true, true)), bufferSize, bufferOverlap);
+		AudioDispatcher dispatcher;
+		if (fileNum == 1) {
+			dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize, bufferOverlap);
+		} else {
+			InputStream inStream = context.getResources().openRawResource(fileNum == 1 ? file1 : file2);
+			dispatcher = new AudioDispatcher(new UniversalAudioInputStream(inStream, new TarsosDSPAudioFormat(sampleRate, bufferSize, 1, true, true)), bufferSize, bufferOverlap);
+		}
 		final MFCC mfcc = new MFCC(bufferSize, sampleRate, 12, 40, 300, 3000);
 
 		dispatcher.addAudioProcessor(mfcc);

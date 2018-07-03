@@ -39,9 +39,7 @@ class LeaderboardAdapter(private val items: ArrayList<LeaderboardUser>)
             title.text = user.level.toString()
             Common.instance.setImageByName(context, user.image, picture)
             for (badge in user.badges) {
-                // Change this code to badge.unlock after release!
-                if (!badge.unlock)
-                    addBadges(context, badgesContainer, badge.unlockedImage)
+                addBadges(context, badgesContainer, badge.unlockedImage)
             }
         }
 

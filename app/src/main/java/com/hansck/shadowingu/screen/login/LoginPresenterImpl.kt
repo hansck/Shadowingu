@@ -1,5 +1,6 @@
 package com.hansck.shadowingu.screen.login
 
+import android.os.Handler
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
@@ -8,6 +9,7 @@ import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.LoginPresenter
 import com.hansck.shadowingu.presentation.presenter.LoginPresenter.LoginView.ViewState.*
 import com.hansck.shadowingu.util.AuthManager
+import com.hansck.shadowingu.util.PersistentManager
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -25,12 +27,10 @@ class LoginPresenterImpl(val view: LoginPresenter.LoginView) : LoginPresenter, Q
                 presentState(LOADING)
                 view.showState(ATTEMPT_LOGIN)
             }
-            ENTER -> {
-                view.showState(ENTER)
-            }
+            ENTER -> view.showState(ENTER)
             UPDATE_USER -> {
                 val acct = AuthManager.instance.account
-                val user = User(1, acct.email!!, acct.displayName!!, 1, 0, 0, acct.photoUrl.toString())
+                val user = User.populateData(acct.email!!, acct.displayName!!)
                 interactor.insertOrUpdateUser(user)
             }
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
@@ -68,7 +68,10 @@ class LoginPresenterImpl(val view: LoginPresenter.LoginView) : LoginPresenter, Q
 
     override fun onQuerySucceed(route: QueryEnum) {
         if (route == QueryEnum.UPDATE_USER) {
-            presentState(ENTER)
+            PersistentManager.instance.setLogin()
+            Handler().postDelayed({
+                presentState(ENTER)
+            }, 2000)
         }
     }
 

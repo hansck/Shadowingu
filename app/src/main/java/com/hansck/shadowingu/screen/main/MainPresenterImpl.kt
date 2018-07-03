@@ -25,7 +25,6 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
             }
             LOAD_STAGES -> interactor.getStages()
             LOAD_TITLES -> interactor.getTitles()
-            LOAD_BADGES -> interactor.getBadges()
             LOAD_AUDIOS -> interactor.getAudios()
             LOAD_LEVELS -> interactor.getLevels()
             LOAD_TAB -> view.showState(LOAD_TAB)
@@ -66,8 +65,7 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
         when (route) {
             QueryEnum.GET_USERS -> presentState(LOAD_STAGES)
             QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
-            QueryEnum.GET_TITLES -> presentState(LOAD_BADGES)
-            QueryEnum.GET_BADGES -> presentState(LOAD_AUDIOS)
+            QueryEnum.GET_TITLES -> presentState(LOAD_AUDIOS)
             QueryEnum.GET_WORDS -> presentState(LOAD_LEVELS)
             QueryEnum.GET_LEVELS -> presentState(LOAD_TAB)
             else -> {

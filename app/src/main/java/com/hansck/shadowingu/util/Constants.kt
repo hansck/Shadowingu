@@ -14,6 +14,8 @@ class Constants {
     }
 
     object Preferences {
+        const val PREFERENCE = "preference"
+        const val IS_LOGIN = "isLogin"
         const val ACTIVE_AVATAR = "activeAvatar"
         const val PERFECT_PLAY = "perfectPlay"
         const val FIRST_BUY = "firstBuy"

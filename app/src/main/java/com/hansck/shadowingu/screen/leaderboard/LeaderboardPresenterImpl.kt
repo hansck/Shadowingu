@@ -27,6 +27,7 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
             LOADING -> view.showState(LOADING)
             UPDATE_USER -> updateLeaderboardUser(view.doRetrieveModel().currentUser)
             LOAD_LEADERBOARD -> {
+                view.showState(LOADING)
                 getUsers()
             }
             SHOW_LEADERBOARD -> view.showState(SHOW_LEADERBOARD)
@@ -90,12 +91,16 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 DataManager.instance.leaderboardUsers.clear()
                 for (postSnapshot in dataSnapshot.children) {
-                    val user = postSnapshot.getValue(LeaderboardUser::class.java)
-                    user!!.rank = count
-                    if (count <= Constants.General.MAX_LEADERBOARD || user.email == AuthManager.instance.account.email) {
-                        DataManager.instance.addLeaderboardUser(user)
+                    try {
+                        val user = postSnapshot.getValue(LeaderboardUser::class.java)
+                        user!!.rank = count
+                        if (count <= Constants.General.MAX_LEADERBOARD || user.email == AuthManager.instance.account.email) {
+                            DataManager.instance.addLeaderboardUser(user)
+                        }
+                        count++
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-                    count++
                 }
                 presentState(SHOW_LEADERBOARD)
             }

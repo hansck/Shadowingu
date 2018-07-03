@@ -3,9 +3,9 @@ package com.hansck.shadowingu.screen.home
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
 import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewState.*
-import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -19,6 +19,10 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, Query
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
+            LOAD_BADGES -> {
+                view.showState(LOADING)
+                interactor.getBadges()
+            }
             SHOW_ITEMS -> view.showState(SHOW_ITEMS)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
@@ -54,7 +58,7 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, Query
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_STAGES) {
+        if (route == QueryEnum.GET_BADGES) {
             presentState(SHOW_ITEMS)
         }
     }

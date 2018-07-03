@@ -36,7 +36,11 @@ class ShopViewModel(var context: Context?) {
     }
 
     private fun checkBadge() {
-        isFirstBuy = PersistentManager.instance.isFirstBuy()
-        if (!isFirstBuy) PersistentManager.instance.setFirstBuy()
+        isFirstBuy = !PersistentManager.instance.isFirstBuy()
+        if (isFirstBuy) {
+            badges[2].unlock = true
+            DataManager.instance.badges = badges
+            PersistentManager.instance.setFirstBuy()
+        }
     }
 }

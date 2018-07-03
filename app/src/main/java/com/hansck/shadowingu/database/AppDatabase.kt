@@ -37,7 +37,6 @@ abstract class AppDatabase : RoomDatabase() {
                                     // do something after database has been created
                                     Log.e("DB", "MASUK CREATED")
                                     Executors.newSingleThreadScheduledExecutor().execute {
-                                        getInstance(context)?.userDao()?.insert(User.populateData())
                                         getInstance(context)?.stageDao()?.insertAll(Stage.populateData())
                                         getInstance(context)?.audioDao()?.insertAll(Word.populateData())
                                         getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())

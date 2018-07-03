@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.presentState(SHOW_ITEMS)
+        presenter.presentState(LOAD_BADGES)
     }
 
     private fun init() {
@@ -50,7 +50,6 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         this.presenter = HomePresenterImpl(this)
 
         doRetrieveModel().setData()
-
         profileName.text = doRetrieveModel().user.name
         exp.text = doRetrieveModel().user.exp.toString()
         title.text = doRetrieveModel().getActiveTitle().name
@@ -81,10 +80,10 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
     private fun showItems() {
         // Set Stage List
-        doRetrieveModel().setStages()
+        doRetrieveModel().setStagesAndBadges()
         stageList.setHasFixedSize(true)
         stageList.layoutManager = LinearLayoutManager(context)
-        adapter = StagesAdapter(doRetrieveModel().stages, false,this)
+        adapter = StagesAdapter(doRetrieveModel().stages, false, this)
 
         // show the data
         val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

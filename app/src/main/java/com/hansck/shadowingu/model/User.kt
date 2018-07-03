@@ -31,8 +31,8 @@ data class User(
         var image: String) {
 
     companion object {
-        fun populateData(): User {
-            return User(0, "", "Player", 1, 0, 0, "ic_person")
+        fun populateData(email: String, name: String): User {
+            return User(0, email, name, 1, 0, 0, "ic_person")
         }
     }
 }
