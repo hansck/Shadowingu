@@ -20,4 +20,14 @@
 	<string name="price">Price : %1$s GEM</string>
 	<string name="start_now">Start Now</string>
 	<string name="sign_in_with_google">Sign In with Google</string>
+	<string name="stage_cleared">Stage Cleared!</string>
+	<string name="game_over">Game Over!</string>
+	<string name="continue_text">Continue</string>
+	<string name="new_record">New Record!</string>
+	<string name="not_bad">Could be better!</string>
+	<string name="you_finished_on">You finished on:</string>
+	<string name="you_acquired">You acquired:</string>
+	<string name="win_result_title">Well Done!\nKeep Up The Good Work</string>
+	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
+	<string name="gem_qty">x 1</string>
 </resources>

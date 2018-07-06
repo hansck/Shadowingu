@@ -25,6 +25,8 @@ class PlayViewModel(var context: Context?) {
     var isPerfect: Boolean = true
     var isGameOver: Boolean = false
     var isLevelUp: Boolean = false
+    var oldLevel: Int = 0
+    var oldExp: Int = 0
 
     fun setData(idStage: Int) {
         stage = DataManager.instance.stages[idStage]
@@ -41,6 +43,11 @@ class PlayViewModel(var context: Context?) {
         count--
     }
 
+    fun resetPlay() {
+        count = 10
+        currentWordId = 0
+    }
+
     fun calculatePlayResult() {
         //Calculate Time
         timeEnd = System.currentTimeMillis()
@@ -50,6 +57,8 @@ class PlayViewModel(var context: Context?) {
         val userExp = user.exp + stage.exp
         val expToLevelUp = levels[user.level].exp - userExp
 
+        oldLevel = user.level
+        oldExp = user.exp
         if (expToLevelUp <= 0) {
             user.level++
             user.exp = expToLevelUp * -1

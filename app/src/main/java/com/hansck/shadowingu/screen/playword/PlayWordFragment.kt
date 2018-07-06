@@ -80,9 +80,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             val sampleRate = 44100
             val bufferSize = 8192
             val bufferOverlap = 128
-            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
-
-//            presenter.presentState(NEXT_WORD)
+//            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
+            presenter.presentState(NEXT_WORD)
         }
     }
 

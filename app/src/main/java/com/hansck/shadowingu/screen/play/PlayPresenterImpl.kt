@@ -21,6 +21,9 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
             LOADING -> view.showState(LOADING)
             SHOW_WORD_SCREEN -> view.showState(SHOW_WORD_SCREEN)
             SHOW_PLAY_RESULT -> view.showState(SHOW_PLAY_RESULT)
+            SHOW_GAME_OVER -> view.showState(SHOW_GAME_OVER)
+            BACK_TO_HOME -> view.showState(BACK_TO_HOME)
+            RESET_PLAY -> view.showState(RESET_PLAY)
             UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
             UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().stage)
             UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
@@ -62,7 +65,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
             QueryEnum.UPDATE_USER -> presentState(UPDATE_STAGE)
             QueryEnum.UPDATE_STAGE -> presentState(UPDATE_BADGE)
             QueryEnum.UPDATE_BADGE -> presentState(SHOW_PLAY_RESULT)
-            else -> presentState(SHOW_PLAY_RESULT)
+            else -> presentState(IDLE)
         }
     }
 

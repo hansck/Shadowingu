@@ -7,6 +7,8 @@ import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
+import com.hansck.shadowingu.screen.dialog.GameOverDialog
+import com.hansck.shadowingu.screen.dialog.PlayResultDialog
 import com.hansck.shadowingu.screen.playword.PlayWordFragment
 
 class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
@@ -34,6 +36,10 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             IDLE -> showProgress(false)
             LOADING -> showProgress(true)
             SHOW_WORD_SCREEN -> showFragment()
+            SHOW_PLAY_RESULT -> showPlayResult()
+            SHOW_GAME_OVER -> showGameOver()
+            BACK_TO_HOME -> backToHome()
+            RESET_PLAY -> resetPlay()
             ERROR -> showError(null, getString(R.string.failed_request_general))
         }
     }
@@ -41,7 +47,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
     override fun doRetrieveModel(): PlayViewModel = this.model
 
     private fun showFragment() {
-        if (doRetrieveModel().count <= 10) {
+        if (doRetrieveModel().count > 0) {
             val fragment: BaseFragment = PlayWordFragment()
             val bundle = Bundle()
             bundle.putInt("idWord", doRetrieveModel().currentWordId)
@@ -53,5 +59,24 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             presenter.presentState(UPDATE_STAGE)
         }
         presenter.presentState(IDLE)
+    }
+
+    private fun showPlayResult() {
+        val playResultDialog = PlayResultDialog()
+        playResultDialog.show(fm, "playResult")
+    }
+
+    private fun showGameOver() {
+        val gameOverDialog = GameOverDialog()
+        gameOverDialog.show(fm, "gameOver")
+    }
+
+    private fun backToHome() {
+        onBackPressed()
+    }
+
+    private fun resetPlay(){
+        doRetrieveModel().resetPlay()
+        presenter.presentState(SHOW_WORD_SCREEN)
     }
 }

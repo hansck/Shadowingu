@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/transparent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="@dimen/item_padding_normal">
+
+	<TextView
+		android:id="@+id/stage_cleared"
+		style="@style/Word"
+		android:layout_width="wrap_content"
+		android:text="@string/stage_cleared"/>
+
+	<LinearLayout
+		android:id="@+id/resultContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/item_margin_small"
+		android:background="@color/text_light_4"
+		android:gravity="center_horizontal"
+		android:orientation="vertical"
+		android:padding="@dimen/item_padding_small">
+
+		<TextView
+			android:id="@+id/remark"
+			style="@style/SubheadingMedium"
+			android:layout_width="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="@string/win_result_title"
+			android:textAllCaps="true"/>
+
+		<TextView
+			android:id="@+id/level"
+			style="@style/WordBig"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="@dimen/item_margin_normal"
+			android:background="@drawable/bg_circle"
+			android:gravity="center"
+			tools:text="1"/>
+
+		<ProgressBar
+			android:id="@+id/progressBar"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/icon_list_medium"
+			android:layout_marginEnd="@dimen/item_margin_huge"
+			android:layout_marginStart="@dimen/item_margin_huge"
+			android:layout_marginTop="@dimen/item_margin_normal"
+			android:indeterminate="false"
+			tools:progress="75"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/timeContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/item_margin_normal"
+				android:layout_marginStart="@dimen/item_margin_normal"
+				android:gravity="center_vertical"
+				android:orientation="horizontal"
+				android:weightSum="1">
+
+				<TextView
+					style="@style/SubheadingRegular"
+					android:layout_width="0dp"
+					android:layout_weight="0.4"
+					android:text="@string/you_finished_on"/>
+
+				<TextView
+					android:id="@+id/time"
+					style="@style/TitleMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.2"
+					tools:text="01:55"/>
+
+				<TextView
+					android:id="@+id/timeRemark"
+					style="@style/SubheadingMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.4"
+					android:visibility="visible"
+					tools:text="@string/new_record"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/gemContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/item_margin_normal"
+				android:layout_marginStart="@dimen/item_margin_normal"
+				android:layout_marginTop="@dimen/item_margin_tiny"
+				android:orientation="horizontal"
+				android:weightSum="1">
+
+				<TextView
+					style="@style/SubheadingRegular"
+					android:layout_width="0dp"
+					android:layout_weight="0.4"
+					android:text="@string/you_acquired"/>
+
+				<TextView
+					android:id="@+id/gem"
+					style="@style/TitleMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.6"
+					android:drawableLeft="@drawable/ic_microphone"
+					android:drawablePadding="@dimen/item_padding_tiny"
+					android:drawableStart="@drawable/ic_microphone"
+					android:text="@string/gem_qty"/>
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/item_margin_small"
+		android:orientation="horizontal">
+
+		<ImageButton
+			android:id="@+id/btnContinue"
+			android:layout_width="@dimen/avatar_small"
+			android:layout_height="@dimen/avatar_small"
+			android:background="@drawable/ic_play"/>
+
+		<ImageButton
+			android:id="@+id/btnReplay"
+			android:layout_width="@dimen/avatar_small"
+			android:layout_height="@dimen/avatar_small"
+			android:layout_marginLeft="@dimen/item_margin_normal"
+			android:layout_marginStart="@dimen/item_margin_normal"
+			android:background="@drawable/ic_replay"/>
+	</LinearLayout>
+</LinearLayout>

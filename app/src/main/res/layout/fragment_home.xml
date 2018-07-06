@@ -29,7 +29,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/icon_list_medium"
 				android:indeterminate="false"
-				android:progress="75"/>
+				tools:progress="75"/>
 
 			<TextView
 				android:id="@+id/progressDesc"
