@@ -25,8 +25,8 @@
 	<string name="continue_text">Continue</string>
 	<string name="new_record">New Record!</string>
 	<string name="not_bad">Could be better!</string>
-	<string name="you_finished_on">You finished on:</string>
-	<string name="you_acquired">You acquired:</string>
+	<string name="you_finished_on">Finished on:</string>
+	<string name="bonus">Bonus:</string>
 	<string name="win_result_title">Well Done!\nKeep Up The Good Work</string>
 	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
 	<string name="gem_qty">x 1</string>

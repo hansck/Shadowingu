@@ -7,126 +7,146 @@
 	android:layout_height="match_parent"
 	android:background="@color/bg_light_1"
 	android:orientation="vertical"
+	android:theme="@style/AppTheme.NoActionBar"
+	android:weightSum="1"
 	tools:context=".screen.play.PlayActivity">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.295"
+		android:gravity="center_vertical">
+
+		<ImageView
+			android:id="@+id/player"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/item_margin_large"
+			android:layout_marginStart="@dimen/item_margin_large"
+			tools:src="@drawable/player"/>
+
+		<ImageView
+			android:id="@+id/enemy"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginEnd="@dimen/item_margin_large"
+			android:layout_marginRight="@dimen/item_margin_large"
+			tools:src="@drawable/enemy"/>
+	</RelativeLayout>
+
+	<View
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="0.01"
+		android:background="@drawable/bg_divider_full"/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical"
-		android:weightSum="1">
+		android:layout_height="0dp"
+		android:layout_weight="0.695"
+		android:gravity="center"
+		android:orientation="vertical">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="0.3">
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="0.7"
-			android:gravity="center"
-			android:orientation="vertical">
-
-			<RelativeLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center">
-
-				<android.support.v7.widget.CardView
-					android:id="@+id/kanjiContainer"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					card_view:cardCornerRadius="@dimen/card_radius"
-					card_view:cardElevation="@dimen/card_elevation"
-					card_view:cardUseCompatPadding="true">
-
-					<TextView
-						android:id="@+id/kanji"
-						style="@style/Word"
-						android:layout_width="wrap_content"
-						android:layout_gravity="center"
-						android:paddingBottom="@dimen/item_margin_normal"
-						android:paddingEnd="@dimen/item_margin_large"
-						android:paddingStart="@dimen/item_margin_large"
-						android:paddingTop="@dimen/item_margin_normal"
-						tools:text="私"/>
-				</android.support.v7.widget.CardView>
-
-				<ImageButton
-					android:id="@+id/btnVoice"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_below="@id/kanjiContainer"
-					android:layout_centerInParent="true"
-					android:layout_marginLeft="@dimen/item_margin_small"
-					android:layout_marginStart="@dimen/item_margin_small"
-					android:layout_marginTop="@dimen/item_margin_small"
-					android:background="@android:color/transparent"
-					android:src="@drawable/ic_microphone"/>
-			</RelativeLayout>
-
-			<TextView
-				android:id="@+id/description"
-				style="@style/ClickableMedium"
-				android:layout_gravity="center"
-				android:layout_marginTop="@dimen/item_margin_normal"
-				android:text="@string/show_description"/>
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center">
 
 			<android.support.v7.widget.CardView
-				android:id="@+id/descriptionContainer"
+				android:id="@+id/kanjiContainer"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:visibility="gone"
 				card_view:cardCornerRadius="@dimen/card_radius"
 				card_view:cardElevation="@dimen/card_elevation"
 				card_view:cardUseCompatPadding="true">
 
-				<LinearLayout
+				<TextView
+					android:id="@+id/kanji"
+					style="@style/Word"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_horizontal"
-					android:orientation="vertical"
-					android:padding="@dimen/item_margin_normal">
-
-					<TextView
-						android:id="@+id/furigana"
-						style="@style/SubheadingRegular"
-						android:layout_width="wrap_content"
-						android:layout_gravity="center"
-						tools:text="わたし"/>
-
-					<TextView
-						android:id="@+id/romaji"
-						style="@style/SubheadingRegular"
-						android:layout_width="wrap_content"
-						android:layout_gravity="center"
-						tools:text="watashi"/>
-
-					<TextView
-						android:id="@+id/meaning"
-						style="@style/SubheadingRegular"
-						android:layout_width="wrap_content"
-						android:layout_gravity="center"
-						tools:text="I"/>
-				</LinearLayout>
+					android:layout_gravity="center"
+					android:paddingBottom="@dimen/item_margin_normal"
+					android:paddingEnd="@dimen/item_margin_large"
+					android:paddingStart="@dimen/item_margin_large"
+					android:paddingTop="@dimen/item_margin_normal"
+					tools:text="私"/>
 			</android.support.v7.widget.CardView>
 
 			<ImageButton
-				android:id="@+id/btnRecording"
+				android:id="@+id/btnVoice"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginTop="@dimen/item_margin_normal"
+				android:layout_below="@id/kanjiContainer"
+				android:layout_centerInParent="true"
+				android:layout_marginLeft="@dimen/item_margin_small"
+				android:layout_marginStart="@dimen/item_margin_small"
+				android:layout_marginTop="@dimen/item_margin_small"
 				android:background="@android:color/transparent"
-				android:src="@drawable/ic_mic"/>
+				android:src="@drawable/ic_microphone"/>
+		</RelativeLayout>
 
-			<TextView
-				style="@style/BodyRegular"
+		<TextView
+			android:id="@+id/description"
+			style="@style/ClickableMedium"
+			android:layout_gravity="center"
+			android:layout_marginTop="@dimen/item_margin_normal"
+			android:text="@string/show_description"/>
+
+		<android.support.v7.widget.CardView
+			android:id="@+id/descriptionContainer"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:visibility="gone"
+			card_view:cardCornerRadius="@dimen/card_radius"
+			card_view:cardElevation="@dimen/card_elevation"
+			card_view:cardUseCompatPadding="true">
+
+			<LinearLayout
 				android:layout_width="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/click_to_shadowing"/>
-		</LinearLayout>
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:orientation="vertical"
+				android:padding="@dimen/item_margin_normal">
+
+				<TextView
+					android:id="@+id/furigana"
+					style="@style/SubheadingRegular"
+					android:layout_width="wrap_content"
+					android:layout_gravity="center"
+					tools:text="わたし"/>
+
+				<TextView
+					android:id="@+id/romaji"
+					style="@style/SubheadingRegular"
+					android:layout_width="wrap_content"
+					android:layout_gravity="center"
+					tools:text="watashi"/>
+
+				<TextView
+					android:id="@+id/meaning"
+					style="@style/SubheadingRegular"
+					android:layout_width="wrap_content"
+					android:layout_gravity="center"
+					tools:text="I"/>
+			</LinearLayout>
+		</android.support.v7.widget.CardView>
+
+		<ImageButton
+			android:id="@+id/btnRecording"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginTop="@dimen/item_margin_normal"
+			android:background="@android:color/transparent"
+			android:src="@drawable/ic_mic"/>
+
+		<TextView
+			style="@style/BodyRegular"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center"
+			android:text="@string/click_to_shadowing"/>
 	</LinearLayout>
 </LinearLayout>

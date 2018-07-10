@@ -4,11 +4,26 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".screen.main.MainActivity">
+	android:theme="@style/AppTheme.NoActionBar"
+	tools:context=".screen.play.PlayActivity">
+
+	<RelativeLayout
+		android:id="@+id/heartContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bg_divider_full"
+		android:padding="@dimen/item_margin_tiny">
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/heartList"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"/>
+	</RelativeLayout>
 
 	<FrameLayout
 		android:id="@+id/contentFrame"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
-
+		android:layout_height="match_parent"
+		android:layout_below="@id/heartContainer"/>
 </RelativeLayout>

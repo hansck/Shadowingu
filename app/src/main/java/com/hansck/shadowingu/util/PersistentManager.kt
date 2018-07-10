@@ -44,7 +44,7 @@ class PersistentManager {
     }
 
     fun getActiveAvatar(): Int {
-        return keyStore.getInt(Constants.Preferences.ACTIVE_AVATAR, 1)
+        return keyStore.getInt(Constants.Preferences.ACTIVE_AVATAR, 0)
     }
 
     fun setPerfectPlay() {

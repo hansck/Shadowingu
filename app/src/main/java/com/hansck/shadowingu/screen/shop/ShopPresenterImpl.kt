@@ -20,10 +20,6 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
         when (state) {
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
-            LOAD_AVATARS -> {
-                presentState(LOADING)
-                interactor.getAvatars()
-            }
             BUY_AVATAR -> {
                 presentState(LOADING)
                 interactor.updateAvatar(view.doRetrieveModel().boughtAvatar)
@@ -73,9 +69,6 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
 
     override fun onQuerySucceed(route: QueryEnum) {
         when (route) {
-            QueryEnum.GET_AVATARS -> {
-                presentState(SHOW_AVATARS)
-            }
             QueryEnum.BUY_AVATAR -> {
                 presentState(UPDATE_GEM)
             }

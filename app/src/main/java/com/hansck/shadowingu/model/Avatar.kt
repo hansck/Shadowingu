@@ -27,15 +27,18 @@ data class Avatar(
         @ColumnInfo(name = "price")
         var price: Int,
 
+        @ColumnInfo(name = "heart")
+        var hearts: Int,
+
         @ColumnInfo(name = "unlock")
         var unlock: Boolean) {
 
     companion object {
         fun populateData(): Array<Avatar> {
             return arrayOf(
-                    Avatar(0, "Avatar A", "This is description", "ic_default_image", "ic_person", 1, true),
-                    Avatar(1, "Avatar B", "This is description", "ic_default_image", "ic_person", 2, true),
-                    Avatar(2, "Avatar C", "This is description", "ic_default_image", "ic_person", 2, false))
+                    Avatar(0, "Avatar A", "This is description", "ic_default_image", "ic_person", 1, 3, true),
+                    Avatar(1, "Avatar B", "This is description", "ic_default_image", "ic_person", 2, 4, true),
+                    Avatar(2, "Avatar C", "This is description", "ic_default_image", "ic_person", 2, 5, false))
         }
     }
 }

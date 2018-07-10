@@ -54,6 +54,8 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                 if (PersistentManager.instance.isLogin()) {
                     presenter.presentState(ENTER)
                 }
+            } else {
+                presenter.presentState(ERROR)
             }
         }
     }
@@ -152,7 +154,11 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                         isExist = true
                     }
                 }
-                if (!isExist) uploadContent()
+                if (!isExist) {
+                    uploadContent()
+                } else {
+                    presenter.presentState(UPDATE_USER)
+                }
                 ref.removeEventListener(this)
             }
 

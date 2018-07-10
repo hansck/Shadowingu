@@ -26,8 +26,7 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
     private lateinit var presenter: ShopPresenter
     private lateinit var adapter: AvatarsAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
@@ -35,7 +34,7 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        presenter.presentState(LOAD_AVATARS)
+        presenter.presentState(SHOW_AVATARS)
     }
 
     private fun init() {

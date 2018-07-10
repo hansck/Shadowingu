@@ -70,7 +70,7 @@
 				<TextView
 					style="@style/SubheadingRegular"
 					android:layout_width="0dp"
-					android:layout_weight="0.4"
+					android:layout_weight="0.35"
 					android:text="@string/you_finished_on"/>
 
 				<TextView
@@ -84,7 +84,7 @@
 					android:id="@+id/timeRemark"
 					style="@style/SubheadingMedium"
 					android:layout_width="0dp"
-					android:layout_weight="0.4"
+					android:layout_weight="0.45"
 					android:visibility="visible"
 					tools:text="@string/new_record"/>
 			</LinearLayout>
@@ -102,14 +102,14 @@
 				<TextView
 					style="@style/SubheadingRegular"
 					android:layout_width="0dp"
-					android:layout_weight="0.4"
-					android:text="@string/you_acquired"/>
+					android:layout_weight="0.35"
+					android:text="@string/bonus"/>
 
 				<TextView
 					android:id="@+id/gem"
 					style="@style/TitleMedium"
 					android:layout_width="0dp"
-					android:layout_weight="0.6"
+					android:layout_weight="0.65"
 					android:drawableLeft="@drawable/ic_microphone"
 					android:drawablePadding="@dimen/item_padding_tiny"
 					android:drawableStart="@drawable/ic_microphone"

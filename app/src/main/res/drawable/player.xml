@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:drawable="@drawable/p1_stand"
+		android:duration="100"/>
+	<item
+		android:drawable="@drawable/p1_duck"
+		android:duration="100"/>
+	<item
+		android:drawable="@drawable/p1_front"
+		android:duration="100"/>
+	<item
+		android:drawable="@drawable/p1_hurt"
+		android:duration="100"/>
+	<item
+		android:drawable="@drawable/p1_jump"
+		android:duration="100"/>
+</animation-list>

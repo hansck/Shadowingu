@@ -27,6 +27,7 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
             LOAD_TITLES -> interactor.getTitles()
             LOAD_AUDIOS -> interactor.getAudios()
             LOAD_LEVELS -> interactor.getLevels()
+            LOAD_AVATARS -> interactor.getAvatars()
             LOAD_TAB -> view.showState(LOAD_TAB)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
@@ -67,7 +68,8 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
             QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
             QueryEnum.GET_TITLES -> presentState(LOAD_AUDIOS)
             QueryEnum.GET_WORDS -> presentState(LOAD_LEVELS)
-            QueryEnum.GET_LEVELS -> presentState(LOAD_TAB)
+            QueryEnum.GET_LEVELS -> presentState(LOAD_AVATARS)
+            QueryEnum.GET_AVATARS -> presentState(LOAD_TAB)
             else -> {
                 presentState(LOAD_TAB)
             }

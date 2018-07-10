@@ -2,7 +2,10 @@ package com.hansck.shadowingu.screen.play
 
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
+import android.support.v7.widget.LinearLayoutManager
+import android.view.Window
 import com.hansck.shadowingu.R
+import com.hansck.shadowingu.presentation.adapter.HeartAdapter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseActivity
@@ -10,6 +13,7 @@ import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.dialog.GameOverDialog
 import com.hansck.shadowingu.screen.dialog.PlayResultDialog
 import com.hansck.shadowingu.screen.playword.PlayWordFragment
+import kotlinx.android.synthetic.main.activity_play.*
 
 class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
@@ -19,6 +23,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_play)
         init()
     }
@@ -27,7 +32,13 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
         this.model = PlayViewModel(this)
         this.presenter = PlayPresenterImpl(this)
         fm = supportFragmentManager
+
         doRetrieveModel().setData(intent.extras.getInt("idStage"))
+
+        heartList.setHasFixedSize(true)
+        heartList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        heartList.adapter = HeartAdapter(doRetrieveModel().hearts)
+
         presenter.presentState(SHOW_WORD_SCREEN)
     }
 
@@ -56,7 +67,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             doRetrieveModel().setCount()
         } else {
             doRetrieveModel().calculatePlayResult()
-            presenter.presentState(UPDATE_STAGE)
+            presenter.presentState(UPDATE_USER)
         }
         presenter.presentState(IDLE)
     }
@@ -75,7 +86,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
         onBackPressed()
     }
 
-    private fun resetPlay(){
+    private fun resetPlay() {
         doRetrieveModel().resetPlay()
         presenter.presentState(SHOW_WORD_SCREEN)
     }

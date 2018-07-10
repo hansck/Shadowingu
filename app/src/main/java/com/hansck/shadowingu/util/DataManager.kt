@@ -80,4 +80,8 @@ class DataManager {
     fun getUnlockBadges(): List<Badge> {
         return badges.filter { it.unlock }
     }
+
+    fun getActiveAvatar(): Avatar {
+        return avatars.first { it.idAvatar == PersistentManager.instance.getActiveAvatar() }
+    }
 }

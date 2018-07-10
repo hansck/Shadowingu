@@ -1,22 +1,23 @@
 package com.hansck.shadowingu.screen.playword
 
+import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
+import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_play_word.*
-import be.tarsos.dsp.io.android.AudioDispatcherFactory
-import be.tarsos.dsp.AudioDispatcher
-
-
 
 class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
 
@@ -25,14 +26,14 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
     private lateinit var bundle: Bundle
     private var toggleDesc: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play_word, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
         init()
         presenter.presentState(SHOW_WORD)
     }
@@ -57,6 +58,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
     private fun showWord() {
         bundle = this.arguments!!
         doRetrieveModel().setWord(bundle.getInt("idWord"))
+
+        showAvatar()
 
         val word = doRetrieveModel().word
         kanji.text = word.kanji
@@ -83,6 +86,16 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
 //            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
             presenter.presentState(NEXT_WORD)
         }
+    }
+
+    private fun showAvatar() {
+        player.setImageResource(R.drawable.player)
+        val playerAnimation = player.drawable as AnimationDrawable
+        playerAnimation.start()
+
+        enemy.setImageResource(R.drawable.enemy)
+        val enemyAnimation = enemy.drawable as AnimationDrawable
+        enemyAnimation.start()
     }
 
     private fun nextWord() {
