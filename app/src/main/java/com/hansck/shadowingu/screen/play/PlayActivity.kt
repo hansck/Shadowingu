@@ -119,6 +119,12 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
     private fun displayWrongAnswer() {
         doRetrieveModel().reduceHeart()
         heartList.adapter.notifyDataSetChanged()
-        if (doRetrieveModel().numOfHearts == 0) presenter.presentState(SHOW_GAME_OVER)
+        if (doRetrieveModel().numOfHearts == 0) {
+            if (doRetrieveModel().checkGameOverBadge()) {
+                presenter.presentState(UPDATE_BADGE)
+            } else {
+                presenter.presentState(SHOW_GAME_OVER)
+            }
+        }
     }
 }

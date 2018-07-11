@@ -66,7 +66,13 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
         when (route) {
             QueryEnum.UPDATE_USER -> presentState(UPDATE_STAGE)
             QueryEnum.UPDATE_STAGE -> presentState(UPDATE_BADGE)
-            QueryEnum.UPDATE_BADGE -> presentState(SHOW_PLAY_RESULT)
+            QueryEnum.UPDATE_BADGE -> {
+                if (view.doRetrieveModel().isGameOver) {
+                    presentState(SHOW_GAME_OVER)
+                } else {
+                    presentState(SHOW_PLAY_RESULT)
+                }
+            }
             else -> presentState(IDLE)
         }
     }

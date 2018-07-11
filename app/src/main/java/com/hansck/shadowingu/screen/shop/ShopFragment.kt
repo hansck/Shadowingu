@@ -65,7 +65,7 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
     override fun onAvatarBought(id: Int) {
         val userGem = doRetrieveModel().user.gem
         val price = doRetrieveModel().avatars[id].price
-        if (userGem <= price) {
+        if (userGem >= price) {
             doRetrieveModel().buyAvatar(id)
             gem.text = doRetrieveModel().user.gem.toString()
             presenter.presentState(BUY_AVATAR)

@@ -23,9 +23,10 @@ class DataManager {
     fun addStages(list: List<Stage>) {
         stages.clear()
         stages.addAll(list)
-//        stages[0].cleared = true
-//        stages[1].cleared = true
-//        stages[2].cleared = true
+        stages[0].cleared = true
+        stages[1].cleared = true
+        stages[2].cleared = true
+        stages[3].cleared = true
     }
 
     fun addWords(list: List<Word>) {

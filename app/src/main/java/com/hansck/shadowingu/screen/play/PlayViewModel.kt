@@ -27,8 +27,8 @@ class PlayViewModel(var context: Context?) {
     var timeEnd: Long = 0
     var timeElapsed: Long = 0
     var numOfHearts: Int = 0
-    var isPerfect: Boolean = false
     var isGameOver: Boolean = false
+    var isPerfect: Boolean = false
     var isLevelUp: Boolean = false
     var isNewRecord: Boolean = false
 
@@ -51,7 +51,7 @@ class PlayViewModel(var context: Context?) {
 
     fun resetPlay() {
         count = 10; currentWordId = words[0].idWord; oldLevel = 0; oldExp = 0; timeStart = 0; timeEnd = 0; timeElapsed = 0
-        isPerfect = false; isPerfect = false; isGameOver = false; isLevelUp = false; isNewRecord = false
+        isPerfect = false; isGameOver = false; isPerfect = false; isLevelUp = false; isNewRecord = false
         generateHearts()
     }
 
@@ -92,26 +92,35 @@ class PlayViewModel(var context: Context?) {
     }
 
     private fun checkBadges() {
-        if (isPerfect && !PersistentManager.instance.isPerfectPlay()) {
+        if (numOfHearts == hearts.size && !PersistentManager.instance.isPerfectPlay()) {
             PersistentManager.instance.setPerfectPlay()
+            badges[0].unlock = true
             updatedBadges.add(badges[0])
             DataManager.instance.badges[0] = badges[0]
         }
-        if (stage.idStage == Constants.General.MAX_STAGE && PersistentManager.instance.isAllStagesCleared()) {
+        if (stage.idStage == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
             PersistentManager.instance.setAllStagesCleared()
+            badges[1].unlock = true
             updatedBadges.add(badges[1])
             DataManager.instance.badges[1] = badges[1]
         }
-        if (user.level == Constants.General.MAX_LEVEL && PersistentManager.instance.isMaxLevel()) {
+        if (user.level == Constants.General.MAX_LEVEL && !PersistentManager.instance.isMaxLevel()) {
             PersistentManager.instance.setMaxLevel()
+            badges[3].unlock = true
             updatedBadges.add(badges[3])
             DataManager.instance.badges[3] = badges[3]
         }
-        if (isGameOver && !PersistentManager.instance.isFirstGameOver()) {
+    }
+
+    fun checkGameOverBadge(): Boolean {
+        if (!PersistentManager.instance.isFirstGameOver()) {
             PersistentManager.instance.setFirstGameOver()
+            badges[4].unlock = true
             updatedBadges.add(badges[4])
             DataManager.instance.badges[4] = badges[4]
+            isGameOver = true
         }
+        return isGameOver
     }
 
     private fun generateHearts() {

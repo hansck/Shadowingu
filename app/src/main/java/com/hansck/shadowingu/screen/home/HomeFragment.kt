@@ -47,6 +47,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
     override fun onResume() {
         super.onResume()
         adapter?.notifyDataSetChanged()
+        badgesList?.adapter?.notifyDataSetChanged()
         showProfile()
     }
 
