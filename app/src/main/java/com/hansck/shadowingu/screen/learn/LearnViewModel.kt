@@ -28,6 +28,6 @@ class LearnViewModel(var context: Context?) {
 
     fun getProgressPercentage(): Int {
         val clearedStages = stages.filter { it.cleared }.size
-        return (clearedStages / stages.size) * 100
+        return (clearedStages * 100) / stages.size
     }
 }

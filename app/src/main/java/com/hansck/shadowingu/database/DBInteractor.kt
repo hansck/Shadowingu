@@ -4,16 +4,12 @@ import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.presentation.customview.QueryListener
-import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
-import com.hansck.shadowingu.util.FirebaseDB
-import com.hansck.shadowingu.util.PersistentManager
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 
 /**

@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
     private lateinit var model: HomeViewModel
     private lateinit var presenter: HomePresenter
-    private lateinit var adapter: StagesAdapter
+    private var adapter: StagesAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -44,11 +44,20 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
         presenter.presentState(LOAD_BADGES)
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter?.notifyDataSetChanged()
+        showProfile()
+    }
+
     private fun init() {
         this.model = HomeViewModel(activity)
         this.presenter = HomePresenterImpl(this)
 
         doRetrieveModel().setData()
+    }
+
+    private fun showProfile() {
         profileName.text = doRetrieveModel().user.name
         exp.text = doRetrieveModel().user.exp.toString()
         title.text = doRetrieveModel().getActiveTitle().name

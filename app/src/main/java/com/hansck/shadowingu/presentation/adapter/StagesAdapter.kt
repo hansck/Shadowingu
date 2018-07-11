@@ -1,6 +1,7 @@
 package com.hansck.shadowingu.presentation.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class StagesAdapter(private val items: ArrayList<Stage>, private val isLearnStag
 
         fun bind(stage: Stage) = with(itemView) {
             idStage.text = stage.idStage.toString()
+            Log.e("STAGE", stage.idStage.toString() + " " + stage.cleared + " " + DataManager.instance.getUnclearLevel())
             if ((!isLearnStage && (stage.idStage == Constants.General.FIRST_LEVEL || stage.idStage <= DataManager.instance.getUnclearLevel()))
                     || (isLearnStage && stage.cleared)) {
                 Common.instance.setImageByName(context, stage.unlockedImage, image)

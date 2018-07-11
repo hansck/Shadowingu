@@ -41,19 +41,23 @@ class PlayResultDialog : DialogFragment() {
         }
 
         val progressBar = view.findViewById(R.id.progressBar) as ProgressBar
-        progressBar.max = model.levels[model.oldLevel - 1].exp
+        try {
+            progressBar.max = model.levels[model.oldLevel - 1].exp
 
-        if (model.isLevelUp) {
-            animateProgressBar(progressBar, model.oldExp.toFloat(), model.levels[model.oldLevel - 1].exp.toFloat())
-            Handler().postDelayed({
-                level.text = model.user.level.toString()
+            if (model.isLevelUp) {
+                animateProgressBar(progressBar, model.oldExp.toFloat(), model.levels[model.oldLevel - 1].exp.toFloat())
                 Handler().postDelayed({
-                    progressBar.max = model.levels[model.user.level - 1].exp
-                    animateProgressBar(progressBar, 0F, model.user.exp.toFloat())
+                    level.text = model.user.level.toString()
+                    Handler().postDelayed({
+                        progressBar.max = model.levels[model.user.level - 1].exp
+                        animateProgressBar(progressBar, 0F, model.user.exp.toFloat())
+                    }, 1000)
                 }, 1000)
-            }, 1000)
-        } else {
-            animateProgressBar(progressBar, model.oldExp.toFloat(), model.user.exp.toFloat())
+            } else {
+                animateProgressBar(progressBar, model.oldExp.toFloat(), model.user.exp.toFloat())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         val btnContinue = view.findViewById(R.id.btnContinue) as ImageButton

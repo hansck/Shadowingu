@@ -23,10 +23,9 @@ class DataManager {
     fun addStages(list: List<Stage>) {
         stages.clear()
         stages.addAll(list)
-        stages[0].cleared = true
-        stages[1].cleared = true
-        stages[2].cleared = true
-        stages[3].cleared = false
+//        stages[0].cleared = true
+//        stages[1].cleared = true
+//        stages[2].cleared = true
     }
 
     fun addWords(list: List<Word>) {
@@ -67,14 +66,7 @@ class DataManager {
     }
 
     fun getUnclearLevel(): Int {
-        var unclearLevel = 0
-        for (stage in stages) {
-            if (!stage.cleared) {
-                unclearLevel = stage.idStage
-                break
-            }
-        }
-        return unclearLevel
+        return stages.filter { it.cleared }.size
     }
 
     fun getUnlockBadges(): List<Badge> {

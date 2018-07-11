@@ -4,19 +4,16 @@ import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_play_word.*
 
 class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
@@ -48,7 +45,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             IDLE -> showProgress(false)
             LOADING -> showProgress(true)
             SHOW_WORD -> showWord()
-            NEXT_WORD -> nextWord()
+            CORRECT_ANSWER -> correctAnswer()
+            WRONG_ANSWER -> wrongAnswer()
             ERROR -> showError(null, getString(R.string.failed_request_general))
         }
     }
@@ -70,6 +68,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             val mPlayer = MediaPlayer.create(activity, Common.instance.getResourceId(activity!!, "raw", word.audio))
             mPlayer.setOnCompletionListener { mp -> mp.release() }
             mPlayer.start()
+            presenter.presentState(WRONG_ANSWER)
         }
         description.setOnClickListener {
             toggleDesc = !toggleDesc
@@ -84,7 +83,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             val bufferSize = 8192
             val bufferOverlap = 128
 //            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
-            presenter.presentState(NEXT_WORD)
+            presenter.presentState(CORRECT_ANSWER)
         }
     }
 
@@ -98,7 +97,11 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
         enemyAnimation.start()
     }
 
-    private fun nextWord() {
+    private fun correctAnswer() {
         (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WORD_SCREEN)
+    }
+
+    private fun wrongAnswer() {
+        (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WRONG)
     }
 }

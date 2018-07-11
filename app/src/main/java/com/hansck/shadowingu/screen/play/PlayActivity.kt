@@ -1,9 +1,12 @@
 package com.hansck.shadowingu.screen.play
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Window
+import android.widget.Chronometer
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.adapter.HeartAdapter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
@@ -15,11 +18,13 @@ import com.hansck.shadowingu.screen.dialog.PlayResultDialog
 import com.hansck.shadowingu.screen.playword.PlayWordFragment
 import kotlinx.android.synthetic.main.activity_play.*
 
+
 class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
     private lateinit var model: PlayViewModel
     lateinit var presenter: PlayPresenter
     lateinit var fm: FragmentManager
+    private var elapsedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +44,20 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
         heartList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         heartList.adapter = HeartAdapter(doRetrieveModel().hearts)
 
+        setTimer()
+
         presenter.presentState(SHOW_WORD_SCREEN)
+    }
+
+    private fun setTimer() {
+        timer.onChronometerTickListener = Chronometer.OnChronometerTickListener {
+            val minutes = (elapsedTime - timer.base) / 1000 / 60
+            val seconds = (elapsedTime - timer.base) / 1000 % 60
+            elapsedTime += 1000
+            Log.d("TIMER", "onChronometerTick: " + minutes + " : " + seconds);
+        }
+        timer.base = SystemClock.elapsedRealtime();
+        timer.start()
     }
 
     override fun showState(viewState: PlayPresenter.PlayView.ViewState) {
@@ -50,7 +68,12 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             SHOW_PLAY_RESULT -> showPlayResult()
             SHOW_GAME_OVER -> showGameOver()
             BACK_TO_HOME -> backToHome()
-            RESET_PLAY -> resetPlay()
+            SHOW_CORRECT -> presenter.presentState(SHOW_PLAY_RESULT)
+            SHOW_WRONG -> displayWrongAnswer()
+            RESET_PLAY -> {
+                resetPlay()
+                setTimer()
+            }
             ERROR -> showError(null, getString(R.string.failed_request_general))
         }
     }
@@ -66,6 +89,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             navigateTo(fm, fragment)
             doRetrieveModel().setCount()
         } else {
+            timer.stop()
             doRetrieveModel().calculatePlayResult()
             presenter.presentState(UPDATE_USER)
         }
@@ -88,6 +112,13 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
     private fun resetPlay() {
         doRetrieveModel().resetPlay()
+        heartList.adapter.notifyDataSetChanged()
         presenter.presentState(SHOW_WORD_SCREEN)
+    }
+
+    private fun displayWrongAnswer() {
+        doRetrieveModel().reduceHeart()
+        heartList.adapter.notifyDataSetChanged()
+        if (doRetrieveModel().numOfHearts == 0) presenter.presentState(SHOW_GAME_OVER)
     }
 }

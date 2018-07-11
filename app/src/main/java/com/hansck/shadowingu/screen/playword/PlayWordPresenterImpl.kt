@@ -3,9 +3,9 @@ package com.hansck.shadowingu.screen.playword
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
-import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -20,7 +20,8 @@ class PlayWordPresenterImpl(val view: PlayWordPresenter.PlayWordView) : PlayWord
             IDLE -> view.showState(IDLE)
             LOADING -> view.showState(LOADING)
             SHOW_WORD -> view.showState(SHOW_WORD)
-            NEXT_WORD -> view.showState(NEXT_WORD)
+            CORRECT_ANSWER -> view.showState(CORRECT_ANSWER)
+            WRONG_ANSWER -> view.showState(WRONG_ANSWER)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)
         }

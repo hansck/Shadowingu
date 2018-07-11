@@ -27,7 +27,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 
     private lateinit var model: LearnViewModel
     private lateinit var presenter: LearnPresenter
-    private lateinit var adapter: StagesAdapter
+    private var adapter: StagesAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -38,6 +38,11 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
         super.onViewCreated(view, savedInstanceState)
         init()
         presenter.presentState(SHOW_STAGES)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter?.notifyDataSetChanged()
     }
 
     private fun init() {
@@ -71,6 +76,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 
         doRetrieveModel().setStages()
         val percentage = doRetrieveModel().getProgressPercentage()
+        progressBar.max = 100
         progressBar.progress = percentage
         progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
         adapter = StagesAdapter(doRetrieveModel().stages, true, this)

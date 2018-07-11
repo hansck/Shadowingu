@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.adapter.TabAdapter
 import com.hansck.shadowingu.presentation.presenter.TabPresenter
@@ -19,6 +21,7 @@ class TabFragment : BaseFragment(), TabPresenter.TabView {
 
     private lateinit var model: TabViewModel
     private lateinit var presenter: TabPresenter
+    private val tabIcons = intArrayOf(R.drawable.ic_home, R.drawable.ic_learn, R.drawable.ic_leaderboard, R.drawable.ic_shop)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -52,5 +55,17 @@ class TabFragment : BaseFragment(), TabPresenter.TabView {
         adapter.addFragment(LeaderboardFragment(), getString(R.string.leaderbaoard))
         adapter.addFragment(ShopFragment(), getString(R.string.shop))
         viewPager.adapter = adapter
+
+        tab.getTabAt(0)?.customView = setTab(getString(R.string.home), tabIcons[0])
+        tab.getTabAt(1)?.customView = setTab(getString(R.string.learn), tabIcons[1])
+        tab.getTabAt(2)?.customView = setTab(getString(R.string.rank), tabIcons[2])
+        tab.getTabAt(3)?.customView = setTab(getString(R.string.shop), tabIcons[3])
+    }
+
+    private fun setTab(title: String, icon: Int): View {
+        val tab = LayoutInflater.from(activity).inflate(R.layout.item_tab, null)
+        (tab.findViewById(R.id.label) as TextView).text = title
+        (tab.findViewById(R.id.icon) as ImageView).setImageResource(icon)
+        return tab
     }
 }

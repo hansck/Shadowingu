@@ -14,7 +14,7 @@ interface PlayPresenter : BasePresenter {
          */
         enum class ViewState {
             IDLE, LOADING, SHOW_WORD_SCREEN, SHOW_PLAY_RESULT, SHOW_GAME_OVER, BACK_TO_HOME, RESET_PLAY,
-            UPDATE_USER, UPDATE_STAGE, UPDATE_BADGE, SHOW_SCREEN_STATE, ERROR
+            SHOW_CORRECT, SHOW_WRONG, UPDATE_USER, UPDATE_STAGE, UPDATE_BADGE, SHOW_SCREEN_STATE, ERROR
         }
 
         enum class ScreenState {

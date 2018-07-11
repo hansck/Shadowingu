@@ -56,7 +56,7 @@ class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView
     override fun doRetrieveModel(): LeaderboardViewModel = this.model
 
     private fun showLeaderboard() {
-        if (!activity!!.isFinishing) {
+        if (activity != null && !activity!!.isFinishing) {
             doRetrieveModel().setLeaderboard()
             leaderboardList.setHasFixedSize(true)
             leaderboardList.layoutManager = LinearLayoutManager(activity)

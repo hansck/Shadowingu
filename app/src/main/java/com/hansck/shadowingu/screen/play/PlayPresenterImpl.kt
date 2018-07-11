@@ -24,6 +24,8 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
             SHOW_GAME_OVER -> view.showState(SHOW_GAME_OVER)
             BACK_TO_HOME -> view.showState(BACK_TO_HOME)
             RESET_PLAY -> view.showState(RESET_PLAY)
+            SHOW_CORRECT -> view.showState(SHOW_CORRECT)
+            SHOW_WRONG -> view.showState(SHOW_WRONG)
             UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
             UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().stage)
             UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
