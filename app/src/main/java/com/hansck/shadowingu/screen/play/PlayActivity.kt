@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Window
 import android.widget.Chronometer
 import com.hansck.shadowingu.R
@@ -51,10 +50,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
     private fun setTimer() {
         timer.onChronometerTickListener = Chronometer.OnChronometerTickListener {
-            val minutes = (elapsedTime - timer.base) / 1000 / 60
-            val seconds = (elapsedTime - timer.base) / 1000 % 60
             elapsedTime += 1000
-            Log.d("TIMER", "onChronometerTick: " + minutes + " : " + seconds);
         }
         timer.base = SystemClock.elapsedRealtime();
         timer.start()

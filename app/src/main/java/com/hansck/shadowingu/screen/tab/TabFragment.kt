@@ -66,6 +66,7 @@ class TabFragment : BaseFragment(), TabPresenter.TabView {
         val tab = LayoutInflater.from(activity).inflate(R.layout.item_tab, null)
         (tab.findViewById(R.id.label) as TextView).text = title
         (tab.findViewById(R.id.icon) as ImageView).setImageResource(icon)
+        tab.tag = title
         return tab
     }
 }
