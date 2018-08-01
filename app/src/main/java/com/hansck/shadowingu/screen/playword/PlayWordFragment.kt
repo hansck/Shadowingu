@@ -68,7 +68,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             val mPlayer = MediaPlayer.create(activity, Common.instance.getResourceId(activity!!, "raw", word.audio))
             mPlayer.setOnCompletionListener { mp -> mp.release() }
             mPlayer.start()
-            presenter.presentState(WRONG_ANSWER)
+//            presenter.presentState(WRONG_ANSWER)
         }
         description.setOnClickListener {
             toggleDesc = !toggleDesc

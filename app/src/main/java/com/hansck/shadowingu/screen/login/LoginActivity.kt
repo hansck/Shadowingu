@@ -29,6 +29,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
     private lateinit var presenter: LoginPresenter
     private lateinit var listener: FirebaseAuth.AuthStateListener
     private val RC_SIGN_IN = 9001
+    private var isFirstLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
         listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null) {
                 AuthManager.instance.firebaseUser = firebaseAuth.currentUser!!
-                if (PersistentManager.instance.isLogin()) {
+                if (PersistentManager.instance.isLogin() && !isFirstLogin) {
                     presenter.presentState(ENTER)
                 }
             } else {
@@ -105,6 +106,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
         if (requestCode == RC_SIGN_IN) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result.isSuccess) {
+                isFirstLogin = true
                 val account = result.signInAccount
                 firebaseAuthWithGoogle(account!!)
             } else {
@@ -127,7 +129,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                 }
     }
 
-    fun goToMain() {
+    private fun goToMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         presenter.presentState(IDLE)
