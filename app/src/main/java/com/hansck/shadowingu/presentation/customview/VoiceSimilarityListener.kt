@@ -5,5 +5,5 @@ package com.hansck.shadowingu.presentation.customview
  */
 interface VoiceSimilarityListener {
 
-    abstract fun onMFCCCalculated(distance: Double)
+    abstract fun onSimilarityCalculated(distance: Double)
 }

@@ -1,6 +1,5 @@
 package com.hansck.shadowingu.database
 
-import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.presentation.customview.QueryListener
@@ -44,7 +43,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { users ->
                     run {
                         DataManager.instance.user = users[0]
-                        Log.e("Users", users[0].name)
                         listener.onQuerySucceed(QueryEnum.GET_USERS)
                     }
                 }
@@ -78,7 +76,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { stages ->
                     run {
                         DataManager.instance.addStages(stages)
-                        Log.e("stages", stages[4].category)
                         listener.onQuerySucceed(QueryEnum.GET_STAGES)
                     }
                 }
@@ -93,7 +90,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { audios ->
                     run {
                         DataManager.instance.addWords(audios)
-                        Log.e("audio", audios[0].furigana)
                         listener.onQuerySucceed(QueryEnum.GET_WORDS)
                     }
                 }
@@ -127,7 +123,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { avatars ->
                     run {
                         DataManager.instance.addAvatars(avatars)
-                        Log.e("avatar", avatars[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_AVATARS)
                     }
                 }
@@ -161,7 +156,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { titles ->
                     run {
                         DataManager.instance.addTitles(titles)
-                        Log.e("title", titles[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_TITLES)
                     }
                 }
@@ -214,7 +208,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { badges ->
                     run {
                         DataManager.instance.addBadges(badges)
-                        Log.e("badges", badges[2].name)
                         listener.onQuerySucceed(QueryEnum.GET_BADGES)
                     }
                 }
@@ -229,7 +222,6 @@ class DBInteractor(var listener: QueryListener) {
                 ?.subscribe { levels ->
                     run {
                         DataManager.instance.addLevels(levels)
-                        Log.e("badges", levels[2].idLevel.toString())
                         listener.onQuerySucceed(QueryEnum.GET_LEVELS)
                     }
                 }

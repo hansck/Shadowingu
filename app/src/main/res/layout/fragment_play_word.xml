@@ -141,13 +141,14 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_marginTop="@dimen/item_margin_normal"
-			android:background="@android:color/transparent"
+			android:background="@drawable/bg_clickable"
 			android:src="@drawable/ic_mic"/>
 
 		<TextView
+			android:id="@+id/btnRemark"
 			style="@style/BodyRegular"
 			android:layout_width="wrap_content"
 			android:layout_gravity="center"
-			android:text="@string/click_to_shadowing"/>
+			android:text="@string/press_to_start_shadowing"/>
 	</LinearLayout>
 </LinearLayout>

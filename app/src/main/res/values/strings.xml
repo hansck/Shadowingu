@@ -4,7 +4,8 @@
 	<string name="failed_request_general">Sorry.. Something went wrong.</string>
 	<string name="show_description">Show Description</string>
 	<string name="description">Description</string>
-	<string name="click_to_shadowing">Click to start shadowing</string>
+	<string name="press_to_start_shadowing">Press and hold to start shadowing</string>
+	<string name="release_to_stop_shadowing">Release to stop shadowing</string>
 	<string name="home">Home</string>
 	<string name="play">Play</string>
 	<string name="learn">Learn</string>

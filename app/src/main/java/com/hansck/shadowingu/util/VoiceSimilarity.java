@@ -5,6 +5,9 @@ import android.util.Log;
 
 import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 
@@ -13,7 +16,6 @@ import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.io.TarsosDSPAudioFormat;
 import be.tarsos.dsp.io.UniversalAudioInputStream;
-import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.mfcc.MFCC;
 
 /**
@@ -38,19 +40,20 @@ public class VoiceSimilarity {
 		return instance;
 	}
 
-	public void calculateMFCC(final Context context, final int file1, final int file2, final VoiceSimilarityListener listener) {
+	public void calculateSimilarity(final Context context, final int templateAudio, final File recordingAudio, final VoiceSimilarityListener listener) throws FileNotFoundException {
 
 		this.listener = listener;
 		index = 0;
 		int sampleRate = 16000;
-		int bufferSize = 512;
+		int bufferSize = 2560;
 		int bufferOverlap = 128;
 
 		AudioDispatcher dispatcher;
 		if (fileNum == 1) {
-			dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize, bufferOverlap);
+			InputStream inStream = context.getResources().openRawResource(templateAudio);
+			dispatcher = new AudioDispatcher(new UniversalAudioInputStream(inStream, new TarsosDSPAudioFormat(sampleRate, bufferSize, 1, true, true)), bufferSize, bufferOverlap);
 		} else {
-			InputStream inStream = context.getResources().openRawResource(fileNum == 1 ? file1 : file2);
+			InputStream inStream = new FileInputStream(recordingAudio);
 			dispatcher = new AudioDispatcher(new UniversalAudioInputStream(inStream, new TarsosDSPAudioFormat(sampleRate, bufferSize, 1, true, true)), bufferSize, bufferOverlap);
 		}
 		final MFCC mfcc = new MFCC(bufferSize, sampleRate, 12, 40, 300, 3000);
@@ -63,7 +66,11 @@ public class VoiceSimilarity {
 				Log.e("MFCC", "DONE");
 				if (fileNum == 1) {
 					fileNum = 2;
-					calculateMFCC(context, file1, file2, listener);
+					try {
+						calculateSimilarity(context, templateAudio, recordingAudio, listener);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 				} else {
 					calculateDTW();
 				}
@@ -100,6 +107,6 @@ public class VoiceSimilarity {
 
 		// calculate the distance
 		double distance = dtw.calDistance();
-		listener.onMFCCCalculated(distance);
+		listener.onSimilarityCalculated(distance);
 	}
 }

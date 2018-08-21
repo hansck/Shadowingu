@@ -1,6 +1,5 @@
 package com.hansck.shadowingu.util
 
-import android.content.SharedPreferences
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.google.android.gms.auth.api.Auth

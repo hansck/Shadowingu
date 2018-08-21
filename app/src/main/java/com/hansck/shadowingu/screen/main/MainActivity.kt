@@ -3,7 +3,6 @@ package com.hansck.shadowingu.screen.main
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.auth.api.Auth
@@ -16,10 +15,9 @@ import com.hansck.shadowingu.screen.login.LoginActivity
 import com.hansck.shadowingu.screen.play.PlayViewModel
 import com.hansck.shadowingu.screen.tab.TabFragment
 import com.hansck.shadowingu.util.AuthManager
-import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 
 
-class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityListener {
+class MainActivity : BaseActivity(), MainPresenter.MainView {
 
     private lateinit var model: MainViewModel
     private lateinit var presenter: MainPresenter
@@ -28,11 +26,6 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        Calculation.getInstance().calculateMFCC(this,
-//                resources.getIdentifier("kare", "raw", packageName),
-//                resources.getIdentifier("kare2", "raw", packageName),
-//                this)
 
         init()
         presenter.presentState(LOAD_USER)
@@ -59,10 +52,6 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityList
         fm = supportFragmentManager
     }
 
-    override fun onMFCCCalculated(distance: Double) {
-        Log.e("DISTANCE HERE", distance.toString())
-    }
-
     override fun showState(viewState: MainPresenter.MainView.ViewState) {
         when (viewState) {
             IDLE -> showProgress(false)
@@ -72,9 +61,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView, VoiceSimilarityList
         }
     }
 
-    override fun doRetrieveModel(): PlayViewModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun doRetrieveModel(): MainViewModel = this.model
 
     private fun loadTabFragment() {
         val bundle = Bundle()

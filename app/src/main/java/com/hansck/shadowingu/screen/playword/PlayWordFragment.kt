@@ -1,27 +1,45 @@
 package com.hansck.shadowingu.screen.playword
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.Environment
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
+import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.VoiceSimilarity
 import kotlinx.android.synthetic.main.fragment_play_word.*
+import java.io.File
 
-class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
+
+class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSimilarityListener {
 
     private lateinit var model: PlayWordViewModel
     private lateinit var presenter: PlayWordPresenter
     private lateinit var bundle: Bundle
+    private lateinit var recorder: MediaRecorder
+    private val REQUEST_RECORD_AUDIO_PERMISSION = 100
+    private val REQUEST_WRITE_STORAGE_PERMISSION = 101
     private var toggleDesc: Boolean = false
+    private lateinit var file: File
+    private var filename: String = ""
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -53,6 +71,16 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
 
     override fun doRetrieveModel(): PlayWordViewModel = this.model
 
+    override fun onSimilarityCalculated(distance: Double) {
+        Log.e("SIMILARITY", distance.toString())
+        if (distance < 15) {
+            presenter.presentState(CORRECT_ANSWER)
+        } else {
+            presenter.presentState(WRONG_ANSWER)
+        }
+        getFile().delete()
+    }
+
     private fun showWord() {
         bundle = this.arguments!!
         doRetrieveModel().setWord(bundle.getInt("idWord"))
@@ -68,7 +96,6 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
             val mPlayer = MediaPlayer.create(activity, Common.instance.getResourceId(activity!!, "raw", word.audio))
             mPlayer.setOnCompletionListener { mp -> mp.release() }
             mPlayer.start()
-//            presenter.presentState(WRONG_ANSWER)
         }
         description.setOnClickListener {
             toggleDesc = !toggleDesc
@@ -78,13 +105,25 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
                 descriptionContainer.visibility = View.GONE
             }
         }
-        btnRecording.setOnClickListener {
-            val sampleRate = 44100
-            val bufferSize = 8192
-            val bufferOverlap = 128
-//            val audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, bufferSize,bufferOverlap)
-            presenter.presentState(CORRECT_ANSWER)
-        }
+        btnRecording.setOnTouchListener(View.OnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    checkPermissions()
+                    return@OnTouchListener true
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (::recorder.isInitialized) {
+                        stopRecording()
+
+                        VoiceSimilarity.getInstance().calculateSimilarity(activity,
+                                resources.getIdentifier(word.audio, "raw", activity!!.packageName),
+                                getFile(),
+                                this)
+                    }
+                }
+            }
+            false
+        })
     }
 
     private fun showAvatar() {
@@ -104,4 +143,65 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView {
     private fun wrongAnswer() {
         (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WRONG)
     }
+
+    //region Audio Recording
+    private fun getFilename(): String {
+        val filepath = Environment.getExternalStorageDirectory().path
+        file = File(filepath, activity!!.getString(R.string.app_name))
+
+        if (!file.exists()) {
+            file.mkdirs()
+        }
+
+        filename = System.currentTimeMillis().toString() + ".mp3"
+        return file.absolutePath + "/" + filename
+    }
+
+    private fun getFile(): File = File(this.file.absolutePath, filename)
+
+    private fun startRecording() {
+        btnRemark.text = activity!!.getString(R.string.release_to_stop_shadowing)
+
+        recorder = MediaRecorder()
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        recorder.setOutputFile(getFilename())
+        recorder.setOnErrorListener(errorListener)
+        recorder.setOnInfoListener(infoListener)
+
+        recorder.prepare()
+        recorder.start()
+    }
+
+    private val errorListener = MediaRecorder.OnErrorListener { mr, what, extra -> Log.e("Error", what.toString() + extra) }
+
+    private val infoListener = MediaRecorder.OnInfoListener { mr, what, extra -> Log.e("Error", what.toString() + extra) }
+
+    private fun stopRecording() {
+        btnRemark.text = activity!!.getString(R.string.press_to_start_shadowing)
+        recorder.stop()
+        recorder.reset()
+        recorder.release()
+    }
+    //endregion
+
+    //region Ask for Permission
+    private fun checkPermissions() {
+        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
+        } else if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_STORAGE_PERMISSION)
+        } else {
+            startRecording()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_RECORD_AUDIO_PERMISSION -> checkPermissions()
+            REQUEST_WRITE_STORAGE_PERMISSION -> checkPermissions()
+        }
+    }
+    //endregion
 }

@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.presentation.presenter
 
 import com.hansck.shadowingu.presentation.base.BasePresenter
-import com.hansck.shadowingu.screen.play.PlayViewModel
+import com.hansck.shadowingu.screen.main.MainViewModel
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -33,7 +33,7 @@ interface MainPresenter : BasePresenter {
          *
          * @return
          */
-        fun doRetrieveModel(): PlayViewModel
+        fun doRetrieveModel(): MainViewModel
     }
 
     /**

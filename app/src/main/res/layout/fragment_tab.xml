@@ -1,17 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bg_light_1"
-                tools:context=".screen.tab.TabFragment">
-
-	<android.support.design.widget.TabLayout
-		android:id="@+id/tab"
-		style="@style/CustomTab"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_light_1"
+              android:orientation="vertical"
+              tools:context=".screen.tab.TabFragment">
 
 	<android.support.v4.view.ViewPager
 		android:id="@+id/viewPager"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@id/tab"/>
-</RelativeLayout>
+		android:layout_height="0dp"
+		android:layout_weight="1"/>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/separator_height"
+		android:background="@drawable/bg_divider_full"/>
+
+	<android.support.design.widget.TabLayout
+		android:id="@+id/tab"
+		style="@style/CustomTab"/>
+</LinearLayout>
