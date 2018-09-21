@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.Auth
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.MainPresenter
 import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
+import com.hansck.shadowingu.screen.TestActivity
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.login.LoginActivity
@@ -64,6 +65,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView {
     override fun doRetrieveModel(): MainViewModel = this.model
 
     private fun loadTabFragment() {
+        goToTest()
         val bundle = Bundle()
         val fragment: BaseFragment = TabFragment()
         fragment.arguments = bundle
@@ -80,6 +82,12 @@ class MainActivity : BaseActivity(), MainPresenter.MainView {
 
     private fun goToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun goToTest() {
+        val intent = Intent(this, TestActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
@@ -23,7 +24,7 @@ import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordVi
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
-import com.hansck.shadowingu.util.VoiceSimilarity
+import com.hansck.shadowingu.util.SimilarityMatching
 import kotlinx.android.synthetic.main.fragment_play_word.*
 import java.io.File
 
@@ -39,7 +40,6 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
     private var toggleDesc: Boolean = false
     private lateinit var file: File
     private var filename: String = ""
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -73,12 +73,14 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
 
     override fun onSimilarityCalculated(distance: Double) {
         Log.e("SIMILARITY", distance.toString())
+        Log.e("END", "------------------------------------------------------------------------------------------")
+        Toast.makeText(activity, distance.toString(), Toast.LENGTH_SHORT).show()
         if (distance < 15) {
             presenter.presentState(CORRECT_ANSWER)
         } else {
             presenter.presentState(WRONG_ANSWER)
         }
-        getFile().delete()
+//        getFile().delete()
     }
 
     private fun showWord() {
@@ -115,10 +117,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
                     if (::recorder.isInitialized) {
                         stopRecording()
 
-                        VoiceSimilarity.getInstance().calculateSimilarity(activity,
-                                resources.getIdentifier(word.audio, "raw", activity!!.packageName),
-                                getFile(),
-                                this)
+//                        SimilarityMatching.getInstance().calculateSimilarity(activity,
+//                                resources.getIdentifier("watashi", "raw", activity!!.packageName),
+//                                getFile(),
+//                                this, 1)
                     }
                 }
             }
@@ -166,6 +168,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        recorder.setAudioSamplingRate(44100)
+        recorder.setAudioEncodingBitRate(384000)
         recorder.setOutputFile(getFilename())
         recorder.setOnErrorListener(errorListener)
         recorder.setOnInfoListener(infoListener)

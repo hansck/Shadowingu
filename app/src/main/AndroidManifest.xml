@@ -18,16 +18,17 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity
-			android:name=".screen.main.MainActivity"
+		<activity android:name=".screen.login.LoginActivity"
 			android:screenOrientation="portrait">
-		</activity>
-		<activity android:name=".screen.login.LoginActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
+		</activity>
+		<activity
+			android:name=".screen.main.MainActivity"
+			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:name=".screen.play.PlayActivity"
@@ -44,7 +45,18 @@
 			android:label="@string/choose_word"
 			android:screenOrientation="portrait">
 		</activity>
-		<activity android:name=".screen.learnword.LearnWordActivity">
+		<activity
+			android:name=".screen.learnword.LearnWordActivity"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".screen.TestActivity"
+			android:screenOrientation="portrait">
+			<!--<intent-filter>-->
+				<!--<action android:name="android.intent.action.MAIN"/>-->
+
+				<!--<category android:name="android.intent.category.LAUNCHER"/>-->
+			<!--</intent-filter>-->
 		</activity>
 
 		<!-- Receiver -->
