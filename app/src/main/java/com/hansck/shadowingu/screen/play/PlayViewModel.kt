@@ -17,7 +17,7 @@ class PlayViewModel(var context: Context?) {
     var updatedBadges: ArrayList<Badge> = ArrayList()
     var hearts: ArrayList<Heart> = ArrayList()
     lateinit var avatar: Avatar
-    lateinit var stage: Stage
+    lateinit var topic: Topic
     lateinit var user: User
     var currentWordId: Int = 0
     var count: Int = 10
@@ -33,7 +33,7 @@ class PlayViewModel(var context: Context?) {
     var isNewRecord: Boolean = false
 
     fun setData(idStage: Int) {
-        stage = DataManager.instance.stages[idStage]
+        topic = DataManager.instance.topics[idStage]
         user = DataManager.instance.user
         badges = DataManager.instance.badges
         words = DataManager.instance.getWordsByStage(idStage)
@@ -61,7 +61,7 @@ class PlayViewModel(var context: Context?) {
         timeElapsed = (timeEnd - timeStart) / 1000
 
         //Calculate Level and Exp
-        val userExp = user.exp + stage.exp
+        val userExp = user.exp + topic.exp
         val expToLevelUp = levels[user.level - 1].exp - userExp
 
         oldLevel = user.level
@@ -82,12 +82,12 @@ class PlayViewModel(var context: Context?) {
     }
 
     private fun checkStage(): Boolean {
-        stage.cleared = true
-        if (timeElapsed < stage.fastestTime || stage.fastestTime.toInt() == 0) {
-            stage.fastestTime = timeElapsed
+        topic.cleared = true
+        if (timeElapsed < topic.fastestTime || topic.fastestTime.toInt() == 0) {
+            topic.fastestTime = timeElapsed
             isNewRecord = true
         }
-        DataManager.instance.stages[stage.idStage] = stage
+        DataManager.instance.topics[topic.idStage] = topic
         return isNewRecord
     }
 
@@ -98,7 +98,7 @@ class PlayViewModel(var context: Context?) {
             updatedBadges.add(badges[0])
             DataManager.instance.badges[0] = badges[0]
         }
-        if (stage.idStage == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
+        if (topic.idStage == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
             PersistentManager.instance.setAllStagesCleared()
             badges[1].unlock = true
             updatedBadges.add(badges[1])

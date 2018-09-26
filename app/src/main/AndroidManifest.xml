@@ -1,75 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.hansck.shadowingu">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hansck.shadowingu">
 
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-	<application
-		android:name=".presentation.App"
-		android:allowBackup="false"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
-		android:theme="@style/AppTheme">
-		<activity android:name=".screen.login.LoginActivity"
-			android:screenOrientation="portrait">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
+    <application
+        android:name=".presentation.App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".screen.login.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".screen.main.MainActivity"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".screen.play.PlayActivity"
-			android:label="@string/play"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".screen.achievement.AchievementActivity"
-			android:label="@string/achievements"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".screen.chooseword.ChooseWordActivity"
-			android:label="@string/choose_word"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".screen.learnword.LearnWordActivity"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:name=".screen.TestActivity"
-			android:screenOrientation="portrait">
-			<!--<intent-filter>-->
-				<!--<action android:name="android.intent.action.MAIN"/>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".screen.main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.play.PlayActivity"
+            android:label="@string/play"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.achievement.AchievementActivity"
+            android:label="@string/achievements"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.chooseword.ChooseWordActivity"
+            android:label="@string/choose_word"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.learnword.LearnWordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screen.TestActivity"
+            android:screenOrientation="portrait" />
 
-				<!--<category android:name="android.intent.category.LAUNCHER"/>-->
-			<!--</intent-filter>-->
-		</activity>
-
-		<!-- Receiver -->
-		<receiver
-			android:name=".util.ConnectivityReceiver"
-			android:enabled="true">
-			<intent-filter>
-				<action
-					android:name="android.net.conn.CONNECTIVITY_CHANGE"
-					tools:ignore="BatteryLife"/>
-				<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
-			</intent-filter>
-		</receiver>
-	</application>
+        <!-- Receiver -->
+        <receiver
+            android:name=".util.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
 
 </manifest>

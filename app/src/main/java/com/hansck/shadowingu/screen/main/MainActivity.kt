@@ -13,7 +13,6 @@ import com.hansck.shadowingu.screen.TestActivity
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.login.LoginActivity
-import com.hansck.shadowingu.screen.play.PlayViewModel
 import com.hansck.shadowingu.screen.tab.TabFragment
 import com.hansck.shadowingu.util.AuthManager
 
@@ -65,7 +64,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView {
     override fun doRetrieveModel(): MainViewModel = this.model
 
     private fun loadTabFragment() {
-        goToTest()
+//        goToTest()
         val bundle = Bundle()
         val fragment: BaseFragment = TabFragment()
         fragment.arguments = bundle

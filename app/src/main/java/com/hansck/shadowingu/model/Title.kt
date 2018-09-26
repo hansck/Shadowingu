@@ -21,9 +21,9 @@ data class Title(
     companion object {
         fun populateData(): Array<Title> {
             return arrayOf(
-                    Title(0, "Apprentice", 0),
-                    Title(1, "Warrior", 3),
-                    Title(2, "Knight", 5))
+                    Title(0, "Kindergarten", 0),
+                    Title(1, "Elementary Student", 3),
+                    Title(2, "High School Student", 5))
         }
     }
 }

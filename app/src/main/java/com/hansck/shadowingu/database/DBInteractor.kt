@@ -49,9 +49,9 @@ class DBInteractor(var listener: QueryListener) {
     }
     //endregion
 
-    //region Stage
-    fun updateStage(stage: Stage) {
-        Completable.fromAction { App.database?.stageDao()?.updateStage(stage) }
+    //region Topic
+    fun updateStage(topic: Topic) {
+        Completable.fromAction { App.database?.stageDao()?.updateStage(topic) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : CompletableObserver {

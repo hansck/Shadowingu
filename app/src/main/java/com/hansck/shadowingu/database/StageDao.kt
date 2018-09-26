@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.database
 
 import android.arch.persistence.room.*
-import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Topic
 import io.reactivex.Maybe
 
 /**
@@ -10,12 +10,12 @@ import io.reactivex.Maybe
 @Dao
 interface StageDao {
 
-    @Query("SELECT * FROM stage")
-    fun getAll(): Maybe<List<Stage>>
+    @Query("SELECT * FROM topic")
+    fun getAll(): Maybe<List<Topic>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(stages: Array<Stage>)
+    fun insertAll(topics: Array<Topic>)
 
     @Update
-    fun updateStage(stage: Stage)
+    fun updateStage(topic: Topic)
 }

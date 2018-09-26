@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Topic
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.presentation.adapter.StagesAdapter
 import com.hansck.shadowingu.presentation.customview.OnStageSelected
@@ -64,9 +64,9 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 
     override fun doRetrieveModel(): LearnViewModel = this.model
 
-    override fun onStageSelected(stage: Stage) {
+    override fun onStageSelected(topic: Topic) {
         val intent = Intent(activity, ChooseWordActivity::class.java)
-        intent.putExtra("idStage", stage.idStage)
+        intent.putExtra("idStage", topic.idStage)
         startActivity(intent)
     }
 
@@ -79,7 +79,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
         progressBar.max = 100
         progressBar.progress = percentage
         progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
-        adapter = StagesAdapter(doRetrieveModel().stages, true, this)
+        adapter = StagesAdapter(doRetrieveModel().topics, true, this)
 
         // show the data
         val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

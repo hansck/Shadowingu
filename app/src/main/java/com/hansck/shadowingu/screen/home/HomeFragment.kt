@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Topic
 import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.presentation.adapter.StagesAdapter
@@ -76,9 +76,9 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
     override fun doRetrieveModel(): HomeViewModel = this.model
 
-    override fun onStageSelected(stage: Stage) {
+    override fun onStageSelected(topic: Topic) {
         val intent = Intent(activity, PlayActivity::class.java)
-        intent.putExtra("idStage", stage.idStage)
+        intent.putExtra("idStage", topic.idStage)
         startActivity(intent)
     }
 
@@ -88,11 +88,11 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
     }
 
     private fun showItems() {
-        // Set Stage List
+        // Set Topic List
         doRetrieveModel().setStagesAndBadges()
         stageList.setHasFixedSize(true)
         stageList.layoutManager = LinearLayoutManager(context)
-        adapter = StagesAdapter(doRetrieveModel().stages, false, this)
+        adapter = StagesAdapter(doRetrieveModel().topics, false, this)
 
         // show the data
         val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

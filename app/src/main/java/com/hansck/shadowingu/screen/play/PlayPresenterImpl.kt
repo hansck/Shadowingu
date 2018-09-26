@@ -27,7 +27,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
             SHOW_CORRECT -> view.showState(SHOW_CORRECT)
             SHOW_WRONG -> view.showState(SHOW_WRONG)
             UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
-            UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().stage)
+            UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().topic)
             UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
             SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
             ERROR -> view.showState(ERROR)

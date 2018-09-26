@@ -2,7 +2,7 @@ package com.hansck.shadowingu.screen.home
 
 import android.content.Context
 import com.hansck.shadowingu.model.Badge
-import com.hansck.shadowingu.model.Stage
+import com.hansck.shadowingu.model.Topic
 import com.hansck.shadowingu.model.Title
 import com.hansck.shadowingu.model.User
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
@@ -14,7 +14,7 @@ import com.hansck.shadowingu.util.DataManager
 class HomeViewModel(var context: Context?) {
 
     val categories = ArrayList<SectionListAdapter.Section>()
-    var stages: ArrayList<Stage> = ArrayList()
+    var topics: ArrayList<Topic> = ArrayList()
     var badges: ArrayList<Badge> = ArrayList()
     var titles: ArrayList<Title> = ArrayList()
     lateinit var user: User
@@ -26,14 +26,14 @@ class HomeViewModel(var context: Context?) {
 
     fun setStagesAndBadges() {
         badges = DataManager.instance.badges
-        stages = DataManager.instance.stages
+        topics = DataManager.instance.topics
 
         categories.clear()
         val titles: ArrayList<String> = ArrayList()
-        for (i in stages.indices) {
-            if (stages[i].category !in titles) {
-                titles.add(stages[i].category)
-                categories.add(SectionListAdapter.Section(i, stages[i].category))
+        for (i in topics.indices) {
+            if (topics[i].category !in titles) {
+                titles.add(topics[i].category)
+                categories.add(SectionListAdapter.Section(i, topics[i].category))
             }
         }
     }

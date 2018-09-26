@@ -12,7 +12,7 @@ class DataManager {
     }
 
     lateinit var user: User
-    var stages: ArrayList<Stage> = ArrayList()
+    var topics: ArrayList<Topic> = ArrayList()
     var words: ArrayList<Word> = ArrayList()
     var avatars: ArrayList<Avatar> = ArrayList()
     var titles: ArrayList<Title> = ArrayList()
@@ -20,13 +20,15 @@ class DataManager {
     var levels: ArrayList<Level> = ArrayList()
     var leaderboardUsers: ArrayList<LeaderboardUser> = ArrayList()
 
-    fun addStages(list: List<Stage>) {
-        stages.clear()
-        stages.addAll(list)
-        stages[0].cleared = true
-        stages[1].cleared = true
-        stages[2].cleared = true
-        stages[3].cleared = true
+    fun addStages(list: List<Topic>) {
+        topics.clear()
+        topics.addAll(list)
+        topics[0].cleared = true
+        topics[1].cleared = true
+        topics[2].cleared = true
+        topics[3].cleared = true
+        topics[4].cleared = true
+        topics[5].cleared = true
     }
 
     fun addWords(list: List<Word>) {
@@ -67,7 +69,7 @@ class DataManager {
     }
 
     fun getUnclearLevel(): Int {
-        return stages.filter { it.cleared }.size
+        return topics.filter { it.cleared }.size
     }
 
     fun getUnlockBadges(): List<Badge> {
