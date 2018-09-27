@@ -81,7 +81,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
         } else {
             presenter.presentState(WRONG_ANSWER)
         }
-//        getFile().delete()
+//        file.delete()
     }
 
     private fun showWord() {
@@ -117,11 +117,9 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
                 MotionEvent.ACTION_UP -> {
                     if (::recorder.isInitialized) {
                         stopRecording()
-                        SimilarityMatching.getInstance().calculateSimilarity(activity,
-                                resources.getIdentifier("watashi", "raw", activity!!.packageName),
-                                file,
-                                0,
-                                this, 1)
+                        SimilarityMatching.instance.calculateSimilarity(activity!!,
+                                resources.getIdentifier(word.audio, "raw", activity!!.packageName),
+                                file, 0, this, 1)
                     }
                 }
             }
@@ -168,10 +166,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
         recorder = OmRecorder.wav(PullTransport.Noise(mic(),
                 PullTransport.OnAudioChunkPulledListener { },
                 WriteAction.Default(),
-                Recorder.OnSilenceListener { silenceTime ->
-                    Log.e("silenceTime", silenceTime.toString())
-                    Toast.makeText(activity, "silence of $silenceTime detected", Toast.LENGTH_SHORT).show()
-                }, 200
+                Recorder.OnSilenceListener {}, 200
         ), file)
         recorder.startRecording()
     }
@@ -184,12 +179,12 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
 
     //region Ask for Permission
     private fun checkPermissions() {
-        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
-        } else if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_STORAGE_PERMISSION)
-        } else {
-            startRecording()
+        when {
+            ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ->
+                ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
+            ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ->
+                ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_STORAGE_PERMISSION)
+            else -> startRecording()
         }
     }
 

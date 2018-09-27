@@ -18,7 +18,7 @@ class TestActivity : BaseActivity(), VoiceSimilarityListener {
         setContentView(R.layout.activity_test)
 
         btnCalculate.setOnClickListener {
-            SimilarityMatching.getInstance().calculateSimilarity(this,
+            SimilarityMatching.instance.calculateSimilarity(this,
                     resources.getIdentifier(file1.text.toString(), "raw", packageName),
                     null,
                     resources.getIdentifier(file2.text.toString(), "raw", packageName),
@@ -36,7 +36,7 @@ class TestActivity : BaseActivity(), VoiceSimilarityListener {
 
     fun checkSimilarity() {
         if (index < 50) {
-            SimilarityMatching.getInstance().calculateSimilarity(this,
+            SimilarityMatching.instance.calculateSimilarity(this,
                     resources.getIdentifier("a", "raw", packageName),
                     null,
                     resources.getIdentifier(DataManager.instance.words[index].audio, "raw", packageName),

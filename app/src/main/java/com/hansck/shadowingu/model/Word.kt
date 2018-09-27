@@ -52,7 +52,7 @@ data class Word(
                     Word(12, "元気です", "げんきです", "Genki desu", "Good Health", "genki", "r_genki", 1),
                     Word(13, "学校です", "がっこうです", "Gakkou desu", "School", "gakkou", "r_gakkou", 1),
                     Word(14, "先生です", "せんせいです", "Sensei desu", "Teacher", "sensei", "r_sensei", 1),
-                    Word(15, "生徒です", "せいとです", "Seito desu", "Student", "saito", "r_saito", 1),
+                    Word(15, "生徒です", "せいとです", "Seito desu", "Student", "seito", "r_seito", 1),
                     Word(16, "クラスです", "クラスです", "Kurasu desu", "Class", "kurasu", "r_kurasu", 1),
                     Word(17, "友達です", "ともだちです", "Tomodachi desu", "Friend", "tomodachi", "r_tomodachi", 1),
                     Word(18, "理解", "りかい", "Rikai", "Understand", "rikai", "r_rikai", 1),
@@ -69,7 +69,7 @@ data class Word(
                     Word(28, "働く", "はたらく", "Hataraku", "Work", "hataraku", "r_hataraku", 2),
                     Word(29, "好きです", "すきです", "Suki desu", "Like", "suki", "r_suki", 2),
 
-                    Word(30, "珈琲", "コーヒー", "Koohii", "Coffee", "kohi", "r_kohi", 3),
+                    Word(30, "珈琲", "コーヒー", "Koohii", "Coffee", "koohii", "r_koohii", 3),
                     Word(31, "ミネラルウォーター", "ミネラルウォーター", "Mineraruwota", "Mineral Water", "mineraruwota", "r_mineraruwota", 3),
                     Word(32, "砂糖", "さとう", "Satou", "Sugar", "satou", "r_satou", 3),
                     Word(33, "パーティー", "パーティー", "Pati", "Party", "pati", "r_pati", 3),

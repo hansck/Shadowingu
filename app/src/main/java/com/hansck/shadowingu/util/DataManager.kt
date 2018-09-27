@@ -29,6 +29,7 @@ class DataManager {
         topics[3].cleared = true
         topics[4].cleared = true
         topics[5].cleared = true
+        topics[6].cleared = true
     }
 
     fun addWords(list: List<Word>) {
