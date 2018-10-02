@@ -65,7 +65,8 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
             SHOW_GAME_OVER -> showGameOver()
             BACK_TO_HOME -> backToHome()
             SHOW_CORRECT -> presenter.presentState(SHOW_PLAY_RESULT)
-            SHOW_WRONG -> displayWrongAnswer()
+            REDUCE_HEARTS -> displayHearts()
+            PLAYER_DEAD -> checkPlayerDead()
             RESET_PLAY -> {
                 resetPlay()
                 setTimer()
@@ -112,9 +113,11 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
         presenter.presentState(SHOW_WORD_SCREEN)
     }
 
-    private fun displayWrongAnswer() {
-        doRetrieveModel().reduceHeart()
+    private fun displayHearts() {
         heartList.adapter.notifyDataSetChanged()
+    }
+
+    private fun checkPlayerDead() {
         if (doRetrieveModel().numOfHearts == 0) {
             if (doRetrieveModel().checkGameOverBadge()) {
                 presenter.presentState(UPDATE_BADGE)

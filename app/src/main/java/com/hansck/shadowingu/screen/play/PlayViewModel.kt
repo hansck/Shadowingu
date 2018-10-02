@@ -1,6 +1,7 @@
 package com.hansck.shadowingu.screen.play
 
 import android.content.Context
+import android.util.DisplayMetrics
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
@@ -27,6 +28,8 @@ class PlayViewModel(var context: Context?) {
     var timeEnd: Long = 0
     var timeElapsed: Long = 0
     var numOfHearts: Int = 0
+
+    // For Badges Checking
     var isGameOver: Boolean = false
     var isPerfect: Boolean = false
     var isLevelUp: Boolean = false
@@ -133,10 +136,11 @@ class PlayViewModel(var context: Context?) {
         numOfHearts = hearts.size
     }
 
-    fun reduceHeart() {
+    fun reduceHeart(): Int {
         if (numOfHearts - 1 >= 0) {
             hearts[numOfHearts - 1].status = false
             numOfHearts--
         }
+        return numOfHearts
     }
 }

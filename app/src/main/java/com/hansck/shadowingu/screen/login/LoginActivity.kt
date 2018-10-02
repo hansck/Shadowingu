@@ -30,6 +30,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
     private lateinit var listener: FirebaseAuth.AuthStateListener
     private val RC_SIGN_IN = 9001
     private var isFirstLogin: Boolean = false
+    private var isFirstErrorShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,11 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
                     presenter.presentState(ENTER)
                 }
             } else {
-                presenter.presentState(ERROR)
+                if (isFirstErrorShown) {
+                    presenter.presentState(ERROR)
+                } else {
+                    isFirstErrorShown = true
+                }
             }
         }
     }

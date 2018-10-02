@@ -8,15 +8,19 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
@@ -24,6 +28,8 @@ import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayWordPresenter.PlayWordView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
+import com.hansck.shadowingu.screen.playword.ActiveAvatar.ENEMY
+import com.hansck.shadowingu.screen.playword.ActiveAvatar.PLAYER
 import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.SimilarityMatching
 import kotlinx.android.synthetic.main.fragment_play_word.*
@@ -31,7 +37,7 @@ import omrecorder.*
 import java.io.File
 
 
-class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSimilarityListener {
+class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSimilarityListener, Animation.AnimationListener {
 
     private lateinit var model: PlayWordViewModel
     private lateinit var presenter: PlayWordPresenter
@@ -39,8 +45,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
     private lateinit var recorder: Recorder
     private val REQUEST_RECORD_AUDIO_PERMISSION = 100
     private val REQUEST_WRITE_STORAGE_PERMISSION = 101
-    private var toggleDesc: Boolean = false
+    private var toggleTurn: ActiveAvatar = PLAYER
     private lateinit var file: File
+    private var forwardX: Float = 0F
+    private var backwardX: Float = 0F
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -64,8 +72,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
             IDLE -> showProgress(false)
             LOADING -> showProgress(true)
             SHOW_WORD -> showWord()
-            CORRECT_ANSWER -> correctAnswer()
-            WRONG_ANSWER -> wrongAnswer()
+            CORRECT_ANSWER -> playerTurn()
+            WRONG_ANSWER -> enemyTurn()
             ERROR -> showError(null, getString(R.string.failed_request_general))
         }
     }
@@ -75,7 +83,6 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
     override fun onSimilarityCalculated(distance: Double) {
         Log.e("SIMILARITY", distance.toString())
         Log.e("END", "------------------------------------------------------------------------------------------")
-        Toast.makeText(activity, distance.toString(), Toast.LENGTH_SHORT).show()
         if (distance < 15) {
             presenter.presentState(CORRECT_ANSWER)
         } else {
@@ -88,7 +95,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
         bundle = this.arguments!!
         doRetrieveModel().setWord(bundle.getInt("idWord"))
 
-        showAvatar()
+        initAvatars()
 
         val word = doRetrieveModel().word
         kanji.text = word.kanji
@@ -101,12 +108,9 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
             mPlayer.start()
         }
         description.setOnClickListener {
-            toggleDesc = !toggleDesc
-            if (toggleDesc) {
-                descriptionContainer.visibility = View.VISIBLE
-            } else {
-                descriptionContainer.visibility = View.GONE
-            }
+            presenter.presentState(WRONG_ANSWER)
+            descriptionContainer.visibility = View.VISIBLE
+            description.visibility = View.GONE
         }
         btnRecording.setOnTouchListener(View.OnTouchListener { _, event ->
             when (event.action) {
@@ -127,23 +131,124 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
         })
     }
 
-    private fun showAvatar() {
-        player.setImageResource(R.drawable.player)
-        val playerAnimation = player.drawable as AnimationDrawable
-        playerAnimation.start()
-
-        enemy.setImageResource(R.drawable.enemy)
-        val enemyAnimation = enemy.drawable as AnimationDrawable
-        enemyAnimation.start()
+    //region Animation
+    private fun playerTurn() {
+        toggleTurn = PLAYER
+        playerAttack()
     }
 
-    private fun correctAnswer() {
-        (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WORD_SCREEN)
+    private fun enemyTurn() {
+        toggleTurn = ENEMY
+        enemyAttack()
     }
 
-    private fun wrongAnswer() {
-        (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WRONG)
+    private fun animateAvatar(view: ImageView, drawable: Int) {
+        view.setImageResource(drawable)
+        val animation = view.drawable as AnimationDrawable
+        animation.start()
     }
+
+    private fun checkEnemyHP() {
+        playerIdle()
+        enemyDead()
+        Handler().postDelayed({
+            if (activity != null)
+                (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WORD_SCREEN)
+        }, 1200)
+    }
+
+    private fun checkPlayerHP() {
+        enemyIdle()
+        val act = (activity as PlayActivity)
+        act.presenter.presentState(PlayPresenter.PlayView.ViewState.REDUCE_HEARTS)
+        if (act.doRetrieveModel().reduceHeart() > 0) {
+            playerDamaged()
+        } else {
+            playerDead()
+            Handler().postDelayed({
+                act.presenter.presentState(PlayPresenter.PlayView.ViewState.PLAYER_DEAD)
+            }, 1200)
+        }
+    }
+
+    private fun initAvatars() {
+        playerIdle()
+        enemyIdle()
+    }
+
+    private fun playerIdle() {
+        animateAvatar(player, R.drawable.player_idle)
+    }
+
+    private fun playerAttack() {
+        animateAvatar(player, R.drawable.enemy_attack)
+        animateAttackBall(player_ball)
+    }
+
+    private fun playerDamaged() {
+        animateAvatar(player, R.drawable.enemy_attack)
+    }
+
+    private fun playerDead() {
+        animateAvatar(player, R.drawable.enemy_dead)
+    }
+
+    private fun enemyIdle() {
+        animateAvatar(enemy, R.drawable.enemy_idle)
+    }
+
+    private fun enemyAttack() {
+        animateAvatar(enemy, R.drawable.enemy_attack)
+        animateAttackBall(enemy_ball)
+    }
+
+    private fun enemyDead() {
+        animateAvatar(enemy, R.drawable.enemy_dead)
+    }
+
+    private fun animateAttackBall(view: View) {
+        if (forwardX == 0F && backwardX == 0F) checkScreenSize()
+        val animation = if (toggleTurn == PLAYER) {
+            TranslateAnimation(-backwardX, forwardX, 0F, 0F)
+        } else {
+            TranslateAnimation(backwardX, -forwardX, 0F, 0F)
+        }
+        animation.duration = 750
+        animation.fillAfter = false
+        animation.setAnimationListener(this)
+        view.startAnimation(animation)
+    }
+
+    private fun checkScreenSize() {
+        val displayMetrics = DisplayMetrics()
+        activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        forwardX = width * 500F / 1080F
+        backwardX = width * 100F / 1080F
+    }
+
+    override fun onAnimationEnd(animation: Animation) {
+        if (toggleTurn == PLAYER) {
+            player_ball.clearAnimation()
+            player_ball.visibility = View.GONE
+            checkEnemyHP()
+        } else {
+            enemy_ball.clearAnimation()
+            enemy_ball.visibility = View.GONE
+            checkPlayerHP()
+        }
+    }
+
+    override fun onAnimationRepeat(animation: Animation) {}
+
+    override fun onAnimationStart(animation: Animation) {
+        if (toggleTurn == PLAYER) {
+            player_ball.visibility = View.VISIBLE
+        } else {
+            enemy_ball.visibility = View.VISIBLE
+        }
+    }
+    //endregion
 
     //region Audio Recording
     private fun mic(): PullableSource {
@@ -156,8 +261,14 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
     }
 
     private fun prepareFile() {
+        val folder = File(Environment.getExternalStorageDirectory().toString() + "/" + activity!!.getString(R.string.app_name))
+        if (!folder.exists()) folder.mkdir()
         val filename = activity!!.getString(R.string.app_name) + "/" + System.currentTimeMillis().toString() + ".wav"
-        file = File(Environment.getExternalStorageDirectory(), filename)
+        file = if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+            File(Environment.getExternalStorageDirectory(), filename)
+        } else {
+            File(context!!.filesDir, filename)
+        }
     }
 
     private fun startRecording() {
@@ -194,5 +305,9 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, VoiceSi
             REQUEST_WRITE_STORAGE_PERMISSION -> checkPermissions()
         }
     }
-//endregion
+    //endregion
+}
+
+enum class ActiveAvatar {
+    PLAYER, ENEMY
 }

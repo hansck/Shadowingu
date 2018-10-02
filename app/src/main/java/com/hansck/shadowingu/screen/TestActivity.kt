@@ -3,6 +3,7 @@ package com.hansck.shadowingu.screen
 import android.os.Bundle
 import android.util.Log
 import com.hansck.shadowingu.R
+import com.hansck.shadowingu.R.id.btnCalculate
 import com.hansck.shadowingu.presentation.customview.VoiceSimilarityListener
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.util.DataManager

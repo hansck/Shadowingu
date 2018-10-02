@@ -12,11 +12,11 @@
 		android:layout_gravity="center"
 		tools:src="@drawable/ic_home"/>
 
-	<TextView
-		android:id="@+id/label"
-		style="@style/BodyMedium"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center"
-		android:textStyle="bold"
-		tools:text="GALLERY"/>
+	<!--<TextView-->
+	<!--android:id="@+id/label"-->
+	<!--style="@style/BodyMedium"-->
+	<!--android:layout_width="wrap_content"-->
+	<!--android:layout_gravity="center"-->
+	<!--android:textStyle="bold"-->
+	<!--tools:text="GALLERY"/>-->
 </LinearLayout>
