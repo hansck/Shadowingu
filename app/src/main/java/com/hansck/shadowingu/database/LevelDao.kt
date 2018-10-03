@@ -13,9 +13,9 @@ import io.reactivex.Maybe
 @Dao
 interface LevelDao {
 
-    @Query("SELECT * FROM level")
-    fun getAll(): Maybe<List<Level>>
+	@Query("SELECT * FROM level")
+	fun getAll(): Maybe<List<Level>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(stages: Array<Level>)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(stages: Array<Level>)
 }

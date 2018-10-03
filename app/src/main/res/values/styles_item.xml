@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Button Theme -->
-	<style name="ButtonTheme">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">@dimen/btn_default</item>
-		<item name="android:minWidth">@dimen/btn_min_width</item>
-		<item name="android:paddingRight">@dimen/btn_padding</item>
-		<item name="android:paddingLeft">@dimen/btn_padding</item>
-		<item name="android:textSize">@dimen/text_body</item>
-		<item name="android:textColor">@drawable/txt_light_button</item>
-		<item name="android:textStyle">bold</item>
-	</style>
+    <!-- Button Theme -->
+    <style name="ButtonTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/btn_default</item>
+        <item name="android:minWidth">@dimen/btn_min_width</item>
+        <item name="android:paddingRight">@dimen/btn_padding</item>
+        <item name="android:paddingLeft">@dimen/btn_padding</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@drawable/txt_light_button</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-	<style name="SignUpTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorButtonNormal">@color/color_primary</item>
-	</style>
+    <style name="SignUpTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">@color/color_primary</item>
+    </style>
 
-	<style name="CancelTheme">
-		<item name="colorButtonNormal">@drawable/btn_cancel</item>
-	</style>
+    <style name="CancelTheme">
+        <item name="colorButtonNormal">@drawable/btn_cancel</item>
+    </style>
 
-	<!-- Button Style-->
-	<style name="ButtonBroad" parent="ButtonTheme">
-		<item name="android:layout_height">@dimen/btn_large</item>
-	</style>
+    <!-- Button Style-->
+    <style name="ButtonBroad" parent="ButtonTheme">
+        <item name="android:layout_height">@dimen/btn_large</item>
+    </style>
 
-	<style name="ButtonCancelSmall" parent="ButtonTheme">
-		<item name="android:theme">@style/CancelTheme</item>
-		<item name="android:layout_centerHorizontal">true</item>
-	</style>
+    <style name="ButtonCancelSmall" parent="ButtonTheme">
+        <item name="android:theme">@style/CancelTheme</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
 
-	<style name="ButtonCancel" parent="ButtonBroad">
-		<item name="android:theme">@style/CancelTheme</item>
-		<item name="android:layout_centerHorizontal">true</item>
-	</style>
+    <style name="ButtonCancel" parent="ButtonBroad">
+        <item name="android:theme">@style/CancelTheme</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
 
-	<!-- Icon -->
-	<style name="LogoIcon">
-		<item name="android:layout_height">@dimen/avatar_medium</item>
-		<item name="android:layout_width">@dimen/avatar_medium</item>
-		<item name="android:layout_centerHorizontal">true</item>
-		<item name="android:background">@drawable/ic_launcher_foreground</item>
-	</style>
+    <!-- Icon -->
+    <style name="LogoIcon">
+        <item name="android:layout_height">@dimen/avatar_medium</item>
+        <item name="android:layout_width">@dimen/avatar_medium</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:background">@drawable/ic_launcher_foreground</item>
+    </style>
 
-	<style name="PrefixIcon">
-		<item name="android:layout_width">@dimen/icon_field</item>
-		<item name="android:layout_height">@dimen/icon_field</item>
-	</style>
+    <style name="PrefixIcon">
+        <item name="android:layout_width">@dimen/icon_field</item>
+        <item name="android:layout_height">@dimen/icon_field</item>
+    </style>
 
-	<style name="CustomFieldIcon" parent="PrefixIcon">
-		<item name="android:layout_marginRight">@dimen/item_margin_small</item>
-	</style>
+    <style name="CustomFieldIcon" parent="PrefixIcon">
+        <item name="android:layout_marginRight">@dimen/item_margin_small</item>
+    </style>
 
-	<style name="CustomTextIcon" parent="PrefixIcon">
-		<item name="android:layout_gravity">start</item>
-	</style>
+    <style name="CustomTextIcon" parent="PrefixIcon">
+        <item name="android:layout_gravity">start</item>
+    </style>
 
-	<!-- Thumbnail -->
-	<style name="ThumbnailBase">
-		<item name="android:layout_centerHorizontal">true</item>
-	</style>
+    <!-- Thumbnail -->
+    <style name="ThumbnailBase">
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
 
-	<style name="ThumbnailCondo" parent="ThumbnailBase">
-		<item name="android:layout_width">@dimen/thumbnail</item>
-		<item name="android:layout_height">@dimen/thumbnail</item>
-	</style>
+    <style name="ThumbnailCondo" parent="ThumbnailBase">
+        <item name="android:layout_width">@dimen/thumbnail</item>
+        <item name="android:layout_height">@dimen/thumbnail</item>
+    </style>
 
-	<style name="ThumbnailCondoBig" parent="ThumbnailBase">
-		<item name="android:layout_width">@dimen/thumbnail_large</item>
-		<item name="android:layout_height">@dimen/thumbnail_large</item>
-	</style>
+    <style name="ThumbnailCondoBig" parent="ThumbnailBase">
+        <item name="android:layout_width">@dimen/thumbnail_large</item>
+        <item name="android:layout_height">@dimen/thumbnail_large</item>
+    </style>
 
-	<style name="ThumbnailProfile" parent="ThumbnailBase">
-		<item name="android:layout_width">@dimen/avatar_medium</item>
-		<item name="android:layout_height">@dimen/avatar_medium</item>
-	</style>
+    <style name="ThumbnailProfile" parent="ThumbnailBase">
+        <item name="android:layout_width">@dimen/avatar_medium</item>
+        <item name="android:layout_height">@dimen/avatar_medium</item>
+    </style>
 
-	<!-- List -->
-	<style name="EmptyListImage">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">@dimen/thumbnail</item>
-	</style>
+    <!-- List -->
+    <style name="EmptyListImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/thumbnail</item>
+    </style>
 
-	<style name="ListIcon">
-		<item name="android:layout_height">@dimen/icon_list_medium</item>
-		<item name="android:layout_width">@dimen/icon_list_medium</item>
-		<item name="android:layout_centerVertical">true</item>
-	</style>
+    <style name="ListIcon">
+        <item name="android:layout_height">@dimen/icon_list_medium</item>
+        <item name="android:layout_width">@dimen/icon_list_medium</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
 
-	<!-- Progress Bar -->
-	<style name="ProgressBar">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_centerHorizontal">true</item>
-		<item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
-	</style>
+    <!-- Progress Bar -->
+    <style name="ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/item_margin_normal</item>
+    </style>
 
-	<!-- Switch -->
-	<style name="SwitchTheme">
-		<item name="colorControlActivated">@color/color_primary</item>
-	</style>
+    <!-- Switch -->
+    <style name="SwitchTheme">
+        <item name="colorControlActivated">@color/color_primary</item>
+    </style>
 </resources>

@@ -16,45 +16,45 @@ import java.util.*
  * Created by Hans CK on 20-Jun-18.
  */
 class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener: OnAvatarSelected)
-    : RecyclerView.Adapter<AvatarsAdapter.ViewHolder>() {
+	: RecyclerView.Adapter<AvatarsAdapter.ViewHolder>() {
 
-    private fun ViewGroup.inflate(layoutRes: Int): View {
-        return LayoutInflater.from(context).inflate(layoutRes, this, false)
-    }
+	private fun ViewGroup.inflate(layoutRes: Int): View {
+		return LayoutInflater.from(context).inflate(layoutRes, this, false)
+	}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarsAdapter.ViewHolder {
-        val inflatedView = parent.inflate(layoutRes = R.layout.item_avatar)
-        return ViewHolder(inflatedView, listener)
-    }
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarsAdapter.ViewHolder {
+		val inflatedView = parent.inflate(layoutRes = R.layout.item_avatar)
+		return ViewHolder(inflatedView, listener)
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    override fun getItemCount() = items.size
+	override fun getItemCount() = items.size
 
-    class ViewHolder(itemView: View, val listener: OnAvatarSelected) : RecyclerView.ViewHolder(itemView) {
+	class ViewHolder(itemView: View, val listener: OnAvatarSelected) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(avatar: Avatar) = with(itemView) {
-            avatarName.text = avatar.name
-            description.text = avatar.description
-            price.text = resources.getString(R.string.price, avatar.price.toString())
-            if (avatar.unlock && PersistentManager.instance.getActiveAvatar() == avatar.idAvatar) {
-                activeText.visibility = View.VISIBLE
-                btnSetActive.visibility = View.GONE
-                btnBuy.visibility = View.GONE
-                Common.instance.setImageByName(context, avatar.unlockedImage, picture)
-            } else if (avatar.unlock) {
-                btnSetActive.visibility = View.VISIBLE
-                btnSetActive.setOnClickListener { listener.onAvatarActivate(avatar.idAvatar) }
-                activeText.visibility = View.GONE
-                btnBuy.visibility = View.GONE
-                Common.instance.setImageByName(context, avatar.unlockedImage, picture)
-            } else {
-                btnBuy.visibility = View.VISIBLE
-                btnBuy.setOnClickListener { listener.onAvatarBought(avatar.idAvatar) }
-                activeText.visibility = View.GONE
-                btnSetActive.visibility = View.GONE
-                Common.instance.setImageByName(context, avatar.lockedImage, picture)
-            }
-        }
-    }
+		fun bind(avatar: Avatar) = with(itemView) {
+			avatarName.text = avatar.name
+			description.text = avatar.description
+			if (avatar.unlock && PersistentManager.instance.getActiveAvatar() == avatar.idAvatar) {
+				activeText.visibility = View.VISIBLE
+				btnSetActive.visibility = View.GONE
+				btnBuy.visibility = View.GONE
+				Common.instance.setImageByName(context, avatar.unlockedImage, picture)
+			} else if (avatar.unlock) {
+				btnSetActive.visibility = View.VISIBLE
+				btnSetActive.setOnClickListener { listener.onAvatarActivate(avatar.idAvatar) }
+				activeText.visibility = View.GONE
+				btnBuy.visibility = View.GONE
+				Common.instance.setImageByName(context, avatar.unlockedImage, picture)
+			} else {
+				btnBuy.visibility = View.VISIBLE
+				btnBuy.text = resources.getString(R.string.buy, avatar.price.toString())
+				btnBuy.setOnClickListener { listener.onAvatarBought(avatar.idAvatar) }
+				activeText.visibility = View.GONE
+				btnSetActive.visibility = View.GONE
+				Common.instance.setImageByName(context, avatar.lockedImage, picture)
+			}
+		}
+	}
 }

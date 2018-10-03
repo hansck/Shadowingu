@@ -11,13 +11,13 @@ import com.hansck.shadowingu.util.DataManager
  */
 class LoginViewModel(var context: Context?) {
 
-    lateinit var account: GoogleSignInAccount
+	lateinit var account: GoogleSignInAccount
 
-    fun setAcct() {
-        account = AuthManager.instance.account
-    }
+	fun setAcct() {
+		account = AuthManager.instance.account
+	}
 
-    fun getLeaderboardUser(): LeaderboardUser {
-        return LeaderboardUser(account.email!!, account.displayName!!, 0, "ic_person", 0, DataManager.instance.getUnlockBadges())
-    }
+	fun getLeaderboardUser(): LeaderboardUser {
+		return LeaderboardUser(account.email!!, account.displayName!!, 0, "ic_person", 0, DataManager.instance.getUnlockBadges())
+	}
 }

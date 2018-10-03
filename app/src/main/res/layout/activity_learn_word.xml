@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
@@ -32,7 +31,7 @@
 				android:paddingEnd="@dimen/item_margin_large"
 				android:paddingStart="@dimen/item_margin_large"
 				android:paddingTop="@dimen/item_margin_normal"
-				tools:text="私"/>
+				tools:text="私" />
 		</android.support.v7.widget.CardView>
 
 		<ImageButton
@@ -45,7 +44,7 @@
 			android:layout_marginStart="@dimen/item_margin_small"
 			android:layout_marginTop="@dimen/item_margin_small"
 			android:background="@android:color/transparent"
-			android:src="@drawable/ic_microphone"/>
+			android:src="@drawable/ic_microphone" />
 	</RelativeLayout>
 
 	<TextView
@@ -54,7 +53,7 @@
 		android:layout_width="wrap_content"
 		android:layout_gravity="center"
 		android:layout_marginTop="@dimen/item_margin_normal"
-		android:text="@string/description"/>
+		android:text="@string/description" />
 
 	<android.support.v7.widget.CardView
 		android:id="@+id/descriptionContainer"
@@ -77,21 +76,21 @@
 				style="@style/SubheadingRegular"
 				android:layout_width="wrap_content"
 				android:layout_gravity="center"
-				tools:text="わたし"/>
+				tools:text="わたし" />
 
 			<TextView
 				android:id="@+id/romaji"
 				style="@style/SubheadingRegular"
 				android:layout_width="wrap_content"
 				android:layout_gravity="center"
-				tools:text="watashi"/>
+				tools:text="watashi" />
 
 			<TextView
 				android:id="@+id/meaning"
 				style="@style/SubheadingRegular"
 				android:layout_width="wrap_content"
 				android:layout_gravity="center"
-				tools:text="I"/>
+				tools:text="I" />
 		</LinearLayout>
 	</android.support.v7.widget.CardView>
 </LinearLayout>

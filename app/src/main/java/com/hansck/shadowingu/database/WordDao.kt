@@ -13,9 +13,9 @@ import io.reactivex.Maybe
 @Dao
 interface WordDao {
 
-    @Query("SELECT * FROM word")
-    fun getAll(): Maybe<List<Word>>
+	@Query("SELECT * FROM word")
+	fun getAll(): Maybe<List<Word>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(words: Array<Word>)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(words: Array<Word>)
 }

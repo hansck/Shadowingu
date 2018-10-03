@@ -29,81 +29,81 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, OnBadgeSelected {
 
-    private lateinit var model: HomeViewModel
-    private lateinit var presenter: HomePresenter
-    private var adapter: StagesAdapter? = null
+	private lateinit var model: HomeViewModel
+	private lateinit var presenter: HomePresenter
+	private var adapter: StagesAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_home, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-        presenter.presentState(LOAD_BADGES)
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		init()
+		presenter.presentState(LOAD_BADGES)
+	}
 
-    override fun onResume() {
-        super.onResume()
-        adapter?.notifyDataSetChanged()
-        badgesList?.adapter?.notifyDataSetChanged()
-        showProfile()
-    }
+	override fun onResume() {
+		super.onResume()
+		adapter?.notifyDataSetChanged()
+		badgesList?.adapter?.notifyDataSetChanged()
+		showProfile()
+	}
 
-    private fun init() {
-        this.model = HomeViewModel(activity)
-        this.presenter = HomePresenterImpl(this)
+	private fun init() {
+		this.model = HomeViewModel(activity)
+		this.presenter = HomePresenterImpl(this)
 
-        doRetrieveModel().setData()
-    }
+		doRetrieveModel().setData()
+	}
 
-    private fun showProfile() {
-        profileName.text = doRetrieveModel().user.name
-        exp.text = doRetrieveModel().user.exp.toString()
-        title.text = doRetrieveModel().getActiveTitle().name
-        Common.instance.setImageByName(activity!!, doRetrieveModel().user.image, picture)
-    }
+	private fun showProfile() {
+		profileName.text = doRetrieveModel().user.name
+		exp.text = doRetrieveModel().user.exp.toString()
+		title.text = doRetrieveModel().getActiveTitle().name
+		Common.instance.setImageByName(activity!!, doRetrieveModel().user.image, picture)
+	}
 
-    override fun showState(viewState: HomePresenter.HomeView.ViewState) {
-        when (viewState) {
-            IDLE -> showProgress(false)
-            LOADING -> showProgress(true)
-            SHOW_ITEMS -> showItems()
-            ERROR -> showError(null, getString(R.string.failed_request_general))
-        }
-    }
+	override fun showState(viewState: HomePresenter.HomeView.ViewState) {
+		when (viewState) {
+			IDLE -> showProgress(false)
+			LOADING -> showProgress(true)
+			SHOW_ITEMS -> showItems()
+			ERROR -> showError(null, getString(R.string.failed_request_general))
+		}
+	}
 
-    override fun doRetrieveModel(): HomeViewModel = this.model
+	override fun doRetrieveModel(): HomeViewModel = this.model
 
-    override fun onStageSelected(topic: Topic) {
-        val intent = Intent(activity, PlayActivity::class.java)
-        intent.putExtra("idStage", topic.idStage)
-        startActivity(intent)
-    }
+	override fun onStageSelected(topic: Topic) {
+		val intent = Intent(activity, PlayActivity::class.java)
+		intent.putExtra("idStage", topic.idStage)
+		startActivity(intent)
+	}
 
-    override fun onBadgeSelected(position: Int) {
-        val intent = Intent(activity, AchievementActivity::class.java)
-        startActivity(intent)
-    }
+	override fun onBadgeSelected(position: Int) {
+		val intent = Intent(activity, AchievementActivity::class.java)
+		startActivity(intent)
+	}
 
-    private fun showItems() {
-        // Set Topic List
-        doRetrieveModel().setStagesAndBadges()
-        stageList.setHasFixedSize(true)
-        stageList.layoutManager = LinearLayoutManager(context)
-        adapter = StagesAdapter(doRetrieveModel().topics, false, this)
+	private fun showItems() {
+		// Set Topic List
+		doRetrieveModel().setStagesAndBadges()
+		stageList.setHasFixedSize(true)
+		stageList.layoutManager = LinearLayoutManager(context)
+		adapter = StagesAdapter(doRetrieveModel().topics, false, this)
 
-        // show the data
-        val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)
-        val mSectionedAdapter = SectionListAdapter(activity, R.layout.item_section, R.id.section_text, stageList, adapter)
-        mSectionedAdapter.setSections(doRetrieveModel().categories.toArray(dummy))
-        stageList.adapter = adapter
-        stageList.adapter = mSectionedAdapter
+		// show the data
+		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)
+		val mSectionedAdapter = SectionListAdapter(activity, R.layout.item_section, R.id.section_text, stageList, adapter)
+		mSectionedAdapter.setSections(doRetrieveModel().categories.toArray(dummy))
+		stageList.adapter = adapter
+		stageList.adapter = mSectionedAdapter
 
-        // Set Badge List
-        badgesList.setHasFixedSize(true)
-        badgesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        badgesList.adapter = BadgesIconAdapter(doRetrieveModel().badges, this)
-    }
+		// Set Badge List
+		badgesList.setHasFixedSize(true)
+		badgesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+		badgesList.adapter = BadgesIconAdapter(doRetrieveModel().badges, this)
+	}
 }

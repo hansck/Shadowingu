@@ -7,5 +7,5 @@ import com.hansck.shadowingu.model.Topic
  */
 interface OnStageSelected {
 
-    fun onStageSelected(topic: Topic)
+	fun onStageSelected(topic: Topic)
 }

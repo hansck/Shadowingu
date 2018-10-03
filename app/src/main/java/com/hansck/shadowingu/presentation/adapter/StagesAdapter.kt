@@ -17,32 +17,32 @@ import java.util.*
  * Created by Hans CK on 20-Jun-18.
  */
 class StagesAdapter(private val items: ArrayList<Topic>, private val isLearnStage: Boolean, private val listener: OnStageSelected)
-    : RecyclerView.Adapter<StagesAdapter.ViewHolder>() {
+	: RecyclerView.Adapter<StagesAdapter.ViewHolder>() {
 
-    private fun ViewGroup.inflate(layoutRes: Int): View {
-        return LayoutInflater.from(context).inflate(layoutRes, this, false)
-    }
+	private fun ViewGroup.inflate(layoutRes: Int): View {
+		return LayoutInflater.from(context).inflate(layoutRes, this, false)
+	}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StagesAdapter.ViewHolder {
-        val inflatedView = parent.inflate(R.layout.item_stage)
-        return ViewHolder(inflatedView, isLearnStage, listener)
-    }
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StagesAdapter.ViewHolder {
+		val inflatedView = parent.inflate(R.layout.item_stage)
+		return ViewHolder(inflatedView, isLearnStage, listener)
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    override fun getItemCount() = items.size
+	override fun getItemCount() = items.size
 
-    class ViewHolder(itemView: View, private val isLearnStage: Boolean, private val listener: OnStageSelected) : RecyclerView.ViewHolder(itemView) {
+	class ViewHolder(itemView: View, private val isLearnStage: Boolean, private val listener: OnStageSelected) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(topic: Topic) = with(itemView) {
-            idStage.text = topic.idStage.toString()
-            if ((!isLearnStage && (topic.idStage == Constants.General.FIRST_LEVEL || topic.idStage <= DataManager.instance.getUnclearLevel()))
-                    || (isLearnStage && topic.cleared)) {
-                Common.instance.setImageByName(context, topic.unlockedImage, image)
-                image.setOnClickListener { listener.onStageSelected(topic) }
-            } else {
-                Common.instance.setImageByName(context, topic.lockedImage, image)
-            }
-        }
-    }
+		fun bind(topic: Topic) = with(itemView) {
+			idStage.text = topic.idStage.toString()
+			if ((!isLearnStage && (topic.idStage == Constants.General.FIRST_LEVEL || topic.idStage <= DataManager.instance.getUnclearLevel()))
+					|| (isLearnStage && topic.cleared)) {
+				Common.instance.setImageByName(context, topic.unlockedImage, image)
+				image.setOnClickListener { listener.onStageSelected(topic) }
+			} else {
+				Common.instance.setImageByName(context, topic.lockedImage, image)
+			}
+		}
+	}
 }

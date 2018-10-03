@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bg_light_1"
-                android:padding="@dimen/activity_vertical_margin"
-                tools:context=".screen.login.LoginActivity">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/content"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_light_1"
+	android:padding="@dimen/item_margin_normal"
+	tools:context=".screen.login.LoginActivity">
 
 	<!--<ImageView-->
 	<!--android:id="@+id/imgLogo"-->
@@ -27,9 +27,9 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/activity_vertical_margin"
-			android:layout_marginRight="@dimen/activity_vertical_margin"
-			android:layout_marginTop="@dimen/activity_vertical_margin">
+			android:layout_marginLeft="@dimen/item_margin_normal"
+			android:layout_marginRight="@dimen/item_margin_normal"
+			android:layout_marginTop="@dimen/item_margin_normal">
 
 			<TextView
 				android:id="@+id/signinWith"
@@ -39,7 +39,7 @@
 				android:layout_marginLeft="@dimen/item_margin_normal"
 				android:layout_marginRight="@dimen/item_margin_normal"
 				android:text="@string/start_now"
-				android:textAllCaps="true"/>
+				android:textAllCaps="true" />
 
 			<View
 				android:id="@+id/separatorLeft"
@@ -48,7 +48,7 @@
 				android:layout_centerInParent="true"
 				android:layout_toLeftOf="@id/signinWith"
 				android:layout_toStartOf="@id/signinWith"
-				android:background="@color/text_dark"/>
+				android:background="@color/text_dark" />
 
 			<View
 				android:id="@+id/separatorRight"
@@ -57,7 +57,7 @@
 				android:layout_centerInParent="true"
 				android:layout_toEndOf="@id/signinWith"
 				android:layout_toRightOf="@id/signinWith"
-				android:background="@color/text_dark"/>
+				android:background="@color/text_dark" />
 		</RelativeLayout>
 
 		<Button
@@ -65,11 +65,11 @@
 			style="@style/ButtonBroad"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="@dimen/activity_horizontal_margin"
+			android:layout_margin="@dimen/item_margin_normal"
 			android:background="@color/ic_sign_in"
 			android:drawableLeft="@drawable/ic_google"
 			android:drawableStart="@drawable/ic_google"
-			android:text="@string/sign_in_with_google"/>
+			android:text="@string/sign_in_with_google" />
 
 		<ProgressBar
 			android:id="@+id/progressBar"
@@ -78,6 +78,6 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:layout_marginBottom="8dp"
-			android:visibility="gone"/>
+			android:visibility="gone" />
 	</LinearLayout>
 </RelativeLayout>

@@ -10,9 +10,9 @@ import android.widget.ProgressBar
  */
 open class ProgressBarAnimation(val progressBar: ProgressBar, val from: Float, val to: Float) : Animation() {
 
-    override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
-        super.applyTransformation(interpolatedTime, t)
-        val value = from + (to - from) * interpolatedTime
-        progressBar.progress = value.toInt()
-    }
+	override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+		super.applyTransformation(interpolatedTime, t)
+		val value = from + (to - from) * interpolatedTime
+		progressBar.progress = value.toInt()
+	}
 }

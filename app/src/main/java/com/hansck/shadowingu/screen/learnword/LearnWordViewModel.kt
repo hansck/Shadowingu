@@ -9,9 +9,9 @@ import com.hansck.shadowingu.util.DataManager
  */
 class LearnWordViewModel(var context: Context?) {
 
-    lateinit var word: Word
+	lateinit var word: Word
 
-    fun setWord(idWord: Int) {
-        word = DataManager.instance.getWordById(idWord)
-    }
+	fun setWord(idWord: Int) {
+		word = DataManager.instance.getWordById(idWord)
+	}
 }

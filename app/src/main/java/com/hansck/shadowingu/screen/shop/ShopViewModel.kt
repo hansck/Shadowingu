@@ -12,35 +12,35 @@ import com.hansck.shadowingu.util.PersistentManager
  */
 class ShopViewModel(var context: Context?) {
 
-    lateinit var user: User
-    lateinit var boughtAvatar: Avatar
-    var isFirstBuy: Boolean = false
-    var badges: ArrayList<Badge> = ArrayList()
-    var avatars: ArrayList<Avatar> = ArrayList()
+	lateinit var user: User
+	lateinit var boughtAvatar: Avatar
+	var isFirstBuy: Boolean = false
+	var badges: ArrayList<Badge> = ArrayList()
+	var avatars: ArrayList<Avatar> = ArrayList()
 
-    fun setAvatars() {
-        avatars = DataManager.instance.avatars
-    }
+	fun setAvatars() {
+		avatars = DataManager.instance.avatars
+	}
 
-    fun setData() {
-        user = DataManager.instance.user
-        badges = DataManager.instance.badges
-    }
+	fun setData() {
+		user = DataManager.instance.user
+		badges = DataManager.instance.badges
+	}
 
-    fun buyAvatar(idAvatar: Int) {
-        boughtAvatar = avatars[idAvatar]
-        boughtAvatar.unlock = true
-        user.gem -= boughtAvatar.price
-        DataManager.instance.user = user
-        checkBadge()
-    }
+	fun buyAvatar(idAvatar: Int) {
+		boughtAvatar = avatars[idAvatar]
+		boughtAvatar.unlock = true
+		user.gem -= boughtAvatar.price
+		DataManager.instance.user = user
+		checkBadge()
+	}
 
-    private fun checkBadge() {
-        isFirstBuy = !PersistentManager.instance.isFirstBuy()
-        if (isFirstBuy) {
-            badges[2].unlock = true
-            DataManager.instance.badges = badges
-            PersistentManager.instance.setFirstBuy()
-        }
-    }
+	private fun checkBadge() {
+		isFirstBuy = !PersistentManager.instance.isFirstBuy()
+		if (isFirstBuy) {
+			badges[2].unlock = true
+			DataManager.instance.badges = badges
+			PersistentManager.instance.setFirstBuy()
+		}
+	}
 }

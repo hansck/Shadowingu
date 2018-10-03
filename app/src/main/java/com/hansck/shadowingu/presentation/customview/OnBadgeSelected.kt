@@ -5,5 +5,5 @@ package com.hansck.shadowingu.presentation.customview
  */
 interface OnBadgeSelected {
 
-    fun onBadgeSelected(position: Int)
+	fun onBadgeSelected(position: Int)
 }

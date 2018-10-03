@@ -1,8 +1,6 @@
 package com.hansck.shadowingu.presentation
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
 import com.hansck.shadowingu.database.AppDatabase
 
 
@@ -11,28 +9,28 @@ import com.hansck.shadowingu.database.AppDatabase
  */
 class App : Application() {
 
-    var connected = false
+	var connected = false
 
-    companion object {
-        var instance: App? = null
-        var database: AppDatabase? = null
+	companion object {
+		var instance: App? = null
+		var database: AppDatabase? = null
 
-        val getInstance: App
-            get() {
-                if (instance == null) {
-                    synchronized(App::class.java) {
-                        if (instance == null) {
-                            instance = App()
-                        }
-                    }
-                }
-                return instance!!
-            }
-    }
+		val getInstance: App
+			get() {
+				if (instance == null) {
+					synchronized(App::class.java) {
+						if (instance == null) {
+							instance = App()
+						}
+					}
+				}
+				return instance!!
+			}
+	}
 
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-        database = AppDatabase.getInstance(this)
-    }
+	override fun onCreate() {
+		super.onCreate()
+		instance = this
+		database = AppDatabase.getInstance(this)
+	}
 }

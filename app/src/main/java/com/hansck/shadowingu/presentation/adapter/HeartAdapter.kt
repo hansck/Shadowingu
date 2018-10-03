@@ -12,30 +12,29 @@ import kotlinx.android.synthetic.main.item_badge.view.*
 /**
  * Created by Hans CK on 20-Jun-18.
  */
-class HeartAdapter(private val items: ArrayList<Heart>)
-    : RecyclerView.Adapter<HeartAdapter.ViewHolder>() {
+class HeartAdapter(private val items: ArrayList<Heart>) : RecyclerView.Adapter<HeartAdapter.ViewHolder>() {
 
-    private fun ViewGroup.inflate(layoutRes: Int): View {
-        return LayoutInflater.from(context).inflate(layoutRes, this, false)
-    }
+	private fun ViewGroup.inflate(layoutRes: Int): View {
+		return LayoutInflater.from(context).inflate(layoutRes, this, false)
+	}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeartAdapter.ViewHolder {
-        val inflatedView = parent.inflate(R.layout.item_heart)
-        return ViewHolder(inflatedView)
-    }
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeartAdapter.ViewHolder {
+		val inflatedView = parent.inflate(R.layout.item_heart)
+		return ViewHolder(inflatedView)
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
 
-    override fun getItemCount() = items.size
+	override fun getItemCount() = items.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(heart: Heart) = with(itemView) {
-            if (heart.status) {
-                Common.instance.setImageByName(context, heart.fullImage, picture)
-            } else {
-                Common.instance.setImageByName(context, heart.emptyImage, picture)
-            }
-        }
-    }
+		fun bind(heart: Heart) = with(itemView) {
+			if (heart.status) {
+				Common.instance.setImageByName(context, heart.fullImage, picture)
+			} else {
+				Common.instance.setImageByName(context, heart.emptyImage, picture)
+			}
+		}
+	}
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/bg_light_1"
-                android:padding="@dimen/item_margin_normal"
-                tools:context=".screen.home.HomeFragment">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_light_1"
+	android:padding="@dimen/item_margin_normal"
+	tools:context=".screen.home.HomeFragment">
 
 	<RelativeLayout
 		android:id="@+id/header"
@@ -21,7 +21,7 @@
 
 			<TextView
 				style="@style/TitleMedium"
-				android:text="@string/your_progress"/>
+				android:text="@string/your_progress" />
 
 			<ProgressBar
 				android:id="@+id/progressBar"
@@ -29,12 +29,12 @@
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/icon_list_medium"
 				android:indeterminate="false"
-				tools:progress="75"/>
+				tools:progress="75" />
 
 			<TextView
 				android:id="@+id/progressDesc"
 				style="@style/SubheadingRegular"
-				tools:text="You have finished 20% of all learning materials"/>
+				tools:text="You have finished 20% of all learning materials" />
 		</LinearLayout>
 
 		<LinearLayout
@@ -47,7 +47,7 @@
 				android:id="@+id/picture"
 				android:layout_width="@dimen/avatar_medium"
 				android:layout_height="@dimen/avatar_medium"
-				tools:src="@drawable/ic_person"/>
+				tools:src="@drawable/ic_person" />
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -60,17 +60,17 @@
 				<TextView
 					android:id="@+id/profileName"
 					style="@style/SubheadingMedium"
-					tools:text="Profile Name"/>
+					tools:text="Profile Name" />
 
 				<TextView
 					android:id="@+id/title"
 					style="@style/SubheadingRegular"
-					tools:text="Title"/>
+					tools:text="Title" />
 
 				<TextView
 					android:id="@+id/exp"
 					style="@style/SubheadingRegular"
-					tools:text="EXP : 750 / 1000"/>
+					tools:text="EXP : 750 / 1000" />
 			</LinearLayout>
 		</LinearLayout>
 	</RelativeLayout>
@@ -80,7 +80,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/header"
-		android:orientation="horizontal"/>
+		android:orientation="horizontal" />
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/stageList"
@@ -88,5 +88,5 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/badgesList"
 		android:layout_marginTop="@dimen/item_margin_normal"
-		android:orientation="vertical"/>
+		android:orientation="vertical" />
 </RelativeLayout>

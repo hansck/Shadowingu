@@ -5,7 +5,7 @@ package com.hansck.shadowingu.presentation.customview
  */
 interface OnAvatarSelected {
 
-    fun onAvatarActivate(id: Int)
+	fun onAvatarActivate(id: Int)
 
-    fun onAvatarBought(id: Int)
+	fun onAvatarBought(id: Int)
 }

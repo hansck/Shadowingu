@@ -22,65 +22,67 @@ import kotlinx.android.synthetic.main.fragment_shop.*
  */
 class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
 
-    private lateinit var model: ShopViewModel
-    private lateinit var presenter: ShopPresenter
-    private lateinit var adapter: AvatarsAdapter
+	private lateinit var model: ShopViewModel
+	private lateinit var presenter: ShopPresenter
+	private lateinit var adapter: AvatarsAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_shop, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-        presenter.presentState(SHOW_AVATARS)
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		init()
+		presenter.presentState(SHOW_AVATARS)
+	}
 
-    private fun init() {
-        this.model = ShopViewModel(activity)
-        this.presenter = ShopPresenterImpl(this)
+	private fun init() {
+		this.model = ShopViewModel(activity)
+		this.presenter = ShopPresenterImpl(this)
 
-        doRetrieveModel().setData()
-        gem.text = doRetrieveModel().user.gem.toString()
-    }
+		doRetrieveModel().setData()
+		gem.text = doRetrieveModel().user.gem.toString()
+	}
 
-    override fun showState(viewState: ShopPresenter.ShopView.ViewState) {
-        when (viewState) {
-            IDLE -> showProgress(false)
-            LOADING -> showProgress(true)
-            SHOW_AVATARS -> showAvatars()
-            SHOW_UPDATED_AVATARS -> showUpdatedAvatars()
-            ERROR -> showError(null, getString(R.string.failed_request_general))
-        }
-    }
+	override fun showState(viewState: ShopPresenter.ShopView.ViewState) {
+		when (viewState) {
+			IDLE -> showProgress(false)
+			LOADING -> showProgress(true)
+			SHOW_AVATARS -> showAvatars()
+			SHOW_UPDATED_AVATARS -> showUpdatedAvatars()
+			ERROR -> showError(null, getString(R.string.failed_request_general))
+		}
+	}
 
-    override fun doRetrieveModel(): ShopViewModel = this.model
+	override fun doRetrieveModel(): ShopViewModel = this.model
 
-    override fun onAvatarActivate(id: Int) {
-        PersistentManager.instance.setActiveAvatar(id)
-        avatarList.adapter.notifyDataSetChanged()
-    }
+	override fun onAvatarActivate(id: Int) {
+		PersistentManager.instance.setActiveAvatar(id)
+		avatarList.adapter.notifyDataSetChanged()
+	}
 
-    override fun onAvatarBought(id: Int) {
-        val userGem = doRetrieveModel().user.gem
-        val price = doRetrieveModel().avatars[id].price
-        if (userGem >= price) {
-            doRetrieveModel().buyAvatar(id)
-            gem.text = doRetrieveModel().user.gem.toString()
-            presenter.presentState(BUY_AVATAR)
-        }
-    }
+	override fun onAvatarBought(id: Int) {
+		val userGem = doRetrieveModel().user.gem
+		val price = doRetrieveModel().avatars[id].price
+		if (userGem >= price) {
+			doRetrieveModel().buyAvatar(id)
+			gem.text = doRetrieveModel().user.gem.toString()
+			presenter.presentState(BUY_AVATAR)
+		} else {
+			showToast(resources.getString(R.string.not_enough_gem))
+		}
+	}
 
-    private fun showUpdatedAvatars() {
-        avatarList.adapter.notifyDataSetChanged()
-    }
+	private fun showUpdatedAvatars() {
+		avatarList.adapter.notifyDataSetChanged()
+	}
 
-    private fun showAvatars() {
-        doRetrieveModel().setAvatars()
-        avatarList.setHasFixedSize(true)
-        avatarList.layoutManager = LinearLayoutManager(context)
-        avatarList.adapter = AvatarsAdapter(doRetrieveModel().avatars, this)
-        presenter.presentState(IDLE)
-    }
+	private fun showAvatars() {
+		doRetrieveModel().setAvatars()
+		avatarList.setHasFixedSize(true)
+		avatarList.layoutManager = LinearLayoutManager(context)
+		avatarList.adapter = AvatarsAdapter(doRetrieveModel().avatars, this)
+		presenter.presentState(IDLE)
+	}
 }

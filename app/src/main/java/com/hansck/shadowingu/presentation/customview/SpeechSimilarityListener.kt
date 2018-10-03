@@ -3,7 +3,7 @@ package com.hansck.shadowingu.presentation.customview
 /**
  * Created by Hans CK on 26-Jun-18.
  */
-interface VoiceSimilarityListener {
+interface SpeechSimilarityListener {
 
-    abstract fun onSimilarityCalculated(distance: Double)
+	abstract fun onSimilarityCalculated(distance: Double)
 }

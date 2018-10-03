@@ -7,5 +7,5 @@ import com.hansck.shadowingu.model.Word
  */
 interface OnWordSelected {
 
-    fun onWordSelected(word: Word)
+	fun onWordSelected(word: Word)
 }

@@ -20,48 +20,48 @@ import kotlinx.android.synthetic.main.fragment_leaderboard.*
  */
 class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView {
 
-    private lateinit var model: LeaderboardViewModel
-    private lateinit var presenter: LeaderboardPresenter
+	private lateinit var model: LeaderboardViewModel
+	private lateinit var presenter: LeaderboardPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_leaderboard, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		init()
+	}
 
-    override fun onResume() {
-        super.onResume()
-        presenter.presentState(UPDATE_USER)
-    }
+	override fun onResume() {
+		super.onResume()
+		presenter.presentState(UPDATE_USER)
+	}
 
-    private fun init() {
-        this.model = LeaderboardViewModel(activity!!)
-        this.presenter = LeaderboardPresenterImpl(this)
-        doRetrieveModel().setCurrentUser()
-    }
+	private fun init() {
+		this.model = LeaderboardViewModel(activity!!)
+		this.presenter = LeaderboardPresenterImpl(this)
+		doRetrieveModel().setCurrentUser()
+	}
 
-    override fun showState(viewState: LeaderboardPresenter.LeaderboardView.ViewState) {
-        when (viewState) {
-            IDLE -> showProgress(false)
-            LOADING -> showProgress(true)
-            SHOW_LEADERBOARD -> showLeaderboard()
-            ERROR -> showError(null, getString(R.string.failed_request_general))
-        }
-    }
+	override fun showState(viewState: LeaderboardPresenter.LeaderboardView.ViewState) {
+		when (viewState) {
+			IDLE -> showProgress(false)
+			LOADING -> showProgress(true)
+			SHOW_LEADERBOARD -> showLeaderboard()
+			ERROR -> showError(null, getString(R.string.failed_request_general))
+		}
+	}
 
-    override fun doRetrieveModel(): LeaderboardViewModel = this.model
+	override fun doRetrieveModel(): LeaderboardViewModel = this.model
 
-    private fun showLeaderboard() {
-        if (activity != null && !activity!!.isFinishing) {
-            doRetrieveModel().setLeaderboard()
-            leaderboardList.setHasFixedSize(true)
-            leaderboardList.layoutManager = LinearLayoutManager(activity)
-            leaderboardList.adapter = LeaderboardAdapter(doRetrieveModel().users)
-        }
-        presenter.presentState(IDLE)
-    }
+	private fun showLeaderboard() {
+		if (activity != null && !activity!!.isFinishing) {
+			doRetrieveModel().setLeaderboard()
+			leaderboardList?.setHasFixedSize(true)
+			leaderboardList?.layoutManager = LinearLayoutManager(activity)
+			leaderboardList?.adapter = LeaderboardAdapter(doRetrieveModel().users)
+		}
+		presenter.presentState(IDLE)
+	}
 }

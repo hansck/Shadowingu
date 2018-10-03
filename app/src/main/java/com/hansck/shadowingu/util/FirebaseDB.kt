@@ -8,21 +8,21 @@ import com.google.firebase.database.FirebaseDatabase
  */
 class FirebaseDB() {
 
-    private val db = FirebaseDatabase.getInstance()
+	private val db = FirebaseDatabase.getInstance()
 
-    companion object {
-        val instance = FirebaseDB()
-    }
+	companion object {
+		val instance = FirebaseDB()
+	}
 
-    init {
-        db.setPersistenceEnabled(true)
-    }
+	init {
+		db.setPersistenceEnabled(true)
+	}
 
-    fun getDbReference(ref: String): DatabaseReference {
-        return db.getReference(ref)
-    }
+	fun getDbReference(ref: String): DatabaseReference {
+		return db.getReference(ref)
+	}
 
-    fun getKey(ref: String): String? {
-        return getDbReference(ref).push().key
-    }
+	fun getKey(ref: String): String? {
+		return getDbReference(ref).push().key
+	}
 }

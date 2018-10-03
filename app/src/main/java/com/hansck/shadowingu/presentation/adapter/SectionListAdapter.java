@@ -26,7 +26,7 @@ public class SectionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
 	public SectionListAdapter(Context context, int sectionResourceId, int textResourceId, RecyclerView recyclerView,
-							  RecyclerView.Adapter baseAdapter) {
+	                          RecyclerView.Adapter baseAdapter) {
 
 		mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mSectionResourceId = sectionResourceId;
@@ -96,8 +96,8 @@ public class SectionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@Override
 	public int getItemViewType(int position) {
 		return isSectionHeaderPosition(position)
-			? SECTION_TYPE
-			: mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
+				? SECTION_TYPE
+				: mBaseAdapter.getItemViewType(sectionedPositionToPosition(position)) + 1;
 	}
 
 
@@ -124,8 +124,8 @@ public class SectionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			@Override
 			public int compare(Section o, Section o1) {
 				return (o.firstPosition == o1.firstPosition)
-					? 0
-					: ((o.firstPosition < o1.firstPosition) ? -1 : 1);
+						? 0
+						: ((o.firstPosition < o1.firstPosition) ? -1 : 1);
 			}
 		});
 
@@ -173,8 +173,8 @@ public class SectionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@Override
 	public long getItemId(int position) {
 		return isSectionHeaderPosition(position)
-			? Integer.MAX_VALUE - mSections.indexOfKey(position)
-			: mBaseAdapter.getItemId(sectionedPositionToPosition(position));
+				? Integer.MAX_VALUE - mSections.indexOfKey(position)
+				: mBaseAdapter.getItemId(sectionedPositionToPosition(position));
 	}
 
 	@Override

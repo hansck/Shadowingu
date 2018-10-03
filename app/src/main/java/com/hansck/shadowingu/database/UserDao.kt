@@ -15,12 +15,12 @@ import io.reactivex.Maybe
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM user")
-    fun getAll(): Maybe<List<User>>
+	@Query("SELECT * FROM user")
+	fun getAll(): Maybe<List<User>>
 
-    @Insert(onConflict = REPLACE)
-    fun insert(user: User)
+	@Insert(onConflict = REPLACE)
+	fun insert(user: User)
 
-    @Update
-    fun updateUser(user: User)
+	@Update
+	fun updateUser(user: User)
 }

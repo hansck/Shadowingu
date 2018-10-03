@@ -15,23 +15,21 @@
 
 package com.hansck.shadowingu.util;
 
-import android.util.Log;
-
 /**
  * This class used to calculate the distance between two vectors.
  * these two vectors might have different length, so use dynamic
  * programming is used to calculate the minimum distance.
- *
+ * <p>
  * The algorithm can be used for calculating the distance between
  * two audio files, where each one is represented as MFCCs (2 dimensional
  * features)
- *
+ * <p>
  * There are FIVE things we must specify
- *
+ * <p>
  * <li> End point constraint </li>
  * First Point in test pattern meet with first point in reference pattern
  * Last Point in test pattern meet with last point in reference pattern
- *
+ * <p>
  * <li> local continuity constraint </li>
  * Support five different local path
  * p1 --> (1,0)
@@ -39,25 +37,24 @@ import android.util.Log;
  * p3 --> (1,1)
  * p4 --> (1,2)
  * p5 --> (0,1)
- *
+ * <p>
  * <li> Global Path constraint </li>
  * |i(k) - j(k)| <= R   R is constraint value, k is the timing index.
- *
+ * <p>
  * <li> Axis Orientation </li>
  * x-axis refers to the test pattern, y-axis refers to reference/template pattern
  * by default, we use the symmetric case.
- *
+ * <p>
  * <li> Distance Measure </li>
  * Use Euclidean distance measurement. For the weighting function,
  * choose W(k) = i(k) - i(k-1) + j(k) - j(k-1), which is symmetric function, the advantage
  * of choosing this weighting function is, we don't need to consider the normalization value
  * for all the summation. Because for all cases, the normalization value will be constant.
- *
+ * <p>
  * For technical detail, please look at my paper:
- *      http://www.aaai.org/ocs/index.php/AAAI/AAAI11/paper/view/3791
+ * http://www.aaai.org/ocs/index.php/AAAI/AAAI11/paper/view/3791
  *
  * @author liwenzhe
- *
  */
 public class DynamicTimeWrapping2D extends DynamicTimeWrapping {
 
@@ -132,12 +129,12 @@ public class DynamicTimeWrapping2D extends DynamicTimeWrapping {
 	 * vector have the same dimension. When calculating such Euclidean distance,
 	 * we need to take variance into account.
 	 *
-	 * @param vec1        the first feature vector
-	 * @param vec2        the second feature vector
-	 * @param variance    variance for each dimension.
+	 * @param vec1     the first feature vector
+	 * @param vec2     the second feature vector
+	 * @param variance variance for each dimension.
 	 * @return Normalized Euclidean distance (or in manhatan distance,
-	 *                    the covariance matrix is diagonal matrix, where each diagonal
-	 *                    entry is the variance for that dimension)
+	 * the covariance matrix is diagonal matrix, where each diagonal
+	 * entry is the variance for that dimension)
 	 */
 	private double getDistance(double[] vec1, double[] vec2) {
 		double distance = 0.0;

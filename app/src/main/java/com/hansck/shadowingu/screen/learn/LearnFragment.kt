@@ -25,69 +25,69 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected {
 
-    private lateinit var model: LearnViewModel
-    private lateinit var presenter: LearnPresenter
-    private var adapter: StagesAdapter? = null
+	private lateinit var model: LearnViewModel
+	private lateinit var presenter: LearnPresenter
+	private var adapter: StagesAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_home, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-        presenter.presentState(SHOW_STAGES)
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		init()
+		presenter.presentState(SHOW_STAGES)
+	}
 
-    override fun onResume() {
-        super.onResume()
-        adapter?.notifyDataSetChanged()
-    }
+	override fun onResume() {
+		super.onResume()
+		adapter?.notifyDataSetChanged()
+	}
 
-    private fun init() {
-        this.model = LearnViewModel(activity)
-        this.presenter = LearnPresenterImpl(this)
+	private fun init() {
+		this.model = LearnViewModel(activity)
+		this.presenter = LearnPresenterImpl(this)
 
-        profileContainer.visibility = View.GONE
-        progressContainer.visibility = View.VISIBLE
-    }
+		profileContainer.visibility = View.GONE
+		progressContainer.visibility = View.VISIBLE
+	}
 
-    override fun showState(viewState: LearnPresenter.LearnView.ViewState) {
-        when (viewState) {
-            IDLE -> showProgress(false)
-            LOADING -> showProgress(true)
-            SHOW_STAGES -> showStages()
-            ERROR -> showError(null, getString(R.string.failed_request_general))
-        }
-    }
+	override fun showState(viewState: LearnPresenter.LearnView.ViewState) {
+		when (viewState) {
+			IDLE -> showProgress(false)
+			LOADING -> showProgress(true)
+			SHOW_STAGES -> showStages()
+			ERROR -> showError(null, getString(R.string.failed_request_general))
+		}
+	}
 
-    override fun doRetrieveModel(): LearnViewModel = this.model
+	override fun doRetrieveModel(): LearnViewModel = this.model
 
-    override fun onStageSelected(topic: Topic) {
-        val intent = Intent(activity, ChooseWordActivity::class.java)
-        intent.putExtra("idStage", topic.idStage)
-        startActivity(intent)
-    }
+	override fun onStageSelected(topic: Topic) {
+		val intent = Intent(activity, ChooseWordActivity::class.java)
+		intent.putExtra("idStage", topic.idStage)
+		startActivity(intent)
+	}
 
-    private fun showStages() {
-        stageList.setHasFixedSize(true)
-        stageList.layoutManager = LinearLayoutManager(context)
+	private fun showStages() {
+		stageList.setHasFixedSize(true)
+		stageList.layoutManager = LinearLayoutManager(context)
 
-        doRetrieveModel().setStages()
-        val percentage = doRetrieveModel().getProgressPercentage()
-        progressBar.max = 100
-        progressBar.progress = percentage
-        progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
-        adapter = StagesAdapter(doRetrieveModel().topics, true, this)
+		doRetrieveModel().setStages()
+		val percentage = doRetrieveModel().getProgressPercentage()
+		progressBar.max = 100
+		progressBar.progress = percentage
+		progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
+		adapter = StagesAdapter(doRetrieveModel().topics, true, this)
 
-        // show the data
-        val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)
-        val mSectionedAdapter = SectionListAdapter(activity, R.layout.item_section, R.id.section_text, stageList, adapter)
-        mSectionedAdapter.setSections(doRetrieveModel().categories.toArray(dummy))
-        stageList.adapter = adapter
-        stageList.adapter = mSectionedAdapter
+		// show the data
+		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)
+		val mSectionedAdapter = SectionListAdapter(activity, R.layout.item_section, R.id.section_text, stageList, adapter)
+		mSectionedAdapter.setSections(doRetrieveModel().categories.toArray(dummy))
+		stageList.adapter = adapter
+		stageList.adapter = mSectionedAdapter
 
-        presenter.presentState(IDLE)
-    }
+		presenter.presentState(IDLE)
+	}
 }

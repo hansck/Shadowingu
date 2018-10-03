@@ -14,15 +14,15 @@ import io.reactivex.Maybe
 @Dao
 interface BadgeDao {
 
-    @Query("SELECT * FROM badge")
-    fun getAll(): Maybe<List<Badge>>
+	@Query("SELECT * FROM badge")
+	fun getAll(): Maybe<List<Badge>>
 
-    @Insert(onConflict = REPLACE)
-    fun insertAll(badges: Array<Badge>)
+	@Insert(onConflict = REPLACE)
+	fun insertAll(badges: Array<Badge>)
 
-    @Update
-    fun updateBadge(badge: Badge)
+	@Update
+	fun updateBadge(badge: Badge)
 
-    @Update
-    fun updateBadges(badge: List<Badge>)
+	@Update
+	fun updateBadges(badge: List<Badge>)
 }

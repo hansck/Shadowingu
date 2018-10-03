@@ -11,12 +11,12 @@ import io.reactivex.Maybe
 @Dao
 interface AvatarDao {
 
-    @Query("SELECT * FROM avatar")
-    fun getAll(): Maybe<List<Avatar>>
+	@Query("SELECT * FROM avatar")
+	fun getAll(): Maybe<List<Avatar>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(avatars: Array<Avatar>)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(avatars: Array<Avatar>)
 
-    @Update
-    fun updateAvatar(avatar: Avatar)
+	@Update
+	fun updateAvatar(avatar: Avatar)
 }

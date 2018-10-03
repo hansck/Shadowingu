@@ -10,12 +10,12 @@ import io.reactivex.Maybe
 @Dao
 interface TitleDao {
 
-    @Query("SELECT * FROM title")
-    fun getAll(): Maybe<List<Title>>
+	@Query("SELECT * FROM title")
+	fun getAll(): Maybe<List<Title>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(titles: Array<Title>)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(titles: Array<Title>)
 
-    @Update
-    fun updateTitle(title: Title)
+	@Update
+	fun updateTitle(title: Title)
 }

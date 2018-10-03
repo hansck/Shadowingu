@@ -9,30 +9,30 @@ import android.arch.persistence.room.PrimaryKey
  */
 @Entity
 data class User(
-        @PrimaryKey
-        var idUser: Int,
+		@PrimaryKey
+		var idUser: Int,
 
-        @ColumnInfo(name = "email")
-        var email: String,
+		@ColumnInfo(name = "email")
+		var email: String,
 
-        @ColumnInfo(name = "name")
-        var name: String,
+		@ColumnInfo(name = "name")
+		var name: String,
 
-        @ColumnInfo(name = "level")
-        var level: Int,
+		@ColumnInfo(name = "level")
+		var level: Int,
 
-        @ColumnInfo(name = "exp")
-        var exp: Int,
+		@ColumnInfo(name = "exp")
+		var exp: Int,
 
-        @ColumnInfo(name = "gem")
-        var gem: Int,
+		@ColumnInfo(name = "gem")
+		var gem: Int,
 
-        @ColumnInfo(name = "image")
-        var image: String) {
+		@ColumnInfo(name = "image")
+		var image: String) {
 
-    companion object {
-        fun populateData(email: String, name: String): User {
-            return User(0, email, name, 1, 0, 0, "ic_person")
-        }
-    }
+	companion object {
+		fun populateData(email: String, name: String): User {
+			return User(0, email, name, 1, 0, 0, "ic_person")
+		}
+	}
 }

@@ -5,5 +5,5 @@ package com.hansck.shadowingu.presentation.customview
  */
 interface OnListItemSelected {
 
-    fun onClick(position: Int)
+	fun onClick(position: Int)
 }

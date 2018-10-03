@@ -16,33 +16,33 @@ import com.hansck.shadowingu.R
  */
 class AuthManager : GoogleApiClient.OnConnectionFailedListener {
 
-    companion object {
-        val instance = AuthManager()
-    }
+	companion object {
+		val instance = AuthManager()
+	}
 
-    lateinit var googleApiClient: GoogleApiClient
-    lateinit var account: GoogleSignInAccount
-    lateinit var auth: FirebaseAuth
-    lateinit var firebaseUser: FirebaseUser
+	lateinit var googleApiClient: GoogleApiClient
+	lateinit var account: GoogleSignInAccount
+	lateinit var auth: FirebaseAuth
+	lateinit var firebaseUser: FirebaseUser
 
-    fun initAuth(activity: FragmentActivity) {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(activity.getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
+	fun initAuth(activity: FragmentActivity) {
+		val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+				.requestIdToken(activity.getString(R.string.default_web_client_id))
+				.requestEmail()
+				.build()
 
-        googleApiClient = GoogleApiClient.Builder(activity)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build()
+		googleApiClient = GoogleApiClient.Builder(activity)
+				.addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+				.build()
 
-        if (!googleApiClient.isConnected) {
-            googleApiClient.connect()
-        }
+		if (!googleApiClient.isConnected) {
+			googleApiClient.connect()
+		}
 
-        auth = FirebaseAuth.getInstance()
-    }
+		auth = FirebaseAuth.getInstance()
+	}
 
-    override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        Log.e("AUTHENTICATION", "Connection Failed!")
-    }
+	override fun onConnectionFailed(connectionResult: ConnectionResult) {
+		Log.e("AUTHENTICATION", "Connection Failed!")
+	}
 }

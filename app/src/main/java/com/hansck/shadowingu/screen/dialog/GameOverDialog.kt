@@ -16,33 +16,33 @@ import com.hansck.shadowingu.screen.play.PlayActivity
  */
 class GameOverDialog : DialogFragment() {
 
-    @SuppressLint("InflateParams")
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = activity!!.layoutInflater
-        val view = inflater.inflate(R.layout.dialog_game_over, null)
-        val btnContinue = view.findViewById(R.id.btnContinue) as ImageButton
-        btnContinue.setOnClickListener {
-            (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.BACK_TO_HOME)
-            this.dismiss()
-        }
+	@SuppressLint("InflateParams")
+	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+		val inflater = activity!!.layoutInflater
+		val view = inflater.inflate(R.layout.dialog_game_over, null)
+		val btnContinue = view.findViewById(R.id.btnContinue) as ImageButton
+		btnContinue.setOnClickListener {
+			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.BACK_TO_HOME)
+			this.dismiss()
+		}
 
-        val btnReplay = view.findViewById(R.id.btnReplay) as ImageButton
-        btnReplay.setOnClickListener {
-            (activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.RESET_PLAY)
-            this.dismiss()
-        }
+		val btnReplay = view.findViewById(R.id.btnReplay) as ImageButton
+		btnReplay.setOnClickListener {
+			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.RESET_PLAY)
+			this.dismiss()
+		}
 
-        val builder = AlertDialog.Builder(activity!!)
-        val dialog = builder.setView(view)
-                .setOnKeyListener { _, keyCode, _keyEvent ->
-                    if (keyCode == KeyEvent.KEYCODE_BACK && _keyEvent.action == KeyEvent.ACTION_UP) {
-                        activity!!.finish()
-                    }
-                    false
-                }
-                .create()
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        return dialog
-    }
+		val builder = AlertDialog.Builder(activity!!)
+		val dialog = builder.setView(view)
+				.setOnKeyListener { _, keyCode, _keyEvent ->
+					if (keyCode == KeyEvent.KEYCODE_BACK && _keyEvent.action == KeyEvent.ACTION_UP) {
+						activity!!.finish()
+					}
+					false
+				}
+				.create()
+		dialog.setCancelable(false)
+		dialog.setCanceledOnTouchOutside(false)
+		return dialog
+	}
 }

@@ -3,9 +3,9 @@ package com.hansck.shadowingu.screen.learn
 import android.util.Log
 import com.hansck.shadowingu.database.DBInteractor
 import com.hansck.shadowingu.database.QueryEnum
+import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter.LearnView.ViewState.*
-import com.hansck.shadowingu.presentation.customview.QueryListener
 
 /**
  * Created by Hans CK on 07-Jun-18.

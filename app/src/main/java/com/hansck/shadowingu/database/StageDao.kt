@@ -10,12 +10,12 @@ import io.reactivex.Maybe
 @Dao
 interface StageDao {
 
-    @Query("SELECT * FROM topic")
-    fun getAll(): Maybe<List<Topic>>
+	@Query("SELECT * FROM topic")
+	fun getAll(): Maybe<List<Topic>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(topics: Array<Topic>)
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	fun insertAll(topics: Array<Topic>)
 
-    @Update
-    fun updateStage(topic: Topic)
+	@Update
+	fun updateStage(topic: Topic)
 }
