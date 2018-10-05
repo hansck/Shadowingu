@@ -15,6 +15,7 @@ import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.dialog.GameOverDialog
 import com.hansck.shadowingu.screen.dialog.PlayResultDialog
 import com.hansck.shadowingu.screen.playword.PlayWordFragment
+import com.hansck.shadowingu.util.Common
 import kotlinx.android.synthetic.main.activity_play.*
 
 
@@ -52,7 +53,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 		timer.onChronometerTickListener = Chronometer.OnChronometerTickListener {
 			elapsedTime += 1000
 		}
-		timer.base = SystemClock.elapsedRealtime();
+		timer.base = SystemClock.elapsedRealtime()
 		timer.start()
 	}
 
@@ -94,11 +95,13 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 	}
 
 	private fun showPlayResult() {
+		Common.instance.playAudio(this, "bgs_victory")
 		val playResultDialog = PlayResultDialog()
 		playResultDialog.show(fm, "playResult")
 	}
 
 	private fun showGameOver() {
+		Common.instance.playAudio(this, "bgs_game_over")
 		val gameOverDialog = GameOverDialog()
 		gameOverDialog.show(fm, "gameOver")
 	}

@@ -24,7 +24,7 @@ data class User(
 		@ColumnInfo(name = "exp")
 		var exp: Int,
 
-		@ColumnInfo(name = "gem")
+		@ColumnInfo(name = "ic_gem")
 		var gem: Int,
 
 		@ColumnInfo(name = "image")

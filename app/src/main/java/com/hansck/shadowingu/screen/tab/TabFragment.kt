@@ -1,9 +1,7 @@
 package com.hansck.shadowingu.screen.tab
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.home.HomeFragment
 import com.hansck.shadowingu.screen.leaderboard.LeaderboardFragment
 import com.hansck.shadowingu.screen.learn.LearnFragment
+import com.hansck.shadowingu.screen.main.MainActivity
 import com.hansck.shadowingu.screen.shop.ShopFragment
 import kotlinx.android.synthetic.main.fragment_tab.*
 
@@ -51,21 +50,10 @@ class TabFragment : BaseFragment(), TabPresenter.TabView {
 	override fun doRetrieveModel(): TabViewModel = this.model
 
 	private fun showTab() {
+		val tabTitles = arrayOf<String>(resources.getString(R.string.home), resources.getString(R.string.learn),
+				resources.getString(R.string.leaderbaoard), resources.getString(R.string.shop))
+
 		tab.setupWithViewPager(viewPager)
-		tab.addOnTabSelectedListener(object : TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-			override fun onTabSelected(tab: TabLayout.Tab) {
-				super.onTabSelected(tab)
-				val tabIconColor = ContextCompat.getColor(activity!!, R.color.color_accent)
-				tab.icon?.setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN)
-			}
-
-			override fun onTabUnselected(tab: TabLayout.Tab?) {
-				super.onTabUnselected(tab)
-				val tabIconColor = ContextCompat.getColor(activity!!, R.color.color_accent)
-				tab?.icon?.setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN)
-			}
-		})
-
 		val adapter = TabAdapter(childFragmentManager)
 		adapter.addFragment(HomeFragment(), getString(R.string.home))
 		adapter.addFragment(LearnFragment(), getString(R.string.learn))
@@ -73,10 +61,24 @@ class TabFragment : BaseFragment(), TabPresenter.TabView {
 		adapter.addFragment(ShopFragment(), getString(R.string.shop))
 		viewPager.adapter = adapter
 
-		tab.getTabAt(0)?.customView = setTab(getString(R.string.home), tabIcons[0])
-		tab.getTabAt(1)?.customView = setTab(getString(R.string.learn), tabIcons[1])
-		tab.getTabAt(2)?.customView = setTab(getString(R.string.rank), tabIcons[2])
-		tab.getTabAt(3)?.customView = setTab(getString(R.string.shop), tabIcons[3])
+		tab.getTabAt(0)?.customView = setTab(tabTitles[0], tabIcons[0])
+		tab.getTabAt(1)?.customView = setTab(tabTitles[1], tabIcons[1])
+		tab.getTabAt(2)?.customView = setTab(tabTitles[2], tabIcons[2])
+		tab.getTabAt(3)?.customView = setTab(tabTitles[3], tabIcons[3])
+
+		tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+			override fun onTabSelected(tab: TabLayout.Tab) {
+				(activity as MainActivity).supportActionBar!!.title = tabTitles[tab.position]
+			}
+
+			override fun onTabUnselected(tab: TabLayout.Tab) {
+
+			}
+
+			override fun onTabReselected(tab: TabLayout.Tab) {
+
+			}
+		})
 	}
 
 	private fun setTab(title: String, icon: Int): View {

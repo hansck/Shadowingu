@@ -10,9 +10,9 @@
     <TextView
         android:id="@+id/gem"
         style="@style/TitleBigMedium"
-        android:drawableEnd="@drawable/gem"
+        android:drawableEnd="@drawable/ic_gem"
         android:drawablePadding="@dimen/item_padding_small"
-        android:drawableRight="@drawable/gem"
+        android:drawableRight="@drawable/ic_gem"
         android:gravity="end"
         tools:text="2" />
 

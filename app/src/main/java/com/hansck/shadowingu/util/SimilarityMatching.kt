@@ -42,7 +42,7 @@ class SimilarityMatching {
 		val mfcc: MFCC
 		val temp = ArrayList<FloatArray>()
 
-		Log.e("FILE", "FILE $fileIdx")
+//		Log.e("FILE", "FILE $fileIdx")
 		val inStream: InputStream = when {
 			fileIdx == 1 -> context.resources.openRawResource(template)
 			recording == null -> context.resources.openRawResource(testAudio)
@@ -108,12 +108,12 @@ internal class Feature {
 		if (iteration == 1) {
 			features1 = features
 			for (i in features1.indices) {
-				Log.e("Features $iteration", Arrays.toString(features1[i]))
+//				Log.e("Features $iteration", Arrays.toString(features1[i]))
 			}
 		} else {
 			features2 = features
 			for (i in features2.indices) {
-				Log.e("Features $iteration", Arrays.toString(features2[i]))
+//				Log.e("Features $iteration", Arrays.toString(features2[i]))
 			}
 		}
 	}

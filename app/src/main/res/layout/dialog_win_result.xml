@@ -110,9 +110,9 @@
 					style="@style/TitleMedium"
 					android:layout_width="0dp"
 					android:layout_weight="0.65"
-					android:drawableLeft="@drawable/ic_microphone"
+					android:drawableLeft="@drawable/ic_gem"
 					android:drawablePadding="@dimen/item_padding_tiny"
-					android:drawableStart="@drawable/ic_microphone"
+					android:drawableStart="@drawable/ic_gem"
 					android:text="@string/gem_qty" />
 			</LinearLayout>
 		</LinearLayout>

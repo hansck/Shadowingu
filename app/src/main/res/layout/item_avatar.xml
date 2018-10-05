@@ -47,8 +47,8 @@
                     <Button
                         android:id="@+id/btnBuy"
                         style="@style/ButtonTheme"
-                        android:drawableEnd="@drawable/gem_small"
-                        android:drawableRight="@drawable/gem_small"
+                        android:drawableEnd="@drawable/ic_gem_small"
+                        android:drawableRight="@drawable/ic_gem_small"
                         android:gravity="center"
                         android:text="Buy for 3"
                         android:visibility="visible" />

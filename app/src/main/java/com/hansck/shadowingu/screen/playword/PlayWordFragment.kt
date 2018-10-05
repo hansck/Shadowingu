@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.media.AudioFormat
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
@@ -43,12 +42,6 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	private lateinit var presenter: PlayWordPresenter
 	private lateinit var bundle: Bundle
 	private lateinit var recorder: Recorder
-	private val REQUEST_RECORD_AUDIO_PERMISSION = 100
-	private val REQUEST_WRITE_STORAGE_PERMISSION = 101
-	private var toggleTurn: ActiveAvatar = PLAYER
-	private lateinit var file: File
-	private var forwardX: Float = 0F
-	private var backwardX: Float = 0F
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -93,8 +86,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 
 	private fun showWord() {
 		bundle = this.arguments!!
-		doRetrieveModel().setWord(bundle.getInt("idWord"))
-
+		doRetrieveModel().setData(bundle.getInt("idWord"))
 		initAvatars()
 
 		val word = doRetrieveModel().word
@@ -103,9 +95,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		romaji.text = word.romaji
 		meaning.text = word.meaning
 		btnVoice.setOnClickListener {
-			val mPlayer = MediaPlayer.create(activity, Common.instance.getResourceId(activity!!, "raw", word.audio))
-			mPlayer.setOnCompletionListener { mp -> mp.release() }
-			mPlayer.start()
+			Common.instance.playAudio(activity!!, word.audio)
 		}
 		description.setOnClickListener {
 			presenter.presentState(WRONG_ANSWER)
@@ -122,8 +112,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 					if (::recorder.isInitialized) {
 						stopRecording()
 						SimilarityMatching.instance.calculateSimilarity(activity!!,
-								resources.getIdentifier(word.audio, "raw", activity!!.packageName),
-								file, 0, this, 1)
+								resources.getIdentifier(word.template, "raw", activity!!.packageName),
+								doRetrieveModel().file, 0, this, 1)
 					}
 				}
 			}
@@ -131,14 +121,15 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		})
 	}
 
+
 	//region Animation
 	private fun playerTurn() {
-		toggleTurn = PLAYER
+		doRetrieveModel().toggleTurn = PLAYER
 		playerAttack()
 	}
 
 	private fun enemyTurn() {
-		toggleTurn = ENEMY
+		doRetrieveModel().toggleTurn = ENEMY
 		enemyAttack()
 	}
 
@@ -149,6 +140,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun checkEnemyHP() {
+		Common.instance.playAudio(activity!!, "bgs_splash")
 		playerIdle()
 		enemyDead()
 		Handler().postDelayed({
@@ -158,6 +150,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun checkPlayerHP() {
+		Common.instance.playAudio(activity!!, "bgs_explosion")
 		enemyIdle()
 		val act = (activity as PlayActivity)
 		act.presenter.presentState(PlayPresenter.PlayView.ViewState.REDUCE_HEARTS)
@@ -177,20 +170,20 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun playerIdle() {
-		animateAvatar(player, R.drawable.player_idle)
+		animateAvatar(player, doRetrieveModel().getIdleAvatar())
 	}
 
 	private fun playerAttack() {
-		animateAvatar(player, R.drawable.enemy_attack)
+		animateAvatar(player, doRetrieveModel().getAttackAvatar())
 		animateAttackBall(player_ball)
 	}
 
 	private fun playerDamaged() {
-		animateAvatar(player, R.drawable.enemy_attack)
+		animateAvatar(player, doRetrieveModel().getDamagedAvatar())
 	}
 
 	private fun playerDead() {
-		animateAvatar(player, R.drawable.enemy_dead)
+		animateAvatar(player, doRetrieveModel().getDeadAvatar())
 	}
 
 	private fun enemyIdle() {
@@ -207,11 +200,11 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun animateAttackBall(view: View) {
-		if (forwardX == 0F && backwardX == 0F) checkScreenSize()
-		val animation = if (toggleTurn == PLAYER) {
-			TranslateAnimation(-backwardX, forwardX, 0F, 0F)
+		if (doRetrieveModel().forwardX == 0F && doRetrieveModel().backwardX == 0F) checkScreenSize()
+		val animation = if (doRetrieveModel().toggleTurn == PLAYER) {
+			TranslateAnimation(-doRetrieveModel().backwardX, doRetrieveModel().forwardX, 0F, 0F)
 		} else {
-			TranslateAnimation(backwardX, -forwardX, 0F, 0F)
+			TranslateAnimation(doRetrieveModel().backwardX, -doRetrieveModel().forwardX, 0F, 0F)
 		}
 		animation.duration = 750
 		animation.fillAfter = false
@@ -223,12 +216,12 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		val displayMetrics = DisplayMetrics()
 		activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
 		val width = displayMetrics.widthPixels
-		forwardX = width * 500F / 1080F
-		backwardX = width * 100F / 1080F
+		doRetrieveModel().forwardX = width * 500F / 1080F
+		doRetrieveModel().backwardX = width * 100F / 1080F
 	}
 
 	override fun onAnimationEnd(animation: Animation) {
-		if (toggleTurn == PLAYER) {
+		if (doRetrieveModel().toggleTurn == PLAYER) {
 			player_ball.clearAnimation()
 			player_ball.visibility = View.GONE
 			checkEnemyHP()
@@ -242,7 +235,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	override fun onAnimationRepeat(animation: Animation) {}
 
 	override fun onAnimationStart(animation: Animation) {
-		if (toggleTurn == PLAYER) {
+		if (doRetrieveModel().toggleTurn == PLAYER) {
 			player_ball.visibility = View.VISIBLE
 		} else {
 			enemy_ball.visibility = View.VISIBLE
@@ -264,7 +257,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		val folder = File(Environment.getExternalStorageDirectory().toString() + "/" + activity!!.getString(R.string.app_name))
 		if (!folder.exists()) folder.mkdir()
 		val filename = activity!!.getString(R.string.app_name) + "/" + System.currentTimeMillis().toString() + ".wav"
-		file = if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+		doRetrieveModel().file = if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
 			File(Environment.getExternalStorageDirectory(), filename)
 		} else {
 			File(context!!.filesDir, filename)
@@ -278,7 +271,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 				PullTransport.OnAudioChunkPulledListener { },
 				WriteAction.Default(),
 				Recorder.OnSilenceListener {}, 200
-		), file)
+		), doRetrieveModel().file)
 		recorder.startRecording()
 	}
 
@@ -292,17 +285,17 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	private fun checkPermissions() {
 		when {
 			ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ->
-				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
+				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), doRetrieveModel().REQUEST_RECORD_AUDIO_PERMISSION)
 			ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ->
-				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_STORAGE_PERMISSION)
+				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), doRetrieveModel().REQUEST_WRITE_STORAGE_PERMISSION)
 			else -> startRecording()
 		}
 	}
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
 		when (requestCode) {
-			REQUEST_RECORD_AUDIO_PERMISSION -> checkPermissions()
-			REQUEST_WRITE_STORAGE_PERMISSION -> checkPermissions()
+			doRetrieveModel().REQUEST_RECORD_AUDIO_PERMISSION -> checkPermissions()
+			doRetrieveModel().REQUEST_WRITE_STORAGE_PERMISSION -> checkPermissions()
 		}
 	}
 	//endregion

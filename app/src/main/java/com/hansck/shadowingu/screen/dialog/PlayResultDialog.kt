@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.screen.play.PlayActivity
+import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.ProgressBarAnimation
 
 
@@ -63,12 +64,14 @@ class PlayResultDialog : DialogFragment() {
 		val btnContinue = view.findViewById(R.id.btnContinue) as ImageButton
 		btnContinue.setOnClickListener {
 			dismiss()
+			Common.instance.stopAudio()
 			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.BACK_TO_HOME)
 		}
 
 		val btnReplay = view.findViewById(R.id.btnReplay) as ImageButton
 		btnReplay.setOnClickListener {
 			dismiss()
+			Common.instance.stopAudio()
 			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.RESET_PLAY)
 		}
 

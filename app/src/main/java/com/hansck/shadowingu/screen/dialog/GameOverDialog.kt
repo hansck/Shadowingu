@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.screen.play.PlayActivity
+import com.hansck.shadowingu.util.Common
 
 /**
  * Created by Hans CK on 06-Jul-18.
@@ -22,14 +23,16 @@ class GameOverDialog : DialogFragment() {
 		val view = inflater.inflate(R.layout.dialog_game_over, null)
 		val btnContinue = view.findViewById(R.id.btnContinue) as ImageButton
 		btnContinue.setOnClickListener {
+			dismiss()
+			Common.instance.stopAudio()
 			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.BACK_TO_HOME)
-			this.dismiss()
 		}
 
 		val btnReplay = view.findViewById(R.id.btnReplay) as ImageButton
 		btnReplay.setOnClickListener {
+			dismiss()
+			Common.instance.stopAudio()
 			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.RESET_PLAY)
-			this.dismiss()
 		}
 
 		val builder = AlertDialog.Builder(activity!!)

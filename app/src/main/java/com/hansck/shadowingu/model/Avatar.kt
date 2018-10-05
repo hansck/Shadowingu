@@ -36,9 +36,9 @@ data class Avatar(
 	companion object {
 		fun populateData(): Array<Avatar> {
 			return arrayOf(
-					Avatar(0, "Satoshi", "Satoshi is a normal high school student. He has 3 hearts point.", "ic_default_image", "ic_person", 1, 3, true),
-					Avatar(1, "Taro", "Taro is an enthusiast learner. He has 4 hearts point.", "ic_default_image", "ic_person", 2, 4, true),
-					Avatar(2, "Kawakami", "Kawakami is a fighter type. He has 5 hearts point.", "ic_default_image", "ic_person", 2, 5, false))
+					Avatar(0, "Satoshi", "Satoshi is a normal high school student. He has 5 hearts point.", "ic_default_image", "ic_person", 1, 5, true),
+					Avatar(1, "Taro", "Taro is an enthusiast learner. He has 6 hearts point.", "ic_default_image", "ic_person", 2, 6, true),
+					Avatar(2, "Kawakami", "Kawakami is a fighter type. He has 7 hearts point.", "ic_default_image", "ic_person", 2, 7, false))
 		}
 	}
 }
