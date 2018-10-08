@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:card_view="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
@@ -11,9 +12,10 @@
 	tools:context=".screen.play.PlayActivity">
 
 	<RelativeLayout
+		android:id="@+id/arena"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="0.395"
+		android:layout_weight="0.375"
 		android:background="@drawable/bg_play"
 		android:gravity="center_vertical">
 
@@ -71,7 +73,7 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="0.595"
+		android:layout_weight="0.615"
 		android:gravity="center"
 		android:orientation="vertical">
 
@@ -114,11 +116,11 @@
 		</RelativeLayout>
 
 		<TextView
-			android:id="@+id/description"
+			android:id="@+id/hint"
 			style="@style/ClickableMedium"
 			android:layout_gravity="center"
 			android:layout_marginTop="@dimen/item_margin_normal"
-			android:text="@string/show_description" />
+			android:text="@string/show_hint" />
 
 		<android.support.v7.widget.CardView
 			android:id="@+id/descriptionContainer"
@@ -166,16 +168,30 @@
 			style="@style/BodyRegular"
 			android:layout_width="wrap_content"
 			android:layout_gravity="center"
-			android:layout_marginTop="@dimen/item_margin_normal"
+			android:layout_marginTop="@dimen/item_margin_small"
 			android:text="@string/press_to_start_shadowing" />
 
-		<ImageButton
-			android:id="@+id/btnRecording"
+		<FrameLayout
+			android:id="@+id/frameRecording"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginTop="@dimen/item_margin_small"
-			android:background="@drawable/bg_clickable"
-			android:src="@drawable/ic_mic" />
+			android:layout_marginTop="@dimen/item_margin_small">
+
+			<ImageButton
+				android:id="@+id/btnRecording"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:background="@android:color/transparent"
+				android:src="@drawable/ic_mic" />
+
+			<com.mikhaellopez.circularprogressbar.CircularProgressBar
+				android:id="@+id/progressBar"
+				android:layout_width="@dimen/circle_progress_size"
+				android:layout_height="@dimen/circle_progress_size"
+				app:cpb_background_progressbar_color="@color/text_light_4"
+				app:cpb_background_progressbar_width="@dimen/circle_progres_bg_width"
+				app:cpb_progressbar_width="@dimen/circle_progress_width" />
+		</FrameLayout>
 	</LinearLayout>
 </LinearLayout>

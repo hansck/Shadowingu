@@ -30,9 +30,11 @@ import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.screen.playword.ActiveAvatar.ENEMY
 import com.hansck.shadowingu.screen.playword.ActiveAvatar.PLAYER
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.PersistentManager
 import com.hansck.shadowingu.util.SimilarityMatching
 import kotlinx.android.synthetic.main.fragment_play_word.*
 import omrecorder.*
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
 import java.io.File
 
 
@@ -42,6 +44,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	private lateinit var presenter: PlayWordPresenter
 	private lateinit var bundle: Bundle
 	private lateinit var recorder: Recorder
+	private var guideIdx: Int = 0
+	private lateinit var guides: Array<GuideView>
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -97,39 +101,75 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		btnVoice.setOnClickListener {
 			Common.instance.playAudio(activity!!, word.audio)
 		}
-		description.setOnClickListener {
+		hint.setOnClickListener {
 			presenter.presentState(WRONG_ANSWER)
 			descriptionContainer.visibility = View.VISIBLE
-			description.visibility = View.GONE
+			hint.visibility = View.GONE
 		}
-		btnRecording.setOnTouchListener(View.OnTouchListener { _, event ->
-			when (event.action) {
-				MotionEvent.ACTION_DOWN -> {
-					checkPermissions()
-					return@OnTouchListener true
-				}
-				MotionEvent.ACTION_UP -> {
-					if (::recorder.isInitialized) {
-						stopRecording()
-						SimilarityMatching.instance.calculateSimilarity(activity!!,
-								resources.getIdentifier(word.template, "raw", activity!!.packageName),
-								doRetrieveModel().file, 0, this, 1)
-					}
-				}
-			}
-			false
-		})
+		frameRecording.setOnTouchListener(listener)
+		btnRecording.setOnTouchListener(listener)
+
+		if (!PersistentManager.instance.isShowGuide()) {
+			guides = arrayOf(buildGuide(kanji, "Word", resources.getString(R.string.guide_word)),
+					buildGuide(btnVoice, "Voice", resources.getString(R.string.guide_voice)),
+					buildGuide(hint, "Hint", resources.getString(R.string.guide_hint)),
+					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)),
+					buildGuide(arena, "Arena", resources.getString(R.string.guide_arena)))
+			showGuide()
+		}
 	}
 
+	private fun showGuide() {
+		if (guideIdx < guides.size) {
+			guides[guideIdx].show()
+		} else {
+			PersistentManager.instance.setShowGuide()
+		}
+	}
+
+	private fun buildGuide(view: View, title: String, content: String): GuideView {
+		return GuideView.Builder(activity)
+				.setTitle(title)
+				.setContentText(content)
+				.setTargetView(view)
+				.setDismissType(GuideView.DismissType.anywhere)
+				.setGuideListener {
+					guideIdx++
+					showGuide()
+				}
+				.build()
+	}
+
+	private val listener = View.OnTouchListener { _, event ->
+		when (event.action) {
+			MotionEvent.ACTION_DOWN -> {
+				checkPermissions()
+				return@OnTouchListener true
+			}
+			MotionEvent.ACTION_UP -> {
+				if (::recorder.isInitialized) {
+					stopRecording()
+					SimilarityMatching.instance.calculateSimilarity(activity!!,
+							resources.getIdentifier(doRetrieveModel().word.template, "raw", activity!!.packageName),
+							doRetrieveModel().file, 0, this, 1)
+				}
+			}
+		}
+		false
+	}
 
 	//region Animation
 	private fun playerTurn() {
 		doRetrieveModel().toggleTurn = PLAYER
+		animateProgressBar(100F, R.color.color_accent, false)
+		Common.instance.playAudio(activity!!, "bgs_correct")
 		playerAttack()
 	}
 
 	private fun enemyTurn() {
 		doRetrieveModel().toggleTurn = ENEMY
+		animateProgressBar(100F, R.color.ic_cancel, false)
+		Common.instance.playAudio(activity!!, "bgs_wrong")
 		enemyAttack()
 	}
 
@@ -156,6 +196,9 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		act.presenter.presentState(PlayPresenter.PlayView.ViewState.REDUCE_HEARTS)
 		if (act.doRetrieveModel().reduceHeart() > 0) {
 			playerDamaged()
+			Handler().postDelayed({
+				animateProgressBar(0F, R.color.ic_cancel, true)
+			}, 1200)
 		} else {
 			playerDead()
 			Handler().postDelayed({
@@ -218,6 +261,11 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		val width = displayMetrics.widthPixels
 		doRetrieveModel().forwardX = width * 500F / 1080F
 		doRetrieveModel().backwardX = width * 100F / 1080F
+	}
+
+	private fun animateProgressBar(progress: Float, color: Int, isBack: Boolean) {
+		if (!isBack) progressBar.color = ContextCompat.getColor(activity!!, color)
+		progressBar.setProgressWithAnimation(progress, 500)
 	}
 
 	override fun onAnimationEnd(animation: Animation) {

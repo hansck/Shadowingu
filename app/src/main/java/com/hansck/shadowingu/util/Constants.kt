@@ -27,8 +27,9 @@ class Constants {
 	object General {
 		const val FIRST_LEVEL = 0
 		const val MAX_LEVEL = 5
-		const val MAX_STAGE = 5
+		const val MAX_STAGE = 7
 		const val MAX_LEADERBOARD = 20
+		const val SHOW_GUIDE = "showGuide"
 	}
 
 	object Permissions {

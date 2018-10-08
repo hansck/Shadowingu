@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.Window
 import android.widget.Chronometer
 import com.hansck.shadowingu.R
@@ -16,7 +17,9 @@ import com.hansck.shadowingu.screen.dialog.GameOverDialog
 import com.hansck.shadowingu.screen.dialog.PlayResultDialog
 import com.hansck.shadowingu.screen.playword.PlayWordFragment
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.activity_play.*
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
 
 
 class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
@@ -25,6 +28,8 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 	lateinit var presenter: PlayPresenter
 	lateinit var fm: FragmentManager
 	private var elapsedTime: Long = 0
+	private var guideIdx: Int = 0
+	private lateinit var guides: Array<GuideView>
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -46,7 +51,13 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 
 		setTimer()
 
-		presenter.presentState(SHOW_WORD_SCREEN)
+		if (!PersistentManager.instance.isShowGuide()) {
+			guides = arrayOf(buildGuide(heartList, "Life Points", resources.getString(R.string.guide_life_points)),
+					buildGuide(timer, "Timer", resources.getString(R.string.guide_timer)))
+			showGuide()
+		} else {
+			presenter.presentState(SHOW_WORD_SCREEN)
+		}
 	}
 
 	private fun setTimer() {
@@ -55,6 +66,27 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 		}
 		timer.base = SystemClock.elapsedRealtime()
 		timer.start()
+	}
+
+	private fun showGuide() {
+		if (guideIdx < guides.size) {
+			guides[guideIdx].show()
+		} else {
+			presenter.presentState(SHOW_WORD_SCREEN)
+		}
+	}
+
+	private fun buildGuide(view: View, title: String, content: String): GuideView {
+		return GuideView.Builder(this)
+				.setTitle(title)
+				.setContentText(content)
+				.setTargetView(view)
+				.setDismissType(GuideView.DismissType.anywhere)
+				.setGuideListener {
+					guideIdx++
+					showGuide()
+				}
+				.build()
 	}
 
 	override fun showState(viewState: PlayPresenter.PlayView.ViewState) {
