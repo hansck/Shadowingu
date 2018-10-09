@@ -12,7 +12,7 @@
 		android:id="@+id/stage_cleared"
 		style="@style/Word"
 		android:layout_width="wrap_content"
-		android:text="@string/stage_cleared" />
+		android:text="@string/lesson_cleared" />
 
 	<LinearLayout
 		android:id="@+id/resultContainer"
@@ -85,6 +85,7 @@
 					style="@style/SubheadingMedium"
 					android:layout_width="0dp"
 					android:layout_weight="0.45"
+					android:textColor="@color/color_accent"
 					android:visibility="visible"
 					tools:text="@string/new_record" />
 			</LinearLayout>

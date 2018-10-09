@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.DialogFragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.KeyEvent
 import android.widget.ImageButton
@@ -37,8 +38,10 @@ class PlayResultDialog : DialogFragment() {
 		val timeRemark = view.findViewById(R.id.timeRemark) as TextView
 		if (model.isNewRecord) {
 			timeRemark.text = getString(R.string.new_record)
+			timeRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.color_accent))
 		} else {
 			timeRemark.text = getString(R.string.not_bad)
+			timeRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.ic_cancel))
 		}
 
 		val progressBar = view.findViewById(R.id.progressBar) as ProgressBar

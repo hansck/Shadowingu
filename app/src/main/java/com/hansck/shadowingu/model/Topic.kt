@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class Topic(
 		@PrimaryKey
-		var idStage: Int,
+		var idTopic: Int,
 
 		@ColumnInfo(name = "category")
 		var category: String,

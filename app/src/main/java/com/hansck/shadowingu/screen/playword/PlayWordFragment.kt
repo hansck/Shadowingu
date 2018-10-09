@@ -164,6 +164,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		animateProgressBar(100F, R.color.color_accent, false)
 		Common.instance.playAudio(activity!!, "bgs_correct")
 		playerAttack()
+		btnRecording.isEnabled = false
+		frameRecording.isEnabled = false
 	}
 
 	private fun enemyTurn() {

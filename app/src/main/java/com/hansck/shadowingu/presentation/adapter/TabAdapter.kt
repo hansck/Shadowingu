@@ -13,7 +13,7 @@ class TabAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 	private val titles = ArrayList<String>()
 
 	override fun getItem(position: Int): Fragment {
-		return fragments.get(position)
+		return fragments[position]
 	}
 
 	override fun getCount(): Int {

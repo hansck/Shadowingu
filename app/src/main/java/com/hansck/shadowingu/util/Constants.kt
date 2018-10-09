@@ -32,6 +32,10 @@ class Constants {
 		const val SHOW_GUIDE = "showGuide"
 	}
 
+	object Time {
+		const val TIME_SHORT = "mm:ss"
+	}
+
 	object Permissions {
 		val CAMERA = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 	}

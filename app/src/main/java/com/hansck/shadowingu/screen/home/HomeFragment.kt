@@ -12,7 +12,7 @@ import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.Topic
 import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
-import com.hansck.shadowingu.presentation.adapter.StagesAdapter
+import com.hansck.shadowingu.presentation.adapter.TopicAdapter
 import com.hansck.shadowingu.presentation.customview.OnBadgeSelected
 import com.hansck.shadowingu.presentation.customview.OnStageSelected
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
 	private lateinit var model: HomeViewModel
 	private lateinit var presenter: HomePresenter
-	private var adapter: StagesAdapter? = null
+	private var adapter: TopicAdapter? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -78,7 +78,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
 	override fun onStageSelected(topic: Topic) {
 		val intent = Intent(activity, PlayActivity::class.java)
-		intent.putExtra("idStage", topic.idStage)
+		intent.putExtra("idTopic", topic.idTopic)
 		startActivity(intent)
 	}
 
@@ -92,7 +92,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 		doRetrieveModel().setStagesAndBadges()
 		stageList.setHasFixedSize(true)
 		stageList.layoutManager = LinearLayoutManager(context)
-		adapter = StagesAdapter(doRetrieveModel().topics, false, this)
+		adapter = TopicAdapter(doRetrieveModel().topics, false, this)
 
 		// show the data
 		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

@@ -79,17 +79,17 @@ class PlayViewModel(var context: Context?) {
 		}
 		user.gem++
 		DataManager.instance.user = user
-		checkStage()
+		checkTopic()
 		checkBadges()
 	}
 
-	private fun checkStage(): Boolean {
+	private fun checkTopic(): Boolean {
 		topic.cleared = true
 		if (timeElapsed < topic.fastestTime || topic.fastestTime.toInt() == 0) {
 			topic.fastestTime = timeElapsed
 			isNewRecord = true
 		}
-		DataManager.instance.topics[topic.idStage] = topic
+		DataManager.instance.topics[topic.idTopic] = topic
 		return isNewRecord
 	}
 
@@ -100,7 +100,7 @@ class PlayViewModel(var context: Context?) {
 			updatedBadges.add(badges[0])
 			DataManager.instance.badges[0] = badges[0]
 		}
-		if (topic.idStage == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
+		if (topic.idTopic == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
 			PersistentManager.instance.setAllStagesCleared()
 			badges[1].unlock = true
 			updatedBadges.add(badges[1])

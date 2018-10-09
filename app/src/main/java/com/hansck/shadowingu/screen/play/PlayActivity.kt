@@ -43,7 +43,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 		this.presenter = PlayPresenterImpl(this)
 		fm = supportFragmentManager
 
-		doRetrieveModel().setData(intent.extras.getInt("idStage"))
+		doRetrieveModel().setData(intent.extras.getInt("idTopic"))
 
 		heartList.setHasFixedSize(true)
 		heartList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

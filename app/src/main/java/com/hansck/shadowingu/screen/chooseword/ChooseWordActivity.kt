@@ -66,7 +66,7 @@ class ChooseWordActivity : BaseActivity(), ChooseWordPresenter.ChooseWordView, O
 
     private fun showWords() {
         bundle = intent.extras
-        doRetrieveModel().setWords(bundle.getInt("idStage"))
+        doRetrieveModel().setWords(bundle.getInt("idTopic"))
         bundle = intent.extras
         wordList.setHasFixedSize(true)
         wordList.layoutManager = GridLayoutManager(this, 2)

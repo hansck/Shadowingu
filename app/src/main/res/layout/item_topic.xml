@@ -23,7 +23,16 @@
 			tools:src="@drawable/ic_default_image" />
 
 		<TextView
-			android:id="@+id/idStage"
+			android:id="@+id/fastestTime"
+			style="@style/SubheadingMedium"
+			android:layout_marginEnd="@dimen/item_margin_normal"
+			android:layout_marginStart="@dimen/item_margin_normal"
+			android:gravity="end"
+			android:textColor="@color/text_light_1"
+			tools:text="Fastest Time : 05:00" />
+
+		<TextView
+			android:id="@+id/idTopic"
 			style="@style/TitleMedium"
 			android:layout_centerVertical="true"
 			android:layout_marginEnd="@dimen/item_margin_normal"
