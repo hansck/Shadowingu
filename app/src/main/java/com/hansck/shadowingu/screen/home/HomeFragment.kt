@@ -9,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.model.Topic
 import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
+import com.hansck.shadowingu.presentation.adapter.LessonsAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
-import com.hansck.shadowingu.presentation.adapter.TopicAdapter
 import com.hansck.shadowingu.presentation.customview.OnBadgeSelected
 import com.hansck.shadowingu.presentation.customview.OnStageSelected
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
@@ -31,7 +30,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
 	private lateinit var model: HomeViewModel
 	private lateinit var presenter: HomePresenter
-	private var adapter: TopicAdapter? = null
+	private var adapter: LessonsAdapter? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -54,14 +53,13 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 	private fun init() {
 		this.model = HomeViewModel(activity)
 		this.presenter = HomePresenterImpl(this)
-
-		doRetrieveModel().setData()
 	}
 
 	private fun showProfile() {
+		doRetrieveModel().setData()
 		profileName.text = doRetrieveModel().user.name
-		exp.text = doRetrieveModel().user.exp.toString()
-		title.text = doRetrieveModel().getActiveTitle().name
+		exp.text = doRetrieveModel().getExp()
+		title.text = doRetrieveModel().getLevelAndTitle()
 		Common.instance.setImageByName(activity!!, doRetrieveModel().user.image, picture)
 	}
 
@@ -76,9 +74,9 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 
 	override fun doRetrieveModel(): HomeViewModel = this.model
 
-	override fun onStageSelected(topic: Topic) {
+	override fun onStageSelected(lesson: com.hansck.shadowingu.model.Lesson) {
 		val intent = Intent(activity, PlayActivity::class.java)
-		intent.putExtra("idTopic", topic.idTopic)
+		intent.putExtra("idLesson", lesson.idLesson)
 		startActivity(intent)
 	}
 
@@ -88,11 +86,11 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, On
 	}
 
 	private fun showItems() {
-		// Set Topic List
+		// Set Lesson List
 		doRetrieveModel().setStagesAndBadges()
 		stageList.setHasFixedSize(true)
 		stageList.layoutManager = LinearLayoutManager(context)
-		adapter = TopicAdapter(doRetrieveModel().topics, false, this)
+		adapter = LessonsAdapter(doRetrieveModel().lessons, false, this)
 
 		// show the data
 		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

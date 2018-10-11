@@ -89,12 +89,12 @@ class PersistentManager {
 
 	fun setAllStagesCleared() {
 		val editor = keyStore.edit()
-		editor.putBoolean(Constants.Preferences.ALL_STAGE_CLEAR, true)
+		editor.putBoolean(Constants.Preferences.ALL_LESSONS_CLEAR, true)
 		editor.apply()
 	}
 
 	fun isAllStagesCleared(): Boolean {
-		return keyStore.getBoolean(Constants.Preferences.ALL_STAGE_CLEAR, false)
+		return keyStore.getBoolean(Constants.Preferences.ALL_LESSONS_CLEAR, false)
 	}
 
 	fun setShowGuide() {

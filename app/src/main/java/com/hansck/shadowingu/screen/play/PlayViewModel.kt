@@ -1,6 +1,7 @@
 package com.hansck.shadowingu.screen.play
 
 import android.content.Context
+import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
@@ -17,7 +18,7 @@ class PlayViewModel(var context: Context?) {
 	var updatedBadges: ArrayList<Badge> = ArrayList()
 	var hearts: ArrayList<Heart> = ArrayList()
 	lateinit var avatar: Avatar
-	lateinit var topic: Topic
+	lateinit var lesson: Lesson
 	lateinit var user: User
 	var currentWordId: Int = 0
 	var count: Int = 10
@@ -35,7 +36,7 @@ class PlayViewModel(var context: Context?) {
 	var isNewRecord: Boolean = false
 
 	fun setData(idStage: Int) {
-		topic = DataManager.instance.topics[idStage]
+		lesson = DataManager.instance.lessons[idStage]
 		user = DataManager.instance.user
 		badges = DataManager.instance.badges
 		words = DataManager.instance.getWordsByStage(idStage)
@@ -63,7 +64,8 @@ class PlayViewModel(var context: Context?) {
 		timeElapsed = (timeEnd - timeStart) / 1000
 
 		//Calculate Level and Exp
-		val userExp = user.exp + topic.exp
+		val userExp = user.exp + lesson.exp
+		Log.e("LEVEL", user.level.toString() + " " + levels[user.level - 1])
 		val expToLevelUp = levels[user.level - 1].exp - userExp
 
 		oldLevel = user.level
@@ -79,17 +81,17 @@ class PlayViewModel(var context: Context?) {
 		}
 		user.gem++
 		DataManager.instance.user = user
-		checkTopic()
+		checkLesson()
 		checkBadges()
 	}
 
-	private fun checkTopic(): Boolean {
-		topic.cleared = true
-		if (timeElapsed < topic.fastestTime || topic.fastestTime.toInt() == 0) {
-			topic.fastestTime = timeElapsed
+	private fun checkLesson(): Boolean {
+		lesson.cleared = true
+		if (timeElapsed < lesson.fastestTime || lesson.fastestTime.toInt() == 0) {
+			lesson.fastestTime = timeElapsed
 			isNewRecord = true
 		}
-		DataManager.instance.topics[topic.idTopic] = topic
+		DataManager.instance.lessons[lesson.idLesson] = lesson
 		return isNewRecord
 	}
 
@@ -100,7 +102,7 @@ class PlayViewModel(var context: Context?) {
 			updatedBadges.add(badges[0])
 			DataManager.instance.badges[0] = badges[0]
 		}
-		if (topic.idTopic == Constants.General.MAX_STAGE - 1 && !PersistentManager.instance.isAllStagesCleared()) {
+		if (lesson.idLesson == Constants.General.MAX_LESSON - 1 && !PersistentManager.instance.isAllStagesCleared()) {
 			PersistentManager.instance.setAllStagesCleared()
 			badges[1].unlock = true
 			updatedBadges.add(badges[1])

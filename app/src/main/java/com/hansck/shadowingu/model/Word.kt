@@ -30,7 +30,7 @@ data class Word(
 		@ColumnInfo(name = "template")
 		var template: String,
 
-		@ColumnInfo(name = "topic")
+		@ColumnInfo(name = "lesson")
 		var stage: Int) {
 
 	companion object {

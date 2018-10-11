@@ -13,7 +13,7 @@ import java.util.concurrent.Executors
 /**
  * Created by Hans CK on 11-Jun-18.
  */
-@Database(entities = [(User::class), (Word::class), (Topic::class), (Avatar::class), (Title::class), (Badge::class), (Level::class)], version = 1)
+@Database(entities = [(User::class), (Word::class), (Lesson::class), (Avatar::class), (Title::class), (Badge::class), (Level::class)], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
 	abstract fun userDao(): UserDao
@@ -37,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
 									// do something after database has been created
 									Log.e("DB", "MASUK CREATED")
 									Executors.newSingleThreadScheduledExecutor().execute {
-										getInstance(context)?.stageDao()?.insertAll(Topic.populateData())
+										getInstance(context)?.stageDao()?.insertAll(Lesson.populateData())
 										getInstance(context)?.audioDao()?.insertAll(Word.populateData())
 										getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())
 										getInstance(context)?.titleDao()?.insertAll(Title.populateData())

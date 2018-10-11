@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.LeaderboardUser
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.DataManager
 import kotlinx.android.synthetic.main.item_user.view.*
 import java.util.*
 
@@ -35,7 +36,8 @@ class LeaderboardAdapter(private val items: ArrayList<LeaderboardUser>) : Recycl
 		fun bind(user: LeaderboardUser) = with(itemView) {
 			rank.text = user.rank.toString()
 			username.text = user.name
-			title.text = user.level.toString()
+			title.text = resources.getString(R.string.leaderboard_title, user.level.toString(),
+					DataManager.instance.getActiveTitle(user.level).name)
 			Common.instance.setImageByName(context, user.image, picture)
 			for (badge in user.badges) {
 				addBadges(context, badgesContainer, badge.unlockedImage)

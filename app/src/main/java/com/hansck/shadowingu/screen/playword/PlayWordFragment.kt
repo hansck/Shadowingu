@@ -101,10 +101,13 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		btnVoice.setOnClickListener {
 			Common.instance.playAudio(activity!!, word.audio)
 		}
-		hint.setOnClickListener {
+		btnHint.setOnClickListener {
 			presenter.presentState(WRONG_ANSWER)
 			descriptionContainer.visibility = View.VISIBLE
-			hint.visibility = View.GONE
+			btnHint.visibility = View.GONE
+		}
+		btnSkip.setOnClickListener {
+			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WORD_SCREEN)
 		}
 		frameRecording.setOnTouchListener(listener)
 		btnRecording.setOnTouchListener(listener)
@@ -112,7 +115,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		if (!PersistentManager.instance.isShowGuide()) {
 			guides = arrayOf(buildGuide(kanji, "Word", resources.getString(R.string.guide_word)),
 					buildGuide(btnVoice, "Voice", resources.getString(R.string.guide_voice)),
-					buildGuide(hint, "Hint", resources.getString(R.string.guide_hint)),
+					buildGuide(btnHint, "Hint", resources.getString(R.string.guide_hint)),
 					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)),
 					buildGuide(arena, "Arena", resources.getString(R.string.guide_arena)))
 			showGuide()
@@ -173,6 +176,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		animateProgressBar(100F, R.color.ic_cancel, false)
 		Common.instance.playAudio(activity!!, "bgs_wrong")
 		enemyAttack()
+		doRetrieveModel().numOfFalse++
 	}
 
 	private fun animateAvatar(view: ImageView, drawable: Int) {
@@ -194,6 +198,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	private fun checkPlayerHP() {
 		Common.instance.playAudio(activity!!, "bgs_explosion")
 		enemyIdle()
+		if (doRetrieveModel().isShowHint()) btnSkip.visibility = View.VISIBLE
 		val act = (activity as PlayActivity)
 		act.presenter.presentState(PlayPresenter.PlayView.ViewState.REDUCE_HEARTS)
 		if (act.doRetrieveModel().reduceHeart() > 0) {

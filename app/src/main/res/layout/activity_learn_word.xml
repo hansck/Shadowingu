@@ -48,7 +48,7 @@
 	</RelativeLayout>
 
 	<TextView
-		android:id="@+id/hint"
+		android:id="@+id/btnHint"
 		style="@style/SubheadingMedium"
 		android:layout_width="wrap_content"
 		android:layout_gravity="center"

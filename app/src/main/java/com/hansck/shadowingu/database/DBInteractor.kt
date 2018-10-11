@@ -49,9 +49,9 @@ class DBInteractor(var listener: QueryListener) {
 	}
 	//endregion
 
-	//region Topic
-	fun updateStage(topic: Topic) {
-		Completable.fromAction { App.database?.stageDao()?.updateStage(topic) }
+	//region Lesson
+	fun updateLessons(lesson: Lesson) {
+		Completable.fromAction { App.database?.stageDao()?.updateStage(lesson) }
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(object : CompletableObserver {
@@ -69,21 +69,21 @@ class DBInteractor(var listener: QueryListener) {
 				})
 	}
 
-	fun getStages() {
+	fun getLessons() {
 		App.database?.stageDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { stages ->
 					run {
-						DataManager.instance.addStages(stages)
+						DataManager.instance.addLessons(stages)
 						listener.onQuerySucceed(QueryEnum.GET_STAGES)
 					}
 				}
 	}
 	//endregion
 
-	//region Audio
-	fun getAudios() {
+	//region Word
+	fun getWords() {
 		App.database?.audioDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())

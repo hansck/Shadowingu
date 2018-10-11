@@ -31,7 +31,8 @@
 	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
 	<string name="gem_qty">x 1</string>
 	<string name="rank">Rank</string>
-	<string name="fastest_time">Fastest Time : %1$s</string>
+	<string name="skip">Skip</string>
+	<string name="leaderboard_title">Level %1$s / %2$s</string>
 	<string name="not_enough_gem">Sorry. You don\'t have enough gem.\nKeep learning and get more gem!</string>
 	<string name="guide_life_points">This is your Life Points.\nIt\'ll be reduced every time you wrongly speak a word.\nBeware! If it\'s run out, it means game over!\nYou can increase your Life Points by choosing different Avatars from the Shop.</string>
 	<string name="guide_timer">This timer show how long you have played this arena.\nPlay faster and get the high score!</string>

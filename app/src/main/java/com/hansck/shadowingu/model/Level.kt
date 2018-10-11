@@ -22,7 +22,9 @@ data class Level(
 					Level(1, 1000),
 					Level(2, 1500),
 					Level(3, 2000),
-					Level(4, 2500))
+					Level(4, 2500),
+					Level(5, 3000),
+					Level(6, 3500))
 		}
 	}
 }

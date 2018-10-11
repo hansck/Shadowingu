@@ -23,9 +23,9 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
 				presentState(LOADING)
 				interactor.getUsers()
 			}
-			LOAD_STAGES -> interactor.getStages()
+			LOAD_STAGES -> interactor.getLessons()
 			LOAD_TITLES -> interactor.getTitles()
-			LOAD_AUDIOS -> interactor.getAudios()
+			LOAD_AUDIOS -> interactor.getWords()
 			LOAD_LEVELS -> interactor.getLevels()
 			LOAD_AVATARS -> interactor.getAvatars()
 			LOAD_TAB -> view.showState(LOAD_TAB)

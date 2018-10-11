@@ -70,128 +70,143 @@
 		android:layout_weight="0.01"
 		android:background="@drawable/bg_divider_full" />
 
-	<LinearLayout
+	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="0.615"
-		android:gravity="center"
-		android:orientation="vertical">
+		android:layout_weight="0.615">
 
-		<RelativeLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center">
+
+				<android.support.v7.widget.CardView
+					android:id="@+id/kanjiContainer"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					card_view:cardCornerRadius="@dimen/card_radius"
+					card_view:cardElevation="@dimen/card_elevation"
+					card_view:cardUseCompatPadding="true">
+
+					<TextView
+						android:id="@+id/kanji"
+						style="@style/Word"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						android:paddingBottom="@dimen/item_margin_small"
+						android:paddingEnd="@dimen/item_margin_large"
+						android:paddingStart="@dimen/item_margin_large"
+						android:paddingTop="@dimen/item_margin_small"
+						tools:text="私" />
+				</android.support.v7.widget.CardView>
+
+				<ImageButton
+					android:id="@+id/btnVoice"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/kanjiContainer"
+					android:layout_centerInParent="true"
+					android:layout_marginLeft="@dimen/item_margin_small"
+					android:layout_marginStart="@dimen/item_margin_small"
+					android:layout_marginTop="@dimen/item_margin_small"
+					android:background="@android:color/transparent"
+					android:src="@drawable/ic_microphone" />
+			</RelativeLayout>
+
+			<TextView
+				android:id="@+id/btnHint"
+				style="@style/ClickableMedium"
+				android:layout_gravity="center"
+				android:layout_marginTop="@dimen/item_margin_normal"
+				android:text="@string/show_hint" />
 
 			<android.support.v7.widget.CardView
-				android:id="@+id/kanjiContainer"
+				android:id="@+id/descriptionContainer"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginTop="@dimen/item_margin_normal"
+				android:visibility="gone"
 				card_view:cardCornerRadius="@dimen/card_radius"
 				card_view:cardElevation="@dimen/card_elevation"
 				card_view:cardUseCompatPadding="true">
 
-				<TextView
-					android:id="@+id/kanji"
-					style="@style/Word"
+				<LinearLayout
 					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					android:paddingBottom="@dimen/item_margin_small"
-					android:paddingEnd="@dimen/item_margin_large"
-					android:paddingStart="@dimen/item_margin_large"
-					android:paddingTop="@dimen/item_margin_small"
-					tools:text="私" />
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:orientation="vertical"
+					android:padding="@dimen/item_margin_small">
+
+					<TextView
+						android:id="@+id/furigana"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="わたし" />
+
+					<TextView
+						android:id="@+id/romaji"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="watashi" />
+
+					<TextView
+						android:id="@+id/meaning"
+						style="@style/SubheadingRegular"
+						android:layout_width="wrap_content"
+						android:layout_gravity="center"
+						tools:text="I" />
+				</LinearLayout>
 			</android.support.v7.widget.CardView>
 
-			<ImageButton
-				android:id="@+id/btnVoice"
+			<TextView
+				android:id="@+id/btnRemark"
+				style="@style/BodyRegular"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/kanjiContainer"
-				android:layout_centerInParent="true"
-				android:layout_marginLeft="@dimen/item_margin_small"
-				android:layout_marginStart="@dimen/item_margin_small"
-				android:layout_marginTop="@dimen/item_margin_small"
-				android:background="@android:color/transparent"
-				android:src="@drawable/ic_microphone" />
-		</RelativeLayout>
-
-		<TextView
-			android:id="@+id/hint"
-			style="@style/ClickableMedium"
-			android:layout_gravity="center"
-			android:layout_marginTop="@dimen/item_margin_normal"
-			android:text="@string/show_hint" />
-
-		<android.support.v7.widget.CardView
-			android:id="@+id/descriptionContainer"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:layout_marginTop="@dimen/item_margin_normal"
-			android:visibility="gone"
-			card_view:cardCornerRadius="@dimen/card_radius"
-			card_view:cardElevation="@dimen/card_elevation"
-			card_view:cardUseCompatPadding="true">
-
-			<LinearLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:orientation="vertical"
-				android:padding="@dimen/item_margin_small">
-
-				<TextView
-					android:id="@+id/furigana"
-					style="@style/SubheadingRegular"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="わたし" />
-
-				<TextView
-					android:id="@+id/romaji"
-					style="@style/SubheadingRegular"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="watashi" />
-
-				<TextView
-					android:id="@+id/meaning"
-					style="@style/SubheadingRegular"
-					android:layout_width="wrap_content"
-					android:layout_gravity="center"
-					tools:text="I" />
-			</LinearLayout>
-		</android.support.v7.widget.CardView>
-
-		<TextView
-			android:id="@+id/btnRemark"
-			style="@style/BodyRegular"
-			android:layout_width="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginTop="@dimen/item_margin_small"
-			android:text="@string/press_to_start_shadowing" />
-
-		<FrameLayout
-			android:id="@+id/frameRecording"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/item_margin_small">
-
-			<ImageButton
-				android:id="@+id/btnRecording"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
 				android:layout_gravity="center"
-				android:background="@android:color/transparent"
-				android:src="@drawable/ic_mic" />
+				android:layout_marginTop="@dimen/item_margin_small"
+				android:text="@string/press_to_start_shadowing" />
 
-			<com.mikhaellopez.circularprogressbar.CircularProgressBar
-				android:id="@+id/progressBar"
-				android:layout_width="@dimen/circle_progress_size"
-				android:layout_height="@dimen/circle_progress_size"
-				app:cpb_background_progressbar_color="@color/text_light_4"
-				app:cpb_background_progressbar_width="@dimen/circle_progres_bg_width"
-				app:cpb_progressbar_width="@dimen/circle_progress_width" />
-		</FrameLayout>
-	</LinearLayout>
+			<FrameLayout
+				android:id="@+id/frameRecording"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/item_margin_small">
+
+				<ImageButton
+					android:id="@+id/btnRecording"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:background="@android:color/transparent"
+					android:src="@drawable/ic_mic" />
+
+				<com.mikhaellopez.circularprogressbar.CircularProgressBar
+					android:id="@+id/progressBar"
+					android:layout_width="@dimen/circle_progress_size"
+					android:layout_height="@dimen/circle_progress_size"
+					app:cpb_background_progressbar_color="@color/text_light_4"
+					app:cpb_background_progressbar_width="@dimen/circle_progres_bg_width"
+					app:cpb_progressbar_width="@dimen/circle_progress_width" />
+			</FrameLayout>
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/btnSkip"
+			style="@style/ClickableMedium"
+			android:layout_gravity="end|bottom"
+			android:drawableEnd="@drawable/ic_next"
+			android:drawableRight="@drawable/ic_next"
+			android:text="@string/skip"
+			android:textSize="@dimen/text_subheading"
+			android:visibility="visible" />
+	</FrameLayout>
 </LinearLayout>

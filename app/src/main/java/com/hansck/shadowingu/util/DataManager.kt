@@ -12,7 +12,7 @@ class DataManager {
 	}
 
 	lateinit var user: User
-	var topics: ArrayList<Topic> = ArrayList()
+	var lessons: ArrayList<Lesson> = ArrayList()
 	var words: ArrayList<Word> = ArrayList()
 	var avatars: ArrayList<Avatar> = ArrayList()
 	var titles: ArrayList<Title> = ArrayList()
@@ -20,16 +20,16 @@ class DataManager {
 	var levels: ArrayList<Level> = ArrayList()
 	var leaderboardUsers: ArrayList<LeaderboardUser> = ArrayList()
 
-	fun addStages(list: List<Topic>) {
-		topics.clear()
-		topics.addAll(list)
-		topics[0].cleared = true
-		topics[1].cleared = true
-		topics[2].cleared = true
-		topics[3].cleared = true
-		topics[4].cleared = true
-		topics[5].cleared = true
-		topics[6].cleared = true
+	fun addLessons(list: List<Lesson>) {
+		lessons.clear()
+		lessons.addAll(list)
+//		lessons[0].cleared = true
+//		lessons[1].cleared = true
+//		lessons[2].cleared = true
+//		lessons[3].cleared = true
+//		lessons[4].cleared = true
+//		lessons[5].cleared = true
+//		lessons[6].cleared = true
 	}
 
 	fun addWords(list: List<Word>) {
@@ -70,7 +70,7 @@ class DataManager {
 	}
 
 	fun getUnclearLevel(): Int {
-		return topics.filter { it.cleared }.size
+		return lessons.filter { it.cleared }.size
 	}
 
 	fun getUnlockBadges(): List<Badge> {
@@ -79,5 +79,15 @@ class DataManager {
 
 	fun getActiveAvatar(): Avatar {
 		return avatars.first { it.idAvatar == PersistentManager.instance.getActiveAvatar() }
+	}
+
+	fun getActiveTitle(userLevel: Int): Title {
+		lateinit var activeTitle: Title
+		for (title in titles) {
+			if (title.minLevel <= userLevel) {
+				activeTitle = title
+			}
+		}
+		return activeTitle
 	}
 }

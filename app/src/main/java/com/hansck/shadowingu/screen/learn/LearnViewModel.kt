@@ -1,7 +1,7 @@
 package com.hansck.shadowingu.screen.learn
 
 import android.content.Context
-import com.hansck.shadowingu.model.Topic
+import com.hansck.shadowingu.model.Lesson
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.util.DataManager
 
@@ -11,23 +11,23 @@ import com.hansck.shadowingu.util.DataManager
 class LearnViewModel(var context: Context?) {
 
 	val categories = ArrayList<SectionListAdapter.Section>()
-	var topics: ArrayList<Topic> = ArrayList()
+	var lessons: ArrayList<Lesson> = ArrayList()
 
 	fun setStages() {
-		topics = DataManager.instance.topics
+		lessons = DataManager.instance.lessons
 
 		categories.clear()
 		val titles: ArrayList<String> = ArrayList()
-		for (i in topics.indices) {
-			if (topics[i].category !in titles) {
-				titles.add(topics[i].category)
-				categories.add(SectionListAdapter.Section(i, topics[i].category))
+		for (i in lessons.indices) {
+			if (lessons[i].category !in titles) {
+				titles.add(lessons[i].category)
+				categories.add(SectionListAdapter.Section(i, lessons[i].category))
 			}
 		}
 	}
 
 	fun getProgressPercentage(): Int {
-		val clearedStages = topics.filter { it.cleared }.size
-		return (clearedStages * 100) / topics.size
+		val clearedStages = lessons.filter { it.cleared }.size
+		return (clearedStages * 100) / lessons.size
 	}
 }

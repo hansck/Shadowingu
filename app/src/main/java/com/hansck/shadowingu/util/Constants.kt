@@ -21,14 +21,15 @@ class Constants {
 		const val FIRST_BUY = "firstBuy"
 		const val FIRST_GAME_OVER = "firstGameOver"
 		const val MAX_LEVEL = "maxLevel"
-		const val ALL_STAGE_CLEAR = "allStageClear"
+		const val ALL_LESSONS_CLEAR = "allStageClear"
 	}
 
 	object General {
 		const val FIRST_LEVEL = 0
-		const val MAX_LEVEL = 5
-		const val MAX_STAGE = 7
+		const val MAX_LEVEL = 7
+		const val MAX_LESSON = 7
 		const val MAX_LEADERBOARD = 20
+		const val MAX_WRONG_ANSWERS = 2
 		const val SHOW_GUIDE = "showGuide"
 	}
 

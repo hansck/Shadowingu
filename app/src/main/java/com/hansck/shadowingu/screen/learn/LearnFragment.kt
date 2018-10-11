@@ -9,9 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
-import com.hansck.shadowingu.model.Topic
+import com.hansck.shadowingu.presentation.adapter.LessonsAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
-import com.hansck.shadowingu.presentation.adapter.TopicAdapter
 import com.hansck.shadowingu.presentation.customview.OnStageSelected
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter.LearnView.ViewState.*
@@ -27,7 +26,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 
 	private lateinit var model: LearnViewModel
 	private lateinit var presenter: LearnPresenter
-	private var adapter: TopicAdapter? = null
+	private var adapter: LessonsAdapter? = null
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -64,9 +63,9 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 
 	override fun doRetrieveModel(): LearnViewModel = this.model
 
-	override fun onStageSelected(topic: Topic) {
+	override fun onStageSelected(lesson: com.hansck.shadowingu.model.Lesson) {
 		val intent = Intent(activity, ChooseWordActivity::class.java)
-		intent.putExtra("idTopic", topic.idTopic)
+		intent.putExtra("idLesson", lesson.idLesson)
 		startActivity(intent)
 	}
 
@@ -79,7 +78,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected 
 		progressBar.max = 100
 		progressBar.progress = percentage
 		progressDesc.text = getString(R.string.your_progress_desc, percentage.toString())
-		adapter = TopicAdapter(doRetrieveModel().topics, true, this)
+		adapter = LessonsAdapter(doRetrieveModel().lessons, true, this)
 
 		// show the data
 		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)

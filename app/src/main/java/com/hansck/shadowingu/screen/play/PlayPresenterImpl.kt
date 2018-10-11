@@ -6,6 +6,11 @@ import com.hansck.shadowingu.database.QueryEnum
 import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter.PlayView.ViewState.*
+import com.hansck.shadowingu.util.Constants
+import com.hansck.shadowingu.util.DataManager
+import com.hansck.shadowingu.util.FirebaseDB
+import com.hansck.shadowingu.util.PersistentManager
+import java.util.*
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -28,8 +33,9 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 			REDUCE_HEARTS -> view.showState(REDUCE_HEARTS)
 			PLAYER_DEAD -> view.showState(PLAYER_DEAD)
 			UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
-			UPDATE_STAGE -> interactor.updateStage(view.doRetrieveModel().topic)
+			UPDATE_STAGE -> interactor.updateLessons(view.doRetrieveModel().lesson)
 			UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
+			UPDATE_LESSONS_PASSED -> updateLessonsPassed()
 			SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
 			ERROR -> view.showState(ERROR)
 		}
@@ -71,7 +77,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 				if (view.doRetrieveModel().isGameOver) {
 					presentState(SHOW_GAME_OVER)
 				} else {
-					presentState(SHOW_PLAY_RESULT)
+					presentState(UPDATE_LESSONS_PASSED)
 				}
 			}
 			else -> presentState(IDLE)
@@ -80,5 +86,13 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 
 	override fun onQueryFailed(route: QueryEnum, throwable: Throwable) {
 		presentState(ERROR)
+	}
+
+	private fun updateLessonsPassed() {
+		val ref = FirebaseDB.instance.getDbReference(Constants.Database.USER)
+		val taskMap = HashMap<String, Any>()
+		taskMap["lesson_gamified"] = DataManager.instance.getUnclearLevel()
+		ref.child(PersistentManager.instance.getUserKey()).updateChildren(taskMap)
+		presentState(SHOW_PLAY_RESULT)
 	}
 }

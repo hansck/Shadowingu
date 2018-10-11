@@ -19,5 +19,6 @@ class LeaderboardViewModel(var context: Context?) {
 
 	fun setLeaderboard() {
 		users = DataManager.instance.leaderboardUsers
+		users.sortBy { it.level }
 	}
 }
