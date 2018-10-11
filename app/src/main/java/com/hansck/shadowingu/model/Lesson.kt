@@ -12,6 +12,9 @@ data class Lesson(
 		@PrimaryKey
 		var idLesson: Int,
 
+		@ColumnInfo(name = "topic")
+		var topic: String,
+
 		@ColumnInfo(name = "category")
 		var category: String,
 
@@ -33,13 +36,13 @@ data class Lesson(
 	companion object {
 		fun populateData(): Array<Lesson> {
 			return arrayOf(
-					Lesson(0, "Beginner", 0, 500, "ic_default_image", "ic_person", false),
-					Lesson(1, "Beginner", 0, 750, "ic_default_image", "ic_person", false),
-					Lesson(2, "Beginner", 0, 1000, "ic_default_image", "ic_person", false),
-					Lesson(3, "Beginner", 0, 1250, "ic_default_image", "ic_person", false),
-					Lesson(4, "Beginner", 0, 1500, "ic_default_image", "ic_person", false),
-					Lesson(5, "Lower-Intermediate", 0, 1750, "ic_default_image", "ic_person", false),
-					Lesson(6, "Lower-Intermediate", 0, 2000, "ic_default_image", "ic_person", false))
+					Lesson(0, "Pronoun", "Beginner", 0, 500, "ic_default_image", "ic_person", false),
+					Lesson(1, "Things at School", "Beginner", 0, 750, "ic_default_image", "ic_person", false),
+					Lesson(2, "School Activities", "Beginner", 0, 1000, "ic_default_image", "ic_person", false),
+					Lesson(3, "At Canteen", "Beginner", 0, 1250, "ic_default_image", "ic_person", false),
+					Lesson(4, "At Canteen 2", "Beginner", 0, 1500, "ic_default_image", "ic_person", false),
+					Lesson(5, "Places", "Lower-Intermediate", 0, 1750, "ic_default_image", "ic_person", false),
+					Lesson(6, "Travelling", "Lower-Intermediate", 0, 2000, "ic_default_image", "ic_person", false))
 		}
 	}
 }

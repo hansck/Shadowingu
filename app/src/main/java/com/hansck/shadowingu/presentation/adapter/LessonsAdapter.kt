@@ -41,9 +41,12 @@ class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnSt
 		var formatter: DateFormat = SimpleDateFormat(Constants.Time.TIME_SHORT)
 
 		fun bind(lesson: Lesson) = with(itemView) {
-			idLesson.text = lesson.idLesson.toString()
-			val time = Date(lesson.fastestTime * 1000L)
-			if (!isLearnStage) fastestTime.text = formatter.format(time)
+			topic.text = lesson.topic
+			if (!isLearnStage && lesson.cleared) {
+				val time = Date(lesson.fastestTime * 1000L)
+				fastestTime.text = formatter.format(time)
+				fastestTime.visibility = View.VISIBLE
+			}
 			if ((!isLearnStage && (lesson.idLesson == Constants.General.FIRST_LEVEL || lesson.idLesson <= DataManager.instance.getUnclearLevel()))
 					|| (isLearnStage && lesson.cleared)) {
 				Common.instance.setImageByName(context, lesson.unlockedImage, image)

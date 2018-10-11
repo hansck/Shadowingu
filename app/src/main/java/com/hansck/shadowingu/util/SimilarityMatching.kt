@@ -1,7 +1,6 @@
 package com.hansck.shadowingu.util
 
 import android.content.Context
-import android.util.Log
 import be.tarsos.dsp.AudioDispatcher
 import be.tarsos.dsp.AudioEvent
 import be.tarsos.dsp.AudioProcessor
@@ -93,7 +92,7 @@ class SimilarityMatching {
 		//		for (int i = 0; i < variance.length; i++)
 		//			variance[i] = 1;
 
-		val dtw = DynamicTimeWrapping2D(feature.features1, feature.features2)
+		val dtw = DynamicTimeWrapping(feature.features1, feature.features2)
 		val distance = dtw.calDistance()
 		listener!!.onSimilarityCalculated(distance)
 	}
