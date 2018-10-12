@@ -14,11 +14,11 @@ class LeaderboardViewModel(var context: Context?) {
 
 	fun setCurrentUser() {
 		val user = DataManager.instance.user
-		currentUser = LeaderboardUser(user.email, user.name, user.level, user.image, 0, DataManager.instance.getUnlockBadges())
+		currentUser = LeaderboardUser(user.email, user.name, user.level, user.image, DataManager.instance.getUnlockBadges())
 	}
 
 	fun setLeaderboard() {
 		users = DataManager.instance.leaderboardUsers
-		users.sortBy { it.level }
+		users.sortByDescending { it.level }
 	}
 }

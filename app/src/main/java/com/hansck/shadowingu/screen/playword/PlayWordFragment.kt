@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -29,9 +28,9 @@ import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.screen.playword.ActiveAvatar.ENEMY
 import com.hansck.shadowingu.screen.playword.ActiveAvatar.PLAYER
+import com.hansck.shadowingu.util.CalculationMatching
 import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.PersistentManager
-import com.hansck.shadowingu.util.SimilarityMatching
 import kotlinx.android.synthetic.main.fragment_play_word.*
 import omrecorder.*
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
@@ -77,10 +76,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 
 	override fun doRetrieveModel(): PlayWordViewModel = this.model
 
-	override fun onSimilarityCalculated(distance: Double) {
-		Log.e("SIMILARITY", distance.toString())
-		Log.e("END", "------------------------------------------------------------------------------------------")
-		if (distance < 15) {
+	override fun onSimilarityMatching(isSimilar: Boolean) {
+		if (isSimilar) {
 			presenter.presentState(CORRECT_ANSWER)
 		} else {
 			presenter.presentState(WRONG_ANSWER)
@@ -152,9 +149,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 			MotionEvent.ACTION_UP -> {
 				if (::recorder.isInitialized) {
 					stopRecording()
-					SimilarityMatching.instance.calculateSimilarity(activity!!,
-							resources.getIdentifier(doRetrieveModel().word.template, "raw", activity!!.packageName),
-							doRetrieveModel().file, 0, this, 1)
+					CalculationMatching.instance.calculateSimilarity(activity!!,
+							doRetrieveModel().word.idWord, doRetrieveModel().file, this)
 				}
 			}
 		}

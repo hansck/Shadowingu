@@ -65,6 +65,10 @@ class DataManager {
 		return words.first { it.idWord == idWord }
 	}
 
+	fun getWordByAudioName(name: String): Word {
+		return words.first { it.audio == name }
+	}
+
 	fun getWordsByStage(idStage: Int): List<Word> {
 		return words.filter { it.stage == idStage }
 	}

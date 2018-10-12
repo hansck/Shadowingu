@@ -47,7 +47,7 @@
             android:name=".screen.learnword.LearnWordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".screen.TestActivity"
+            android:name=".screen.test.TestActivity"
             android:screenOrientation="portrait" />
 
         <!-- Receiver -->

@@ -9,7 +9,7 @@ import com.google.android.gms.auth.api.Auth
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.MainPresenter
 import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
-import com.hansck.shadowingu.screen.TestActivity
+import com.hansck.shadowingu.screen.test.TestActivity
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.login.LoginActivity

@@ -27,8 +27,8 @@ data class Word(
 		@ColumnInfo(name = "audio")
 		var audio: String,
 
-		@ColumnInfo(name = "template")
-		var template: String,
+		@ColumnInfo(name = "reference")
+		var reference: String,
 
 		@ColumnInfo(name = "lesson")
 		var stage: Int) {

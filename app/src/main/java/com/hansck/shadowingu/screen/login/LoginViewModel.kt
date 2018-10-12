@@ -18,6 +18,6 @@ class LoginViewModel(var context: Context?) {
 	}
 
 	fun getLeaderboardUser(): LeaderboardUser {
-		return LeaderboardUser(account.email!!, account.displayName!!, 0, "ic_person", 0, DataManager.instance.getUnlockBadges())
+		return LeaderboardUser(account.email!!, account.displayName!!, 1, "ic_person", DataManager.instance.getUnlockBadges())
 	}
 }

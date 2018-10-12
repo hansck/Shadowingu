@@ -93,9 +93,8 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
 				for (postSnapshot in dataSnapshot.children) {
 					try {
 						val user = postSnapshot.getValue(LeaderboardUser::class.java)
-						user!!.rank = count
-						if (count <= Constants.General.MAX_LEADERBOARD || user.email == AuthManager.instance.account.email) {
-							DataManager.instance.addLeaderboardUser(user)
+						if (count <= Constants.General.MAX_LEADERBOARD || user?.email == AuthManager.instance.account.email) {
+							DataManager.instance.addLeaderboardUser(user!!)
 						}
 						count++
 					} catch (e: Exception) {

@@ -8,7 +8,6 @@ data class LeaderboardUser(
 		var name: String = "",
 		var level: Int = 0,
 		var image: String = "",
-		var rank: Int = 0,
 		var badges: List<Badge> = ArrayList(),
 		var lessons_lite: Int = 0,
 		var lessons_gamified: Int = 0)

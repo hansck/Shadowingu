@@ -1,7 +1,6 @@
 package com.hansck.shadowingu.screen.play
 
 import android.content.Context
-import android.util.Log
 import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
@@ -65,7 +64,6 @@ class PlayViewModel(var context: Context?) {
 
 		//Calculate Level and Exp
 		val userExp = user.exp + lesson.exp
-		Log.e("LEVEL", user.level.toString() + " " + levels[user.level - 1])
 		val expToLevelUp = levels[user.level - 1].exp - userExp
 
 		oldLevel = user.level

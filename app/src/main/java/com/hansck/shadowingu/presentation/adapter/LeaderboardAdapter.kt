@@ -34,7 +34,7 @@ class LeaderboardAdapter(private val items: ArrayList<LeaderboardUser>) : Recycl
 	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 		fun bind(user: LeaderboardUser) = with(itemView) {
-			rank.text = user.rank.toString()
+			rank.text = (adapterPosition + 1).toString()
 			username.text = user.name
 			title.text = resources.getString(R.string.leaderboard_title, user.level.toString(),
 					DataManager.instance.getActiveTitle(user.level).name)
