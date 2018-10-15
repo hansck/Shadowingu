@@ -18,10 +18,10 @@ class PlayWordViewModel(var context: Context?) {
 	var toggleTurn: ActiveAvatar = ActiveAvatar.PLAYER
 	val REQUEST_RECORD_AUDIO_PERMISSION = 100
 	val REQUEST_WRITE_STORAGE_PERMISSION = 101
-	var idleAvatars = arrayOf(R.drawable.player_idle, R.drawable.player_idle, R.drawable.player_idle)
-	var attackAvatars = arrayOf(R.drawable.enemy_attack, R.drawable.enemy_attack, R.drawable.enemy_attack)
-	var damagedAvatars = arrayOf(R.drawable.enemy_attack, R.drawable.enemy_attack, R.drawable.enemy_attack)
-	var deadAvatars = arrayOf(R.drawable.enemy_dead, R.drawable.enemy_dead, R.drawable.enemy_dead)
+	var idleAvatars = arrayOf(R.drawable.player_a_idle, R.drawable.player_b_idle, R.drawable.player_c_idle)
+	var attackAvatars = arrayOf(R.drawable.player_a_attack, R.drawable.player_b_attack, R.drawable.player_c_attack)
+	var damagedAvatars = arrayOf(R.drawable.player_a_damaged, R.drawable.player_b_damaged, R.drawable.player_c_damaged)
+	var deadAvatars = arrayOf(R.drawable.player_a_dead, R.drawable.player_b_dead, R.drawable.player_c_dead)
 	var forwardX: Float = 0F
 	var backwardX: Float = 0F
 	var activeAvatar: Int = 0

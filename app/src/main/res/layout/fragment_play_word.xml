@@ -27,16 +27,16 @@
 				android:id="@+id/player"
 				android:layout_width="wrap_content"
 				android:layout_height="125dp"
-				tools:src="@drawable/player_idle" />
+				tools:src="@drawable/player_a_idle" />
 
 			<ImageView
 				android:id="@+id/player_ball"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:layout_centerVertical="true"
 				android:layout_toEndOf="@id/player"
 				android:layout_toRightOf="@id/player"
-				android:src="@drawable/ball"
+				android:src="@drawable/ic_waterball"
 				android:visibility="gone" />
 		</RelativeLayout>
 
@@ -54,12 +54,12 @@
 
 			<ImageView
 				android:id="@+id/enemy_ball"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:layout_centerVertical="true"
 				android:layout_toLeftOf="@id/enemy"
 				android:layout_toStartOf="@id/enemy"
-				android:src="@drawable/ball"
+				android:src="@drawable/ic_fireball"
 				android:visibility="gone" />
 		</RelativeLayout>
 	</RelativeLayout>

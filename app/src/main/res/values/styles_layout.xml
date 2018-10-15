@@ -23,12 +23,4 @@
 	<style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
 		<item name="android:windowBackground">@drawable/bg_splash_screen</item>
 	</style>
-
-	<!--<style name="CustomCardView">-->
-		<!--<item name="android:layout_width">wrap_content</item>-->
-		<!--<item name="android:layout_height">wrap_content</item>-->
-		<!--<item name="card_view:attr/cardCornerRadius">@dimen/card_radius</item>-->
-		<!--<item name="card_view:attr/cardElevation">@dimen/card_elevation</item>-->
-		<!--<item name="card_view:attr/cardUseCompatPadding">true</item>-->
-	<!--</style>-->
 </resources>

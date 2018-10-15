@@ -35,7 +35,7 @@
 
 	<dimen name="separator_height">1dp</dimen>
 
-	<dimen name="card_radius">0dp</dimen>
+	<dimen name="card_radius">3dp</dimen>
 	<dimen name="card_elevation">3dp</dimen>
 	<dimen name="card_height">80dp</dimen>
 

@@ -32,7 +32,7 @@ data class User(
 
 	companion object {
 		fun populateData(email: String, name: String): User {
-			return User(0, email, name, 1, 0, 0, "ic_person")
+			return User(0, email, name, 1, 0, 0, "ic_avatar_a")
 		}
 	}
 }

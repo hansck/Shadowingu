@@ -1,5 +1,6 @@
 package com.hansck.shadowingu.presentation.adapter
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -41,12 +42,14 @@ class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener:
 				btnSetActive.visibility = View.GONE
 				btnBuy.visibility = View.GONE
 				Common.instance.setImageByName(context, avatar.unlockedImage, picture)
+				avatarContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_white))
 			} else if (avatar.unlock) {
 				btnSetActive.visibility = View.VISIBLE
 				btnSetActive.setOnClickListener { listener.onAvatarActivate(avatar.idAvatar) }
 				activeText.visibility = View.GONE
 				btnBuy.visibility = View.GONE
 				Common.instance.setImageByName(context, avatar.unlockedImage, picture)
+				avatarContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_white))
 			} else {
 				btnBuy.visibility = View.VISIBLE
 				btnBuy.text = resources.getString(R.string.buy, avatar.price.toString())
@@ -54,6 +57,7 @@ class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener:
 				activeText.visibility = View.GONE
 				btnSetActive.visibility = View.GONE
 				Common.instance.setImageByName(context, avatar.lockedImage, picture)
+				avatarContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_4))
 			}
 		}
 	}

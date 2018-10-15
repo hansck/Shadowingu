@@ -13,7 +13,7 @@ interface ShopPresenter : BasePresenter {
 		 * This enum is used for determine the current state of this screen
 		 */
 		enum class ViewState {
-			IDLE, LOADING, SHOW_AVATARS, BUY_AVATAR, UPDATE_GEM, SHOW_UPDATED_AVATARS, UPDATE_BADGE, SHOW_SCREEN_STATE, ERROR
+			IDLE, LOADING, SHOW_AVATARS, BUY_AVATAR, UPDATE_USER, SHOW_UPDATED_AVATARS, UPDATE_BADGE, SHOW_SCREEN_STATE, ERROR
 		}
 
 		enum class ScreenState {

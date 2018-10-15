@@ -23,8 +23,8 @@ class DataManager {
 	fun addLessons(list: List<Lesson>) {
 		lessons.clear()
 		lessons.addAll(list)
-//		lessons[0].cleared = true
-//		lessons[1].cleared = true
+		lessons[0].cleared = true
+		lessons[1].cleared = true
 //		lessons[2].cleared = true
 //		lessons[3].cleared = true
 //		lessons[4].cleared = true

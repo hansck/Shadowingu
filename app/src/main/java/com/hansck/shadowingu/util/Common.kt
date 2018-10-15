@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.hansck.shadowingu.R
-import com.squareup.picasso.Picasso
 
 /**
  * Created by Hans CK on 1-Nov-17.
@@ -38,10 +37,6 @@ class Common private constructor() {
 //                Crashlytics.logException(e)
 			}
 		}
-	}
-
-	fun setImageByUrl(context: Context, url: String, view: ImageView) {
-		Picasso.with(context).load(url).placeholder(R.drawable.ic_default_image).error(R.drawable.ic_default_image).into(view)
 	}
 
 	fun getResourceId(context: Context, type: String, identifier: String): Int {

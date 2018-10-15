@@ -30,11 +30,11 @@ data class Badge(
 	companion object {
 		fun populateData(): Array<Badge> {
 			return arrayOf(
-					Badge(0, "Perfecto", "Finish a lesson without a single fail.", "ic_default_image", "ic_person", false),
-					Badge(1, "Completionist", "Finish all lessons.", "ic_default_image", "ic_person", false),
-					Badge(2, "Rich Buyer!", "Buy your first avatar.", "ic_default_image", "ic_person", false),
-					Badge(3, "Maximus", "Has reach maximum player level.", "ic_default_image", "ic_person", false),
-					Badge(4, "Don't Give Up", "Game over for the first time.", "ic_default_image", "ic_person", false))
+					Badge(0, "Perfecto", "Finish a lesson without a single fail.", "ic_badge_perfecto_disabled", "ic_badge_perfecto", false),
+					Badge(1, "Completionist", "Finish all lessons.", "ic_badge_completionist_disabled", "ic_badge_completionist", false),
+					Badge(2, "Rich Buyer!", "Buy your first avatar.", "ic_badge_rich_buyer_disabled", "ic_badge_rich_buyer", false),
+					Badge(3, "Maximus", "Has reach maximum player level.", "ic_badge_maximus_disabled", "ic_badge_maximus", false),
+					Badge(4, "Don't Give Up", "Game over for the first time.", "ic_badge_dont_give_up_disabled", "ic_badge_dont_give_up", false))
 		}
 	}
 }

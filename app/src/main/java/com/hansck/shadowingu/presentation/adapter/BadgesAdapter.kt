@@ -1,5 +1,6 @@
 package com.hansck.shadowingu.presentation.adapter
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -34,10 +35,11 @@ class BadgesAdapter(private val items: ArrayList<Badge>) : RecyclerView.Adapter<
 			description.text = badge.description
 			if (badge.unlock) {
 				Common.instance.setImageByName(context, badge.unlockedImage, picture)
+				badgeContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_white))
 			} else {
 				Common.instance.setImageByName(context, badge.lockedImage, picture)
+				badgeContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_4))
 			}
-
 		}
 	}
 }

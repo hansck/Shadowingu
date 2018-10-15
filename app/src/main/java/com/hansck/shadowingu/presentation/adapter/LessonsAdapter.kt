@@ -49,10 +49,13 @@ class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnSt
 			}
 			if ((!isLearnStage && (lesson.idLesson == Constants.General.FIRST_LEVEL || lesson.idLesson <= DataManager.instance.getUnclearLevel()))
 					|| (isLearnStage && lesson.cleared)) {
-				Common.instance.setImageByName(context, lesson.unlockedImage, image)
-				image.setOnClickListener { listener.onStageSelected(lesson) }
+				Common.instance.setImageByName(context, lesson.unlockedImage, imgBackground)
+				Common.instance.setImageByName(context, lesson.unlockedIcon, icon)
+				imgBackground.setOnClickListener { listener.onStageSelected(lesson) }
+				icon.setOnClickListener { listener.onStageSelected(lesson) }
 			} else {
-				Common.instance.setImageByName(context, lesson.lockedImage, image)
+				Common.instance.setImageByName(context, lesson.lockedImage, imgBackground)
+				Common.instance.setImageByName(context, lesson.lockedIcon, icon)
 			}
 		}
 	}

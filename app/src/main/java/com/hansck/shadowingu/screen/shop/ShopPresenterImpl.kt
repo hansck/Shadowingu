@@ -24,7 +24,7 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
 				presentState(LOADING)
 				interactor.updateAvatar(view.doRetrieveModel().boughtAvatar)
 			}
-			UPDATE_GEM -> {
+			UPDATE_USER -> {
 				presentState(LOADING)
 				interactor.insertOrUpdateUser(view.doRetrieveModel().user)
 			}
@@ -70,7 +70,7 @@ class ShopPresenterImpl(val view: ShopPresenter.ShopView) : ShopPresenter, Query
 	override fun onQuerySucceed(route: QueryEnum) {
 		when (route) {
 			QueryEnum.BUY_AVATAR -> {
-				presentState(UPDATE_GEM)
+				presentState(UPDATE_USER)
 			}
 			QueryEnum.UPDATE_USER -> {
 				if (view.doRetrieveModel().isFirstBuy) {

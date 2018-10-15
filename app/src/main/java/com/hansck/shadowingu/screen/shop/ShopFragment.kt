@@ -13,7 +13,6 @@ import com.hansck.shadowingu.presentation.customview.OnAvatarSelected
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter
 import com.hansck.shadowingu.presentation.presenter.ShopPresenter.ShopView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
-import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.fragment_shop.*
 
 /**
@@ -58,8 +57,8 @@ class ShopFragment : BaseFragment(), ShopPresenter.ShopView, OnAvatarSelected {
 	override fun doRetrieveModel(): ShopViewModel = this.model
 
 	override fun onAvatarActivate(id: Int) {
-		PersistentManager.instance.setActiveAvatar(id)
-		avatarList.adapter.notifyDataSetChanged()
+		doRetrieveModel().setActiveAvatar(id)
+		presenter.presentState(UPDATE_USER)
 	}
 
 	override fun onAvatarBought(id: Int) {

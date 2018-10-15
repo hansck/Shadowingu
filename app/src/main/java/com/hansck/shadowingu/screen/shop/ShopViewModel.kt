@@ -43,4 +43,10 @@ class ShopViewModel(var context: Context?) {
 			PersistentManager.instance.setFirstBuy()
 		}
 	}
+
+	fun setActiveAvatar(id: Int) {
+		PersistentManager.instance.setActiveAvatar(id)
+		user.image = avatars[id].unlockedImage
+		DataManager.instance.user = user
+	}
 }

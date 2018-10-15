@@ -200,13 +200,14 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		if (act.doRetrieveModel().reduceHeart() > 0) {
 			playerDamaged()
 			Handler().postDelayed({
+				playerIdle()
 				animateProgressBar(0F, R.color.ic_cancel, true)
-			}, 1200)
+			}, 700)
 		} else {
 			playerDead()
 			Handler().postDelayed({
 				act.presenter.presentState(PlayPresenter.PlayView.ViewState.PLAYER_DEAD)
-			}, 1200)
+			}, 1000)
 		}
 	}
 
