@@ -2,24 +2,24 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
 	android:oneshot="true">
 	<item
-		android:drawable="@drawable/player_a_damaged_1"
+		android:drawable="@drawable/player_b_damaged_1"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_2"
+		android:drawable="@drawable/player_b_damaged_2"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_3"
+		android:drawable="@drawable/player_b_damaged_3"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_4"
+		android:drawable="@drawable/player_b_damaged_4"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_5"
+		android:drawable="@drawable/player_b_damaged_5"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_6"
+		android:drawable="@drawable/player_b_damaged_6"
 		android:duration="100" />
 	<item
-		android:drawable="@drawable/player_a_damaged_7"
+		android:drawable="@drawable/player_b_damaged_7"
 		android:duration="100" />
 </animation-list>

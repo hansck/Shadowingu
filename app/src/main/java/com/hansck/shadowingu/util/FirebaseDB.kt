@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase
 /**
  * Created by Hans CK on 22-Jun-18.
  */
-class FirebaseDB() {
+class FirebaseDB {
 
 	private val db = FirebaseDatabase.getInstance()
 

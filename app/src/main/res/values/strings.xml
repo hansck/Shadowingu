@@ -30,7 +30,6 @@
 	<string name="win_result_title">Well Done!\nKeep Up The Good Work</string>
 	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
 	<string name="gem_qty">x 1</string>
-	<string name="rank">Rank</string>
 	<string name="skip">Skip</string>
 	<string name="leaderboard_title">Level %1$s / %2$s</string>
 	<string name="not_enough_gem">Sorry. You don\'t have enough gem.\nKeep learning and get more gem!</string>
@@ -40,5 +39,4 @@
 	<string name="guide_voice">Press Voice button to hear how a word is spoken correctly.</string>
 	<string name="guide_hint">Press Show Hint to see word in hiragana, romaji, and its meaning.</string>
 	<string name="guide_recording">Press and hold the Recording button to record your voice.></string>
-	<string name="guide_arena">This is the game simulation arena.\nIf you answer correctly, the zombie will be defeated, otherwise your Life Points will be reduced.</string>
 </resources>

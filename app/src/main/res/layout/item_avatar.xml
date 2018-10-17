@@ -24,8 +24,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingEnd="@dimen/item_margin_small"
-			android:paddingStart="@dimen/item_margin_small">
+			android:paddingStart="@dimen/item_margin_small"
+			android:paddingEnd="@dimen/item_margin_small">
 
 			<RelativeLayout
 				android:id="@+id/header"
@@ -43,17 +43,15 @@
 					android:id="@+id/buttonContainer"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:layout_alignParentRight="true">
+					android:layout_alignParentEnd="true">
 
 					<Button
 						android:id="@+id/btnBuy"
 						style="@style/ButtonTheme"
 						android:drawableEnd="@drawable/ic_gem_small"
-						android:drawableRight="@drawable/ic_gem_small"
 						android:gravity="center"
-						android:text="Buy for 3"
-						android:visibility="visible" />
+						android:visibility="visible"
+						tools:text="Buy for 3" />
 
 					<Button
 						android:id="@+id/btnSetActive"
@@ -63,11 +61,10 @@
 
 					<TextView
 						android:id="@+id/activeText"
-						style="@style/SubheadingMedium"
+						style="@style/ClickableMedium"
 						android:layout_width="wrap_content"
 						android:padding="@dimen/item_padding_small"
 						android:text="@string/active"
-						android:textColor="@color/color_accent"
 						android:visibility="gone" />
 				</RelativeLayout>
 			</RelativeLayout>

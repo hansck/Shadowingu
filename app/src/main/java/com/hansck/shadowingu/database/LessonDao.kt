@@ -8,7 +8,7 @@ import io.reactivex.Maybe
  * Created by Hans CK on 11-Jun-18.
  */
 @Dao
-interface StageDao {
+interface LessonDao {
 
 	@Query("SELECT * FROM lesson")
 	fun getAll(): Maybe<List<Lesson>>

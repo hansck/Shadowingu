@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.model.Lesson
-import com.hansck.shadowingu.presentation.customview.OnStageSelected
+import com.hansck.shadowingu.presentation.customview.OnLessonSelected
 import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
@@ -19,7 +19,7 @@ import java.util.*
 /**
  * Created by Hans CK on 20-Jun-18.
  */
-class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnStage: Boolean, private val listener: OnStageSelected)
+class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnStage: Boolean, private val listener: OnLessonSelected)
 	: RecyclerView.Adapter<LessonsAdapter.ViewHolder>() {
 
 	private fun ViewGroup.inflate(layoutRes: Int): View {
@@ -35,7 +35,7 @@ class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnSt
 
 	override fun getItemCount() = items.size
 
-	class ViewHolder(itemView: View, private val isLearnStage: Boolean, private val listener: OnStageSelected) : RecyclerView.ViewHolder(itemView) {
+	class ViewHolder(itemView: View, private val isLearnStage: Boolean, private val listener: OnLessonSelected) : RecyclerView.ViewHolder(itemView) {
 
 		@SuppressLint("SimpleDateFormat")
 		var formatter: DateFormat = SimpleDateFormat(Constants.Time.TIME_SHORT)

@@ -8,15 +8,15 @@ import com.hansck.shadowingu.presentation.base.BaseView
 open class BaseFragment : Fragment(), BaseView {
 
 	override fun showProgress(flag: Boolean) {
-		(activity as BaseActivity).showProgress(flag)
+		if (activity != null) (activity as BaseActivity).showProgress(flag)
 	}
 
 	override fun showToast(message: String) {
-		(activity as BaseActivity).showToast(message)
+		if (activity != null) (activity as BaseActivity).showToast(message)
 	}
 
 	override fun showError(title: String?, message: String) {
-		(activity as BaseActivity).showError(title, message)
+		if (activity != null) (activity as BaseActivity).showError(title, message)
 	}
 
 	protected fun navigateFragment(frame: Int, fragment: Fragment) {

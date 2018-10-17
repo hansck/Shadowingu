@@ -21,7 +21,8 @@
 
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:gravity="bottom">
 
 			<ImageView
 				android:id="@+id/player"
@@ -35,7 +36,6 @@
 				android:layout_height="50dp"
 				android:layout_centerVertical="true"
 				android:layout_toEndOf="@id/player"
-				android:layout_toRightOf="@id/player"
 				android:src="@drawable/ic_waterball"
 				android:visibility="gone" />
 		</RelativeLayout>
@@ -49,7 +49,6 @@
 				android:layout_width="wrap_content"
 				android:layout_height="125dp"
 				android:layout_alignParentEnd="true"
-				android:layout_alignParentRight="true"
 				tools:src="@drawable/enemy_attack" />
 
 			<ImageView
@@ -57,7 +56,6 @@
 				android:layout_width="50dp"
 				android:layout_height="50dp"
 				android:layout_centerVertical="true"
-				android:layout_toLeftOf="@id/enemy"
 				android:layout_toStartOf="@id/enemy"
 				android:src="@drawable/ic_fireball"
 				android:visibility="gone" />
@@ -99,10 +97,10 @@
 						style="@style/Word"
 						android:layout_width="wrap_content"
 						android:layout_gravity="center"
-						android:paddingBottom="@dimen/item_margin_small"
-						android:paddingEnd="@dimen/item_margin_large"
 						android:paddingStart="@dimen/item_margin_large"
 						android:paddingTop="@dimen/item_margin_small"
+						android:paddingEnd="@dimen/item_margin_large"
+						android:paddingBottom="@dimen/item_margin_small"
 						tools:text="私" />
 				</android.support.v7.widget.CardView>
 
@@ -112,7 +110,6 @@
 					android:layout_height="wrap_content"
 					android:layout_below="@id/kanjiContainer"
 					android:layout_centerInParent="true"
-					android:layout_marginLeft="@dimen/item_margin_small"
 					android:layout_marginStart="@dimen/item_margin_small"
 					android:layout_marginTop="@dimen/item_margin_small"
 					android:background="@android:color/transparent"
@@ -204,7 +201,6 @@
 			style="@style/ClickableMedium"
 			android:layout_gravity="end|bottom"
 			android:drawableEnd="@drawable/ic_next"
-			android:drawableRight="@drawable/ic_next"
 			android:text="@string/skip"
 			android:textSize="@dimen/text_subheading"
 			android:visibility="visible" />

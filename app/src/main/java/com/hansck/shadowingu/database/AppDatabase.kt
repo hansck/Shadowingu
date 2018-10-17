@@ -5,7 +5,6 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import android.util.Log
 import com.hansck.shadowingu.model.*
 import java.util.concurrent.Executors
 
@@ -17,7 +16,7 @@ import java.util.concurrent.Executors
 abstract class AppDatabase : RoomDatabase() {
 
 	abstract fun userDao(): UserDao
-	abstract fun stageDao(): StageDao
+	abstract fun lessonDao(): LessonDao
 	abstract fun audioDao(): WordDao
 	abstract fun avatarDao(): AvatarDao
 	abstract fun titleDao(): TitleDao
@@ -35,9 +34,8 @@ abstract class AppDatabase : RoomDatabase() {
 							.addCallback(object : RoomDatabase.Callback() {
 								override fun onCreate(db: SupportSQLiteDatabase) {
 									// do something after database has been created
-									Log.e("DB", "MASUK CREATED")
 									Executors.newSingleThreadScheduledExecutor().execute {
-										getInstance(context)?.stageDao()?.insertAll(Lesson.populateData())
+										getInstance(context)?.lessonDao()?.insertAll(Lesson.populateData())
 										getInstance(context)?.audioDao()?.insertAll(Word.populateData())
 										getInstance(context)?.avatarDao()?.insertAll(Avatar.populateData())
 										getInstance(context)?.titleDao()?.insertAll(Title.populateData())
@@ -48,9 +46,6 @@ abstract class AppDatabase : RoomDatabase() {
 
 								override fun onOpen(db: SupportSQLiteDatabase) {
 									// do something every time database is open
-									Log.e("DB", "MASUK OPEN")
-									val currentDBPath = context.getDatabasePath("Shadowingu.db").absolutePath
-									Log.e("DB", "NIH HASILNYA : $currentDBPath")
 								}
 							})
 							.build()

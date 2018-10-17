@@ -54,7 +54,7 @@ class LearnPresenterImpl(val view: LearnPresenter.LearnView) : LearnPresenter, Q
     }
 
     override fun onQuerySucceed(route: QueryEnum) {
-        if (route == QueryEnum.GET_STAGES) {
+        if (route == QueryEnum.GET_LESSONS) {
             presentState(SHOW_STAGES)
         }
     }

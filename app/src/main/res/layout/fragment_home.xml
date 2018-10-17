@@ -4,13 +4,15 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/bg_light_1"
-	android:padding="@dimen/item_margin_normal"
 	tools:context=".screen.home.HomeFragment">
 
 	<RelativeLayout
 		android:id="@+id/header"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:paddingLeft="@dimen/item_padding_normal"
+		android:paddingTop="@dimen/item_padding_normal"
+		android:paddingRight="@dimen/item_padding_normal">
 
 		<LinearLayout
 			android:id="@+id/progressContainer"
@@ -54,8 +56,8 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_vertical"
 				android:orientation="vertical"
-				android:paddingEnd="@dimen/item_margin_small"
-				android:paddingStart="@dimen/item_margin_small">
+				android:paddingStart="@dimen/item_margin_small"
+				android:paddingEnd="@dimen/item_margin_small">
 
 				<TextView
 					android:id="@+id/profileName"
@@ -81,13 +83,15 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/header"
 		android:layout_marginTop="@dimen/item_margin_tiny"
-		android:orientation="horizontal" />
+		android:orientation="horizontal"
+		android:paddingLeft="@dimen/item_padding_normal"
+		android:paddingRight="@dimen/item_padding_normal" />
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/stageList"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/badgesList"
-		android:layout_marginTop="@dimen/item_margin_normal"
+		android:layout_marginTop="@dimen/item_margin_tiny"
 		android:orientation="vertical" />
 </RelativeLayout>

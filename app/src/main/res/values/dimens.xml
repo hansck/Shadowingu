@@ -21,12 +21,6 @@
 	<dimen name="avatar_smaller">40dp</dimen>
 	<dimen name="avatar_tiny">30dp</dimen>
 
-	<dimen name="thumbnail_large">250dp</dimen>
-	<dimen name="thumbnail">200dp</dimen>
-	<dimen name="thumbnail_small">150dp</dimen>
-	<dimen name="thumbnail_list_width">100dp</dimen>
-	<dimen name="thumbnail_list_height">75dp</dimen>
-
 	<dimen name="icon_list_huge">64dp</dimen>
 	<dimen name="icon_list_large">48dp</dimen>
 	<dimen name="icon_list_medium">36dp</dimen>

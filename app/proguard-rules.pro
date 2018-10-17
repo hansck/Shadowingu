@@ -6,7 +6,6 @@
 -allowaccessmodification
 
 # Suppress warnings
--dontwarn com.squareup.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 -dontwarn android.arch.util.paging.CountedDataSource

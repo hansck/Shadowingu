@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.adapter.LessonsAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
-import com.hansck.shadowingu.presentation.customview.OnStageSelected
+import com.hansck.shadowingu.presentation.customview.OnLessonSelected
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter
 import com.hansck.shadowingu.presentation.presenter.LearnPresenter.LearnView.ViewState.*
 import com.hansck.shadowingu.screen.base.BaseFragment
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * A simple [Fragment] subclass.
  *
  */
-class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnStageSelected {
+class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnLessonSelected {
 
 	private lateinit var model: LearnViewModel
 	private lateinit var presenter: LearnPresenter

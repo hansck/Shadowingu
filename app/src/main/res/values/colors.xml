@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- PRIMARY COLOR -->
-	<color name="color_primary">#E91E63</color>
-	<color name="color_primary_light">#FCE4EC</color>
-	<color name="color_primary_dark">#880E4F</color>
-	<color name="color_accent">#2196F3</color>
-	<color name="color_accent_light">#E3F2FD</color>
-	<color name="color_accent_dark">#0D47A1</color>
+	<color name="color_primary">#00BCD4</color>
+	<color name="color_primary_light">#B2EBF2</color>
+	<color name="color_primary_dark">#0097A7</color>
+	<color name="color_accent">#448AFF</color>
 
 	<!-- BACKGROUND COLOR -->
 	<color name="bg_light_1">#FFFFFF</color>
 	<color name="bg_light_2">#FAFAFA</color>
-	<color name="bg_light_3">#F5F5F5</color>
-	<color name="bg_light_4">#E0E0E0</color>
-	<color name="bg_dark_1">#424242</color>
-	<color name="bg_dark_2">#303030</color>
-	<color name="bg_dark_3">#212121</color>
-	<color name="bg_dark_4">#000000</color>
 	<color name="bg_border">#C3D7D7</color>
 	<color name="btn_disable">#E6E6E6</color>
 
+	<!-- ICON COLOR -->
 	<color name="ic_cancel">#EF5350</color>
-	<color name="ic_rejected">#BD3A28</color>
-	<color name="ic_open">#0288D1</color>
-	<color name="ic_approved">#64BB84</color>
-	<color name="ic_processed">#FEA74C</color>
 	<color name="ic_sign_in">#E02F2F</color>
 	<color name="line">#E7F3FE</color>
 

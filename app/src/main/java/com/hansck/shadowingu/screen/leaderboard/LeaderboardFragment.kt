@@ -35,13 +35,13 @@ class LeaderboardFragment : BaseFragment(), LeaderboardPresenter.LeaderboardView
 
 	override fun onResume() {
 		super.onResume()
+		doRetrieveModel().setCurrentUser()
 		presenter.presentState(UPDATE_USER)
 	}
 
 	private fun init() {
 		this.model = LeaderboardViewModel(activity!!)
 		this.presenter = LeaderboardPresenterImpl(this)
-		doRetrieveModel().setCurrentUser()
 	}
 
 	override fun showState(viewState: LeaderboardPresenter.LeaderboardView.ViewState) {

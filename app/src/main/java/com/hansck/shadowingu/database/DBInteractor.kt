@@ -1,6 +1,10 @@
 package com.hansck.shadowingu.database
 
-import com.hansck.shadowingu.model.*
+import android.annotation.SuppressLint
+import com.hansck.shadowingu.model.Avatar
+import com.hansck.shadowingu.model.Badge
+import com.hansck.shadowingu.model.Lesson
+import com.hansck.shadowingu.model.User
 import com.hansck.shadowingu.presentation.App
 import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.util.DataManager
@@ -36,6 +40,7 @@ class DBInteractor(var listener: QueryListener) {
 				})
 	}
 
+	@SuppressLint("CheckResult")
 	fun getUsers() {
 		App.database?.userDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
@@ -51,7 +56,7 @@ class DBInteractor(var listener: QueryListener) {
 
 	//region Lesson
 	fun updateLessons(lesson: Lesson) {
-		Completable.fromAction { App.database?.stageDao()?.updateStage(lesson) }
+		Completable.fromAction { App.database?.lessonDao()?.updateStage(lesson) }
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(object : CompletableObserver {
@@ -60,29 +65,31 @@ class DBInteractor(var listener: QueryListener) {
 					}
 
 					override fun onComplete() {
-						listener.onQuerySucceed(QueryEnum.UPDATE_STAGE)
+						listener.onQuerySucceed(QueryEnum.UPDATE_LESSONS)
 					}
 
 					override fun onError(e: Throwable) {
-						listener.onQueryFailed(QueryEnum.UPDATE_STAGE, e)
+						listener.onQueryFailed(QueryEnum.UPDATE_LESSONS, e)
 					}
 				})
 	}
 
+	@SuppressLint("CheckResult")
 	fun getLessons() {
-		App.database?.stageDao()?.getAll()
+		App.database?.lessonDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
-				?.subscribe { stages ->
+				?.subscribe { lessons ->
 					run {
-						DataManager.instance.addLessons(stages)
-						listener.onQuerySucceed(QueryEnum.GET_STAGES)
+						DataManager.instance.addLessons(lessons)
+						listener.onQuerySucceed(QueryEnum.GET_LESSONS)
 					}
 				}
 	}
 	//endregion
 
 	//region Word
+	@SuppressLint("CheckResult")
 	fun getWords() {
 		App.database?.audioDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
@@ -116,6 +123,7 @@ class DBInteractor(var listener: QueryListener) {
 				})
 	}
 
+	@SuppressLint("CheckResult")
 	fun getAvatars() {
 		App.database?.avatarDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
@@ -130,25 +138,7 @@ class DBInteractor(var listener: QueryListener) {
 	//endregion
 
 	//region Title
-	fun updateTitle(title: Title) {
-		Completable.fromAction { App.database?.titleDao()?.updateTitle(title) }
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(object : CompletableObserver {
-					override fun onSubscribe(d: Disposable) {
-
-					}
-
-					override fun onComplete() {
-						listener.onQuerySucceed(QueryEnum.UPDATE_TITLE)
-					}
-
-					override fun onError(e: Throwable) {
-						listener.onQueryFailed(QueryEnum.UPDATE_TITLE, e)
-					}
-				})
-	}
-
+	@SuppressLint("CheckResult")
 	fun getTitles() {
 		App.database?.titleDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
@@ -201,6 +191,7 @@ class DBInteractor(var listener: QueryListener) {
 				})
 	}
 
+	@SuppressLint("CheckResult")
 	fun getBadges() {
 		App.database?.badgeDao()?.getAll()
 				?.subscribeOn(Schedulers.io())
@@ -215,6 +206,7 @@ class DBInteractor(var listener: QueryListener) {
 	//endregion
 
 	//region Level
+	@SuppressLint("CheckResult")
 	fun getLevels() {
 		App.database?.levelDao()?.getAll()
 				?.subscribeOn(Schedulers.io())

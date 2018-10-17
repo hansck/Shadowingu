@@ -65,7 +65,7 @@ class MainPresenterImpl(val view: MainPresenter.MainView) : MainPresenter, Query
 	override fun onQuerySucceed(route: QueryEnum) {
 		when (route) {
 			QueryEnum.GET_USERS -> presentState(LOAD_STAGES)
-			QueryEnum.GET_STAGES -> presentState(LOAD_TITLES)
+			QueryEnum.GET_LESSONS -> presentState(LOAD_TITLES)
 			QueryEnum.GET_TITLES -> presentState(LOAD_AUDIOS)
 			QueryEnum.GET_WORDS -> presentState(LOAD_LEVELS)
 			QueryEnum.GET_LEVELS -> presentState(LOAD_AVATARS)

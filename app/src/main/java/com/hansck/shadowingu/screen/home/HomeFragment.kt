@@ -13,7 +13,7 @@ import com.hansck.shadowingu.presentation.adapter.BadgesIconAdapter
 import com.hansck.shadowingu.presentation.adapter.LessonsAdapter
 import com.hansck.shadowingu.presentation.adapter.SectionListAdapter
 import com.hansck.shadowingu.presentation.customview.OnBadgeSelected
-import com.hansck.shadowingu.presentation.customview.OnStageSelected
+import com.hansck.shadowingu.presentation.customview.OnLessonSelected
 import com.hansck.shadowingu.presentation.presenter.HomePresenter
 import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewState.*
 import com.hansck.shadowingu.screen.achievement.AchievementActivity
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnStageSelected, OnBadgeSelected {
+class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, OnBadgeSelected {
 
 	private lateinit var model: HomeViewModel
 	private lateinit var presenter: HomePresenter

@@ -113,8 +113,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 			guides = arrayOf(buildGuide(kanji, "Word", resources.getString(R.string.guide_word)),
 					buildGuide(btnVoice, "Voice", resources.getString(R.string.guide_voice)),
 					buildGuide(btnHint, "Hint", resources.getString(R.string.guide_hint)),
-					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)),
-					buildGuide(arena, "Arena", resources.getString(R.string.guide_arena)))
+					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)))
 			showGuide()
 		}
 	}
@@ -175,10 +174,12 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		doRetrieveModel().numOfFalse++
 	}
 
-	private fun animateAvatar(view: ImageView, drawable: Int) {
-		view.setImageResource(drawable)
-		val animation = view.drawable as AnimationDrawable
-		animation.start()
+	private fun animateAvatar(view: ImageView?, drawable: Int) {
+		if (view != null) {
+			view.setImageResource(drawable)
+			val animation = view.drawable as AnimationDrawable
+			animation.start()
+		}
 	}
 
 	private fun checkEnemyHP() {
@@ -246,17 +247,19 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		animateAvatar(enemy, R.drawable.enemy_dead)
 	}
 
-	private fun animateAttackBall(view: View) {
-		if (doRetrieveModel().forwardX == 0F && doRetrieveModel().backwardX == 0F) checkScreenSize()
-		val animation = if (doRetrieveModel().toggleTurn == PLAYER) {
-			TranslateAnimation(-doRetrieveModel().backwardX, doRetrieveModel().forwardX, 0F, 0F)
-		} else {
-			TranslateAnimation(doRetrieveModel().backwardX, -doRetrieveModel().forwardX, 0F, 0F)
+	private fun animateAttackBall(view: View?) {
+		if (view != null) {
+			if (doRetrieveModel().forwardX == 0F && doRetrieveModel().backwardX == 0F) checkScreenSize()
+			val animation = if (doRetrieveModel().toggleTurn == PLAYER) {
+				TranslateAnimation(-doRetrieveModel().backwardX, doRetrieveModel().forwardX, 0F, 0F)
+			} else {
+				TranslateAnimation(doRetrieveModel().backwardX, -doRetrieveModel().forwardX, 0F, 0F)
+			}
+			animation.duration = 750
+			animation.fillAfter = false
+			animation.setAnimationListener(this)
+			view.startAnimation(animation)
 		}
-		animation.duration = 750
-		animation.fillAfter = false
-		animation.setAnimationListener(this)
-		view.startAnimation(animation)
 	}
 
 	private fun checkScreenSize() {
@@ -274,13 +277,17 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 
 	override fun onAnimationEnd(animation: Animation) {
 		if (doRetrieveModel().toggleTurn == PLAYER) {
-			player_ball.clearAnimation()
-			player_ball.visibility = View.GONE
-			checkEnemyHP()
+			if (player_ball != null) {
+				player_ball.clearAnimation()
+				player_ball.visibility = View.GONE
+				checkEnemyHP()
+			}
 		} else {
-			enemy_ball.clearAnimation()
-			enemy_ball.visibility = View.GONE
-			checkPlayerHP()
+			if (enemy_ball != null) {
+				enemy_ball.clearAnimation()
+				enemy_ball.visibility = View.GONE
+				checkPlayerHP()
+			}
 		}
 	}
 

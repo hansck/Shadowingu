@@ -57,7 +57,7 @@ class AvatarsAdapter(private val items: ArrayList<Avatar>, private val listener:
 				activeText.visibility = View.GONE
 				btnSetActive.visibility = View.GONE
 				Common.instance.setImageByName(context, avatar.lockedImage, picture)
-				avatarContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_4))
+				avatarContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_3))
 			}
 		}
 	}

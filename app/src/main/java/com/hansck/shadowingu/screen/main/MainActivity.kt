@@ -9,11 +9,11 @@ import com.google.android.gms.auth.api.Auth
 import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.MainPresenter
 import com.hansck.shadowingu.presentation.presenter.MainPresenter.MainView.ViewState.*
-import com.hansck.shadowingu.screen.test.TestActivity
 import com.hansck.shadowingu.screen.base.BaseActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
 import com.hansck.shadowingu.screen.login.LoginActivity
 import com.hansck.shadowingu.screen.tab.TabFragment
+import com.hansck.shadowingu.screen.test.TestActivity
 import com.hansck.shadowingu.util.AuthManager
 
 
@@ -65,9 +65,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView {
 
 	private fun loadTabFragment() {
 //		goToTest()
-		val bundle = Bundle()
 		val fragment: BaseFragment = TabFragment()
-		fragment.arguments = bundle
 		navigateTo(fm, fragment)
 		presenter.presentState(IDLE)
 	}

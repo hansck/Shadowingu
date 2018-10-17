@@ -38,7 +38,7 @@ class BadgesAdapter(private val items: ArrayList<Badge>) : RecyclerView.Adapter<
 				badgeContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_white))
 			} else {
 				Common.instance.setImageByName(context, badge.lockedImage, picture)
-				badgeContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_4))
+				badgeContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.text_light_3))
 			}
 		}
 	}

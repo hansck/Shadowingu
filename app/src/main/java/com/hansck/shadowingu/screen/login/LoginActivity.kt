@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,7 @@ class LoginActivity : BaseActivity(), LoginPresenter.LoginView {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		requestWindowFeature(Window.FEATURE_NO_TITLE)
 		setContentView(R.layout.activity_login)
 
 		AuthManager.instance.initAuth(this)

@@ -39,6 +39,7 @@
 			android:layout_marginTop="@dimen/item_margin_normal"
 			android:background="@drawable/bg_circle"
 			android:gravity="center"
+			android:textColor="@color/text_white"
 			tools:text="1" />
 
 		<ProgressBar
@@ -46,9 +47,9 @@
 			style="?android:attr/progressBarStyleHorizontal"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/icon_list_medium"
-			android:layout_marginEnd="@dimen/item_margin_huge"
 			android:layout_marginStart="@dimen/item_margin_huge"
 			android:layout_marginTop="@dimen/item_margin_normal"
+			android:layout_marginEnd="@dimen/item_margin_huge"
 			android:indeterminate="false"
 			tools:progress="75" />
 
@@ -61,8 +62,8 @@
 				android:id="@+id/timeContainer"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/item_margin_normal"
 				android:layout_marginStart="@dimen/item_margin_normal"
+				android:layout_marginEnd="@dimen/item_margin_normal"
 				android:gravity="center_vertical"
 				android:orientation="horizontal"
 				android:weightSum="1">
@@ -94,9 +95,9 @@
 				android:id="@+id/gemContainer"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/item_margin_normal"
 				android:layout_marginStart="@dimen/item_margin_normal"
 				android:layout_marginTop="@dimen/item_margin_tiny"
+				android:layout_marginEnd="@dimen/item_margin_normal"
 				android:orientation="horizontal"
 				android:weightSum="1">
 
@@ -111,9 +112,8 @@
 					style="@style/TitleMedium"
 					android:layout_width="0dp"
 					android:layout_weight="0.65"
-					android:drawableLeft="@drawable/ic_gem"
-					android:drawablePadding="@dimen/item_padding_tiny"
 					android:drawableStart="@drawable/ic_gem"
+					android:drawablePadding="@dimen/item_padding_tiny"
 					android:text="@string/gem_qty" />
 			</LinearLayout>
 		</LinearLayout>
@@ -135,7 +135,6 @@
 			android:id="@+id/btnReplay"
 			android:layout_width="@dimen/avatar_small"
 			android:layout_height="@dimen/avatar_small"
-			android:layout_marginLeft="@dimen/item_margin_normal"
 			android:layout_marginStart="@dimen/item_margin_normal"
 			android:background="@drawable/ic_replay" />
 	</LinearLayout>

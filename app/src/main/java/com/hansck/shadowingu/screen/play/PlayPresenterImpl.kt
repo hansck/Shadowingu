@@ -33,7 +33,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 			REDUCE_HEARTS -> view.showState(REDUCE_HEARTS)
 			PLAYER_DEAD -> view.showState(PLAYER_DEAD)
 			UPDATE_USER -> interactor.insertOrUpdateUser(view.doRetrieveModel().user)
-			UPDATE_STAGE -> interactor.updateLessons(view.doRetrieveModel().lesson)
+			UPDATE_LESSON -> interactor.updateLessons(view.doRetrieveModel().lesson)
 			UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
 			UPDATE_LESSONS_PASSED -> updateLessonsPassed()
 			SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
@@ -71,8 +71,8 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 
 	override fun onQuerySucceed(route: QueryEnum) {
 		when (route) {
-			QueryEnum.UPDATE_USER -> presentState(UPDATE_STAGE)
-			QueryEnum.UPDATE_STAGE -> presentState(UPDATE_BADGE)
+			QueryEnum.UPDATE_USER -> presentState(UPDATE_LESSON)
+			QueryEnum.UPDATE_LESSONS -> presentState(UPDATE_BADGE)
 			QueryEnum.UPDATE_BADGE -> {
 				if (view.doRetrieveModel().isGameOver) {
 					presentState(SHOW_GAME_OVER)
@@ -91,7 +91,7 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 	private fun updateLessonsPassed() {
 		val ref = FirebaseDB.instance.getDbReference(Constants.Database.USER)
 		val taskMap = HashMap<String, Any>()
-		taskMap["lesson_gamified"] = DataManager.instance.getUnclearLevel()
+		taskMap["lessons_gamified"] = DataManager.instance.getUnclearLevel()
 		ref.child(PersistentManager.instance.getUserKey()).updateChildren(taskMap)
 		presentState(SHOW_PLAY_RESULT)
 	}
