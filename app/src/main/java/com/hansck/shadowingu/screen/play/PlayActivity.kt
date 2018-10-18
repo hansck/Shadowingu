@@ -28,8 +28,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 	lateinit var presenter: PlayPresenter
 	lateinit var fm: FragmentManager
 	private var elapsedTime: Long = 0
-	private var guideIdx: Int = 0
-	private lateinit var guides: Array<GuideView>
+
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -49,13 +48,13 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 		heartList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 		heartList.adapter = HeartAdapter(doRetrieveModel().hearts)
 
-		setTimer()
 
 		if (!PersistentManager.instance.isShowGuide()) {
-			guides = arrayOf(buildGuide(heartList, "Life Points", resources.getString(R.string.guide_life_points)),
+			doRetrieveModel().guides = arrayOf(buildGuide(heartList, "Life Points", resources.getString(R.string.guide_life_points)),
 					buildGuide(timer, "Timer", resources.getString(R.string.guide_timer)))
 			showGuide()
 		} else {
+			setTimer()
 			presenter.presentState(SHOW_WORD_SCREEN)
 		}
 	}
@@ -69,8 +68,8 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 	}
 
 	private fun showGuide() {
-		if (guideIdx < guides.size) {
-			guides[guideIdx].show()
+		if (doRetrieveModel().checkGuides()) {
+			doRetrieveModel().getGuide().show()
 		} else {
 			presenter.presentState(SHOW_WORD_SCREEN)
 		}
@@ -83,7 +82,7 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 				.setTargetView(view)
 				.setDismissType(GuideView.DismissType.anywhere)
 				.setGuideListener {
-					guideIdx++
+					doRetrieveModel().guideIdx++
 					showGuide()
 				}
 				.build()
@@ -100,10 +99,9 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 			SHOW_CORRECT -> presenter.presentState(SHOW_PLAY_RESULT)
 			REDUCE_HEARTS -> displayHearts()
 			PLAYER_DEAD -> checkPlayerDead()
-			RESET_PLAY -> {
-				resetPlay()
-				setTimer()
-			}
+			RESET_PLAY -> resetPlay()
+			SKIP_WORD -> skipWord()
+			START_TIMER -> setTimer()
 			ERROR -> showError(null, getString(R.string.failed_request_general))
 		}
 	}
@@ -145,6 +143,12 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 	private fun resetPlay() {
 		doRetrieveModel().resetPlay()
 		heartList.adapter.notifyDataSetChanged()
+		setTimer()
+		presenter.presentState(SHOW_WORD_SCREEN)
+	}
+
+	private fun skipWord() {
+		doRetrieveModel().skippedWords++
 		presenter.presentState(SHOW_WORD_SCREEN)
 	}
 

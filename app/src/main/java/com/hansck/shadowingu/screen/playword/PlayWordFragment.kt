@@ -43,8 +43,6 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	private lateinit var presenter: PlayWordPresenter
 	private lateinit var bundle: Bundle
 	private lateinit var recorder: Recorder
-	private var guideIdx: Int = 0
-	private lateinit var guides: Array<GuideView>
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -82,7 +80,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		} else {
 			presenter.presentState(WRONG_ANSWER)
 		}
-//        file.delete()
+		doRetrieveModel().file.delete()
 	}
 
 	private fun showWord() {
@@ -99,18 +97,17 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 			Common.instance.playAudio(activity!!, word.audio)
 		}
 		btnHint.setOnClickListener {
-			presenter.presentState(WRONG_ANSWER)
 			descriptionContainer.visibility = View.VISIBLE
 			btnHint.visibility = View.GONE
 		}
 		btnSkip.setOnClickListener {
-			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SHOW_WORD_SCREEN)
+			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.SKIP_WORD)
 		}
 		frameRecording.setOnTouchListener(listener)
 		btnRecording.setOnTouchListener(listener)
 
 		if (!PersistentManager.instance.isShowGuide()) {
-			guides = arrayOf(buildGuide(kanji, "Word", resources.getString(R.string.guide_word)),
+			doRetrieveModel().guides = arrayOf(buildGuide(kanji, "Word", resources.getString(R.string.guide_word)),
 					buildGuide(btnVoice, "Voice", resources.getString(R.string.guide_voice)),
 					buildGuide(btnHint, "Hint", resources.getString(R.string.guide_hint)),
 					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)))
@@ -119,10 +116,11 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun showGuide() {
-		if (guideIdx < guides.size) {
-			guides[guideIdx].show()
+		if (doRetrieveModel().checkGuides()) {
+			doRetrieveModel().getGuide().show()
 		} else {
 			PersistentManager.instance.setShowGuide()
+			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.START_TIMER)
 		}
 	}
 
@@ -133,7 +131,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 				.setTargetView(view)
 				.setDismissType(GuideView.DismissType.anywhere)
 				.setGuideListener {
-					guideIdx++
+					doRetrieveModel().guideIdx++
 					showGuide()
 				}
 				.build()
@@ -271,8 +269,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun animateProgressBar(progress: Float, color: Int, isBack: Boolean) {
-		if (!isBack) progressBar.color = ContextCompat.getColor(activity!!, color)
-		progressBar.setProgressWithAnimation(progress, 500)
+		if (progressBar != null) {
+			if (!isBack) progressBar.color = ContextCompat.getColor(activity!!, color)
+			progressBar.setProgressWithAnimation(progress, 500)
+		}
 	}
 
 	override fun onAnimationEnd(animation: Animation) {

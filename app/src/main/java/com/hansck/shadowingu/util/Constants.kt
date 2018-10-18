@@ -30,6 +30,7 @@ class Constants {
 		const val MAX_LESSON = 7
 		const val MAX_LEADERBOARD = 20
 		const val MAX_WRONG_ANSWERS = 2
+		const val WORDS_PER_LEVEL = 10
 		const val SHOW_GUIDE = "showGuide"
 	}
 

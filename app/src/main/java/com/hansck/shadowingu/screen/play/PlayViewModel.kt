@@ -5,6 +5,7 @@ import com.hansck.shadowingu.model.*
 import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.DataManager
 import com.hansck.shadowingu.util.PersistentManager
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
 
 /**
  * Created by Hans CK on 07-Jun-18.
@@ -16,6 +17,7 @@ class PlayViewModel(var context: Context?) {
 	var levels: List<Level> = ArrayList()
 	var updatedBadges: ArrayList<Badge> = ArrayList()
 	var hearts: ArrayList<Heart> = ArrayList()
+	lateinit var guides: Array<GuideView>
 	lateinit var avatar: Avatar
 	lateinit var lesson: Lesson
 	lateinit var user: User
@@ -27,12 +29,17 @@ class PlayViewModel(var context: Context?) {
 	var timeEnd: Long = 0
 	var timeElapsed: Long = 0
 	var numOfHearts: Int = 0
+	var skippedWords: Int = 0
+	var guideIdx: Int = 0
 
 	// For Badges Checking
 	var isGameOver: Boolean = false
 	var isPerfect: Boolean = false
 	var isLevelUp: Boolean = false
-	var isNewRecord: Boolean = false
+
+	// For Win Result
+	var isNewTimeRecord: Boolean = false
+	var isScoreRecord: Boolean = false
 
 	fun setData(idStage: Int) {
 		lesson = DataManager.instance.lessons[idStage]
@@ -45,6 +52,10 @@ class PlayViewModel(var context: Context?) {
 		generateHearts()
 	}
 
+	fun getGuide(): GuideView = guides[guideIdx]
+	fun checkGuides(): Boolean = guideIdx < guides.size
+	fun getScore(): Int = Constants.General.WORDS_PER_LEVEL - skippedWords
+
 	fun setCount() {
 		if (count == 10) timeStart = System.currentTimeMillis()
 		currentWordId++
@@ -53,7 +64,8 @@ class PlayViewModel(var context: Context?) {
 
 	fun resetPlay() {
 		count = 10; currentWordId = words[0].idWord; oldLevel = 0; oldExp = 0; timeStart = 0; timeEnd = 0; timeElapsed = 0
-		isPerfect = false; isGameOver = false; isPerfect = false; isLevelUp = false; isNewRecord = false
+		isPerfect = false; isGameOver = false; isPerfect = false; isLevelUp = false; isNewTimeRecord = false
+		skippedWords = 0
 		generateHearts()
 	}
 
@@ -83,14 +95,17 @@ class PlayViewModel(var context: Context?) {
 		checkBadges()
 	}
 
-	private fun checkLesson(): Boolean {
+	private fun checkLesson() {
 		lesson.cleared = true
 		if (timeElapsed < lesson.fastestTime || lesson.fastestTime.toInt() == 0) {
 			lesson.fastestTime = timeElapsed
-			isNewRecord = true
+			isNewTimeRecord = true
+		}
+		if (getScore() > lesson.high_score) {
+			lesson.high_score = getScore()
+			isScoreRecord = true
 		}
 		DataManager.instance.lessons[lesson.idLesson] = lesson
-		return isNewRecord
 	}
 
 	private fun checkBadges() {

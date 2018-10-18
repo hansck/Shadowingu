@@ -15,6 +15,7 @@ import com.hansck.shadowingu.R
 import com.hansck.shadowingu.presentation.presenter.PlayPresenter
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.Constants
 import com.hansck.shadowingu.util.ProgressBarAnimation
 
 
@@ -35,12 +36,24 @@ class PlayResultDialog : DialogFragment() {
 		val time = view.findViewById(R.id.time) as TextView
 		time.text = String.format("%02d:%02d", model.timeElapsed / 60, model.timeElapsed % 60)
 
+		val score = view.findViewById(R.id.score) as TextView
+		score.text = String.format("%2d/%02d", model.getScore(), Constants.General.WORDS_PER_LEVEL)
+
+		val scoreRemark = view.findViewById(R.id.scoreRemark) as TextView
+		if (model.isScoreRecord) {
+			scoreRemark.text = getString(R.string.new_record)
+			scoreRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.color_accent))
+		} else {
+			scoreRemark.text = getString(R.string.not_bad_score)
+			scoreRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.ic_cancel))
+		}
+
 		val timeRemark = view.findViewById(R.id.timeRemark) as TextView
-		if (model.isNewRecord) {
+		if (model.isNewTimeRecord) {
 			timeRemark.text = getString(R.string.new_record)
 			timeRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.color_accent))
 		} else {
-			timeRemark.text = getString(R.string.not_bad)
+			timeRemark.text = getString(R.string.not_bad_time)
 			timeRemark.setTextColor(ContextCompat.getColor(activity!!, R.color.ic_cancel))
 		}
 

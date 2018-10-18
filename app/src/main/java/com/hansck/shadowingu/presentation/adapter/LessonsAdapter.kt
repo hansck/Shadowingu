@@ -44,6 +44,8 @@ class LessonsAdapter(private val items: ArrayList<Lesson>, private val isLearnSt
 			topic.text = lesson.topic
 			if (!isLearnStage && lesson.cleared) {
 				val time = Date(lesson.fastestTime * 1000L)
+				score.text = resources.getString(R.string.score_point, lesson.high_score.toString(), Constants.General.WORDS_PER_LEVEL.toString())
+				score.visibility = View.VISIBLE
 				fastestTime.text = formatter.format(time)
 				fastestTime.visibility = View.VISIBLE
 			}

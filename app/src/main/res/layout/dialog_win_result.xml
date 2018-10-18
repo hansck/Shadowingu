@@ -59,6 +59,39 @@
 			android:orientation="vertical">
 
 			<LinearLayout
+				android:id="@+id/scoreContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/item_margin_normal"
+				android:layout_marginTop="@dimen/item_margin_tiny"
+				android:layout_marginEnd="@dimen/item_margin_normal"
+				android:orientation="horizontal"
+				android:weightSum="1">
+
+				<TextView
+					style="@style/SubheadingRegular"
+					android:layout_width="0dp"
+					android:layout_weight="0.37"
+					android:text="@string/correct" />
+
+				<TextView
+					android:id="@+id/score"
+					style="@style/TitleMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.2"
+					tools:text="8/10" />
+
+				<TextView
+					android:id="@+id/scoreRemark"
+					style="@style/SubheadingMedium"
+					android:layout_width="0dp"
+					android:layout_weight="0.43"
+					android:textColor="@color/color_accent"
+					android:visibility="visible"
+					tools:text="@string/new_record" />
+			</LinearLayout>
+
+			<LinearLayout
 				android:id="@+id/timeContainer"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -71,7 +104,7 @@
 				<TextView
 					style="@style/SubheadingRegular"
 					android:layout_width="0dp"
-					android:layout_weight="0.35"
+					android:layout_weight="0.37"
 					android:text="@string/you_finished_on" />
 
 				<TextView
@@ -85,7 +118,7 @@
 					android:id="@+id/timeRemark"
 					style="@style/SubheadingMedium"
 					android:layout_width="0dp"
-					android:layout_weight="0.45"
+					android:layout_weight="0.43"
 					android:textColor="@color/color_accent"
 					android:visibility="visible"
 					tools:text="@string/new_record" />
@@ -104,14 +137,14 @@
 				<TextView
 					style="@style/SubheadingRegular"
 					android:layout_width="0dp"
-					android:layout_weight="0.35"
+					android:layout_weight="0.37"
 					android:text="@string/bonus" />
 
 				<TextView
 					android:id="@+id/gem"
 					style="@style/TitleMedium"
 					android:layout_width="0dp"
-					android:layout_weight="0.65"
+					android:layout_weight="0.63"
 					android:drawableStart="@drawable/ic_gem"
 					android:drawablePadding="@dimen/item_padding_tiny"
 					android:text="@string/gem_qty" />

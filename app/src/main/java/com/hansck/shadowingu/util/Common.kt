@@ -23,22 +23,6 @@ class Common private constructor() {
 	}
 
 	//region Public methods
-	fun showToast(activity: Activity, text: String, duration: Int) {
-		try {
-			val snackbar = Snackbar.make(activity.currentFocus!!, text, duration)
-			val tv = snackbar.view.findViewById<View>(R.id.snackbar_text) as TextView
-			tv.maxLines = 5
-			snackbar.show()
-		} catch (e: Exception) {
-			val view = activity.window.decorView.findViewById<View>(R.id.content)
-			if (view != null) {
-				Snackbar.make(view, text, duration).show()
-			} else {
-//                Crashlytics.logException(e)
-			}
-		}
-	}
-
 	fun getResourceId(context: Context, type: String, identifier: String): Int {
 		return context.resources.getIdentifier(identifier, type, context.packageName)
 	}
@@ -55,30 +39,6 @@ class Common private constructor() {
 
 	fun stopAudio() {
 		mPlayer.stop()
-	}
-
-	fun hideSoftKeyboard(activity: Activity) {
-		try {
-			val i = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-			if (activity.currentFocus != null) {
-				i.hideSoftInputFromWindow(activity.currentFocus?.windowToken, InputMethodManager
-						.HIDE_NOT_ALWAYS)
-			}
-		} catch (e: Exception) {
-			e.printStackTrace()
-		}
-	}
-
-	fun verifyPermission(grantResults: IntArray): Boolean {
-		if (grantResults.size < 1) {
-			return false
-		}
-		for (result in grantResults) {
-			if (result != PackageManager.PERMISSION_GRANTED) {
-				return false
-			}
-		}
-		return true
 	}
 	//endregion
 }

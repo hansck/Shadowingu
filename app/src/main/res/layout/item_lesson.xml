@@ -54,19 +54,38 @@
 				android:textColor="@color/text_white"
 				tools:text="At Canteen" />
 
-			<TextView
-				android:id="@+id/fastestTime"
-				style="@style/SubheadingMedium"
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
 				android:layout_below="@id/topic"
 				android:layout_marginStart="@dimen/item_margin_normal"
 				android:layout_marginTop="@dimen/item_margin_tiny"
-				android:layout_marginEnd="@dimen/item_margin_normal"
-				android:drawableStart="@drawable/ic_timer"
-				android:drawableLeft="@drawable/ic_timer"
-				android:gravity="start"
-				android:textColor="@color/text_white"
-				android:visibility="gone"
-				tools:text="05:00" />
+				android:orientation="horizontal">
+
+				<TextView
+					android:id="@+id/score"
+					style="@style/SubheadingMedium"
+					android:layout_width="wrap_content"
+					android:layout_marginEnd="@dimen/item_margin_tiny"
+					android:drawableStart="@drawable/ic_score"
+					android:drawablePadding="@dimen/item_padding_tiny"
+					android:gravity="start"
+					android:textColor="@color/text_white"
+					android:visibility="gone"
+					tools:text="8/10" />
+
+				<TextView
+					android:id="@+id/fastestTime"
+					style="@style/SubheadingMedium"
+					android:layout_width="wrap_content"
+					android:layout_marginStart="@dimen/item_margin_tiny"
+					android:drawableStart="@drawable/ic_timer"
+					android:drawablePadding="@dimen/item_padding_mini"
+					android:gravity="start"
+					android:textColor="@color/text_white"
+					android:visibility="gone"
+					tools:text="05:00" />
+			</LinearLayout>
 		</RelativeLayout>
 	</RelativeLayout>
 </android.support.v7.widget.CardView>

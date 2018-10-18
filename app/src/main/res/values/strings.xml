@@ -24,9 +24,12 @@
 	<string name="game_over">Game Over!</string>
 	<string name="continue_text">Continue</string>
 	<string name="new_record">New Record!</string>
-	<string name="not_bad">Could be better!</string>
+	<string name="not_bad_time">Could be faster!</string>
+	<string name="not_bad_score">Could be better!</string>
 	<string name="you_finished_on">Finished on:</string>
 	<string name="bonus">Bonus:</string>
+	<string name="correct">Correct Words:</string>
+	<string name="score_point">%1$s/%2$s</string>
 	<string name="win_result_title">Well Done!\nKeep Up The Good Work</string>
 	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
 	<string name="gem_qty">x 1</string>
@@ -37,6 +40,6 @@
 	<string name="guide_timer">This timer show how long you have played this arena.\nPlay faster and get the high score!</string>
 	<string name="guide_word">This is the word you will learn.</string>
 	<string name="guide_voice">Press Voice button to hear how a word is spoken correctly.</string>
-	<string name="guide_hint">Press Show Hint to see word in hiragana, romaji, and its meaning.</string>
-	<string name="guide_recording">Press and hold the Recording button to record your voice.></string>
+	<string name="guide_hint">Press Show Hint to see word description.</string>
+	<string name="guide_recording">Press and Hold Recording button to record your voice.</string>
 </resources>

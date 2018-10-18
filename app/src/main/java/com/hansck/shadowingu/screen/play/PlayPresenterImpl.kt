@@ -36,6 +36,8 @@ class PlayPresenterImpl(val view: PlayPresenter.PlayView) : PlayPresenter, Query
 			UPDATE_LESSON -> interactor.updateLessons(view.doRetrieveModel().lesson)
 			UPDATE_BADGE -> interactor.updateBadges(view.doRetrieveModel().updatedBadges)
 			UPDATE_LESSONS_PASSED -> updateLessonsPassed()
+			SKIP_WORD -> view.showState(SKIP_WORD)
+			START_TIMER -> view.showState(START_TIMER)
 			SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
 			ERROR -> view.showState(ERROR)
 		}
