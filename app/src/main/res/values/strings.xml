@@ -34,12 +34,20 @@
 	<string name="lose_result_title">Don\'t Give Up!\nKeep Learning And Try Again</string>
 	<string name="gem_qty">x 1</string>
 	<string name="skip">Skip</string>
+	<string name="level">Level</string>
 	<string name="leaderboard_title">Level %1$s / %2$s</string>
 	<string name="not_enough_gem">Sorry. You don\'t have enough gem.\nKeep learning and get more gem!</string>
-	<string name="guide_life_points">This is your Life Points.\nIt\'ll be reduced every time you wrongly speak a word.\nBeware! If it\'s run out, it means game over!\nYou can increase your Life Points by choosing different Avatars from the Shop.</string>
-	<string name="guide_timer">This timer show how long you have played this arena.\nPlay faster and get the high score!</string>
-	<string name="guide_word">This is the word you will learn.</string>
-	<string name="guide_voice">Press Voice button to hear how a word is spoken correctly.</string>
-	<string name="guide_hint">Press Show Hint to see word description.</string>
-	<string name="guide_recording">Press and Hold Recording button to record your voice.</string>
+	<string name="guide_life_points">This is your Life Points.\nIt\'ll be reduced every time you wrongly speak a word.\nBeware! If it\'s run out, it means game over!\nYou can increase your Life Points by choosing different Avatars from the Shop</string>
+	<string name="guide_timer">This timer show how long you have played this arena.\nPlay faster and get higher score!</string>
+	<string name="guide_word">This is the word you will learn</string>
+	<string name="guide_voice">Press Voice button to hear how a word is spoken correctly</string>
+	<string name="guide_hint">Press Show Hint to see word description</string>
+	<string name="guide_recording">Press and Hold this button to start recording your voice</string>
+	<string name="intro_shadowing">Shadowing</string>
+	<string name="intro_desc">A technique to learn new vocabularies, listening, and speaking of foreign language</string>
+	<string name="intro_how_to_do">How To Do It</string>
+	<string name="intro_step_hear">Hear how a word is spoken correctly</string>
+	<string name="intro_step_speak">Repeating as close as possible to what you have heared</string>
+	<string name="intro_step_repeat">See the description / transcript if you don\'t get it correct and repeat again</string>
+	<string name="start_learning">Start Learning!</string>
 </resources>

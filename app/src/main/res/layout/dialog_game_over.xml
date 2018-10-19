@@ -12,7 +12,8 @@
 		style="@style/Word"
 		android:layout_width="wrap_content"
 		android:gravity="center"
-		android:text="@string/game_over" />
+		android:text="@string/game_over"
+		android:textColor="@color/ic_cancel" />
 
 	<LinearLayout
 		android:id="@+id/resultContainer"
@@ -49,8 +50,8 @@
 			android:id="@+id/btnReplay"
 			android:layout_width="@dimen/avatar_small"
 			android:layout_height="@dimen/avatar_small"
-			android:layout_marginLeft="@dimen/item_margin_normal"
 			android:layout_marginStart="@dimen/item_margin_normal"
+			android:layout_marginLeft="@dimen/item_margin_normal"
 			android:background="@drawable/ic_replay" />
 	</LinearLayout>
 </LinearLayout>

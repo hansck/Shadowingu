@@ -4,6 +4,7 @@ package com.hansck.shadowingu.screen.home
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,10 @@ import com.hansck.shadowingu.presentation.presenter.HomePresenter
 import com.hansck.shadowingu.presentation.presenter.HomePresenter.HomeView.ViewState.*
 import com.hansck.shadowingu.screen.achievement.AchievementActivity
 import com.hansck.shadowingu.screen.base.BaseFragment
+import com.hansck.shadowingu.screen.dialog.IntroductionDialog
 import com.hansck.shadowingu.screen.play.PlayActivity
 import com.hansck.shadowingu.util.Common
+import com.hansck.shadowingu.util.PersistentManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -31,6 +34,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 	private lateinit var model: HomeViewModel
 	private lateinit var presenter: HomePresenter
 	private var adapter: LessonsAdapter? = null
+	lateinit var fm: FragmentManager
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
@@ -40,7 +44,11 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		init()
-		presenter.presentState(LOAD_BADGES)
+		if (!PersistentManager.instance.isFirstIntro()) {
+			presenter.presentState(SHOW_INTRO)
+		} else {
+			presenter.presentState(LOAD_BADGES)
+		}
 	}
 
 	override fun onResume() {
@@ -53,6 +61,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 	private fun init() {
 		this.model = HomeViewModel(activity)
 		this.presenter = HomePresenterImpl(this)
+		fm = activity!!.supportFragmentManager
 	}
 
 	private fun showProfile() {
@@ -68,6 +77,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 			IDLE -> showProgress(false)
 			LOADING -> showProgress(true)
 			SHOW_ITEMS -> showItems()
+			SHOW_INTRO -> showIntroDialog()
 			ERROR -> showError(null, getString(R.string.failed_request_general))
 		}
 	}
@@ -92,7 +102,7 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 		stageList.layoutManager = LinearLayoutManager(context)
 		adapter = LessonsAdapter(doRetrieveModel().lessons, false, this)
 
-		// show the data
+		// Show the data
 		val dummy = arrayOfNulls<SectionListAdapter.Section>(doRetrieveModel().categories.size)
 		val mSectionedAdapter = SectionListAdapter(activity, R.layout.item_section, R.id.section_text, stageList, adapter)
 		mSectionedAdapter.setSections(doRetrieveModel().categories.toArray(dummy))
@@ -103,5 +113,12 @@ class HomeFragment : BaseFragment(), HomePresenter.HomeView, OnLessonSelected, O
 		badgesList.setHasFixedSize(true)
 		badgesList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 		badgesList.adapter = BadgesIconAdapter(doRetrieveModel().badges, this)
+	}
+
+	private fun showIntroDialog() {
+		PersistentManager.instance.setFirstIntro()
+		val introDialog = IntroductionDialog()
+		introDialog.show(fm, "intro")
+		presenter.presentState(LOAD_BADGES)
 	}
 }

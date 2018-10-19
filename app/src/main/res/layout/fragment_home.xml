@@ -79,12 +79,20 @@
 		</LinearLayout>
 	</RelativeLayout>
 
+	<TextView
+		android:id="@+id/achievementRemark"
+		style="@style/BodyRegular"
+		android:layout_below="@id/header"
+		android:layout_marginStart="@dimen/item_margin_large"
+		android:layout_marginTop="@dimen/item_margin_small"
+		android:layout_marginEnd="@dimen/item_margin_normal"
+		android:text="@string/achievements" />
+
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/badgesList"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/header"
-		android:layout_marginTop="@dimen/item_margin_tiny"
+		android:layout_below="@id/achievementRemark"
 		android:orientation="horizontal"
 		android:paddingLeft="@dimen/item_padding_normal"
 		android:paddingRight="@dimen/item_padding_normal" />

@@ -17,6 +17,16 @@ class PersistentManager {
 		keyStore.edit().clear().apply()
 	}
 
+	fun isFirstIntro(): Boolean {
+		return keyStore.getBoolean(Constants.Preferences.FIRST_INTRO, false)
+	}
+
+	fun setFirstIntro() {
+		val editor = keyStore.edit()
+		editor.putBoolean(Constants.Preferences.FIRST_INTRO, true)
+		editor.apply()
+	}
+
 	fun isLogin(): Boolean {
 		return keyStore.getBoolean(Constants.Preferences.IS_LOGIN, false)
 	}

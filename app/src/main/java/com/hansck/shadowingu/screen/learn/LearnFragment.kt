@@ -48,6 +48,7 @@ class LearnFragment : BaseFragment(), LearnPresenter.LearnView, OnLessonSelected
 		this.model = LearnViewModel(activity)
 		this.presenter = LearnPresenterImpl(this)
 
+		achievementRemark.visibility = View.GONE
 		profileContainer.visibility = View.GONE
 		progressContainer.visibility = View.VISIBLE
 	}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/transparent"
+	android:gravity="center"
+	android:orientation="vertical"
+	android:padding="@dimen/item_padding_normal">
+
+	<TextView
+		android:id="@+id/stage_cleared"
+		style="@style/TitleBigMedium"
+		android:layout_width="wrap_content"
+		android:gravity="center"
+		android:text="Shadowing"
+		android:textColor="@color/color_primary" />
+
+	<LinearLayout
+		android:id="@+id/resultContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/item_margin_small"
+		android:background="@color/text_light_4"
+		android:gravity="center_horizontal"
+		android:orientation="vertical"
+		android:padding="@dimen/item_padding_small">
+
+		<TextView
+			style="@style/SubheadingRegular"
+			android:layout_width="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="@string/intro_desc" />
+
+		<TextView
+			style="@style/SubheadingMedium"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="@dimen/item_margin_normal"
+			android:text="@string/intro_how_to_do"
+			android:textAllCaps="true"
+			android:textColor="@color/color_primary" />
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:id="@+id/iconHear"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:src="@drawable/ic_hear" />
+
+			<TextView
+				style="@style/SubheadingRegular"
+				android:layout_centerInParent="true"
+				android:layout_marginStart="@dimen/item_margin_small"
+				android:layout_toEndOf="@id/iconHear"
+				android:gravity="center"
+				android:text="@string/intro_step_hear" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/item_margin_small">
+
+			<ImageView
+				android:id="@+id/iconSpeak"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_alignParentEnd="true"
+				android:src="@drawable/ic_speak" />
+
+			<TextView
+				style="@style/SubheadingRegular"
+				android:layout_centerInParent="true"
+				android:layout_marginEnd="@dimen/item_margin_small"
+				android:layout_toStartOf="@id/iconSpeak"
+				android:gravity="center"
+				android:text="@string/intro_step_speak" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/item_margin_small">
+
+			<ImageView
+				android:id="@+id/iconThink"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:src="@drawable/ic_kanji" />
+
+			<TextView
+				style="@style/SubheadingRegular"
+				android:layout_width="wrap_content"
+				android:layout_centerInParent="true"
+				android:layout_marginStart="@dimen/item_margin_small"
+				android:layout_toEndOf="@id/iconThink"
+				android:gravity="center_horizontal"
+				android:text="@string/intro_step_repeat" />
+		</RelativeLayout>
+
+		<Button
+			android:id="@+id/btnDismiss"
+			style="@style/ButtonTheme"
+			android:layout_marginTop="@dimen/item_margin_small"
+			android:paddingStart="@dimen/item_padding_normal"
+			android:paddingEnd="@dimen/item_padding_normal"
+			android:text="@string/start_learning" />
+	</LinearLayout>
+</LinearLayout>

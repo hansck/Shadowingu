@@ -48,7 +48,6 @@ class PlayActivity : BaseActivity(), PlayPresenter.PlayView {
 		heartList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 		heartList.adapter = HeartAdapter(doRetrieveModel().hearts)
 
-
 		if (!PersistentManager.instance.isShowGuide()) {
 			doRetrieveModel().guides = arrayOf(buildGuide(heartList, "Life Points", resources.getString(R.string.guide_life_points)),
 					buildGuide(timer, "Timer", resources.getString(R.string.guide_timer)))

@@ -94,7 +94,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		romaji.text = word.romaji
 		meaning.text = word.meaning
 		btnVoice.setOnClickListener {
-			Common.instance.playAudio(activity!!, word.audio)
+			playAudio()
+		}
+		voiceContainer.setOnClickListener {
+			playAudio()
 		}
 		btnHint.setOnClickListener {
 			descriptionContainer.visibility = View.VISIBLE
@@ -112,6 +115,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 					buildGuide(btnHint, "Hint", resources.getString(R.string.guide_hint)),
 					buildGuide(btnRecording, "Recording", resources.getString(R.string.guide_recording)))
 			showGuide()
+		} else {
+			Handler().postDelayed({
+				playAudio()
+			}, 500)
 		}
 	}
 
@@ -120,6 +127,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 			doRetrieveModel().getGuide().show()
 		} else {
 			PersistentManager.instance.setShowGuide()
+			playAudio()
 			(activity as PlayActivity).presenter.presentState(PlayPresenter.PlayView.ViewState.START_TIMER)
 		}
 	}
@@ -135,6 +143,10 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 					showGuide()
 				}
 				.build()
+	}
+
+	private fun playAudio() {
+		Common.instance.playAudio(activity!!, doRetrieveModel().word.audio)
 	}
 
 	private val listener = View.OnTouchListener { _, event ->

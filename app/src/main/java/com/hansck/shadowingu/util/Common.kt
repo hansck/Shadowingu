@@ -2,14 +2,8 @@ package com.hansck.shadowingu.util
 
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.media.MediaPlayer
-import android.support.design.widget.Snackbar
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.TextView
-import com.hansck.shadowingu.R
 
 /**
  * Created by Hans CK on 1-Nov-17.
@@ -32,13 +26,21 @@ class Common private constructor() {
 	}
 
 	fun playAudio(activity: Activity, audio: String) {
-		mPlayer = MediaPlayer.create(activity, getResourceId(activity, "raw", audio))
-		mPlayer.setOnCompletionListener { mp -> mp.release() }
-		mPlayer.start()
+		try {
+			mPlayer = MediaPlayer.create(activity, getResourceId(activity, "raw", audio))
+			mPlayer.setOnCompletionListener { mp -> mp.release() }
+			mPlayer.start()
+		} catch (e: Exception) {
+			e.stackTrace
+		}
 	}
 
 	fun stopAudio() {
-		mPlayer.stop()
+		try {
+			mPlayer.stop()
+		} catch (e: Exception) {
+			e.stackTrace
+		}
 	}
 	//endregion
 }

@@ -24,6 +24,7 @@ class HomePresenterImpl(val view: HomePresenter.HomeView) : HomePresenter, Query
 				interactor.getBadges()
 			}
 			SHOW_ITEMS -> view.showState(SHOW_ITEMS)
+			SHOW_INTRO -> view.showState(SHOW_INTRO)
 			SHOW_SCREEN_STATE -> view.showState(SHOW_SCREEN_STATE)
 			ERROR -> view.showState(ERROR)
 		}
