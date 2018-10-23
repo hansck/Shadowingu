@@ -44,6 +44,26 @@
 			android:layout_height="wrap_content">
 
 			<ImageView
+				android:id="@+id/iconSilent"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_alignParentEnd="true"
+				android:src="@drawable/ic_mute" />
+
+			<TextView
+				style="@style/SubheadingRegular"
+				android:layout_centerInParent="true"
+				android:layout_marginEnd="@dimen/item_margin_small"
+				android:layout_toStartOf="@id/iconSilent"
+				android:gravity="center"
+				android:text="@string/intro_preparation" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
 				android:id="@+id/iconHear"
 				android:layout_width="50dp"
 				android:layout_height="50dp"

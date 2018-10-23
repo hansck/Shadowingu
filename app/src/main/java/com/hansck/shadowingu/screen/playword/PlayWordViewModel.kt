@@ -15,7 +15,7 @@ import java.io.File
 class PlayWordViewModel(var context: Context?) {
 
 	lateinit var word: Word
-	lateinit var file: File
+	var file: File? = null
 	lateinit var guides: Array<GuideView>
 	var toggleTurn: ActiveAvatar = ActiveAvatar.PLAYER
 	val REQUEST_RECORD_AUDIO_PERMISSION = 100

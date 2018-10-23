@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.media.AudioFormat
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -80,7 +81,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		} else {
 			presenter.presentState(WRONG_ANSWER)
 		}
-		doRetrieveModel().file.delete()
+//		doRetrieveModel().file?.delete()
 	}
 
 	private fun showWord() {
@@ -93,12 +94,9 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		furigana.text = word.furigana
 		romaji.text = word.romaji
 		meaning.text = word.meaning
-		btnVoice.setOnClickListener {
-			playAudio()
-		}
-		voiceContainer.setOnClickListener {
-			playAudio()
-		}
+		Common.instance.setImageByName(activity!!, (activity as PlayActivity).doRetrieveModel().lesson.arena, background)
+		btnVoice.setOnClickListener { playAudio() }
+		voiceContainer.setOnClickListener { playAudio() }
 		btnHint.setOnClickListener {
 			descriptionContainer.visibility = View.VISIBLE
 			btnHint.visibility = View.GONE
@@ -146,7 +144,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 	}
 
 	private fun playAudio() {
-		Common.instance.playAudio(activity!!, doRetrieveModel().word.audio)
+		if (activity != null)
+			Common.instance.playAudio(activity!!, doRetrieveModel().word.audio)
 	}
 
 	private val listener = View.OnTouchListener { _, event ->
@@ -158,8 +157,12 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 			MotionEvent.ACTION_UP -> {
 				if (::recorder.isInitialized) {
 					stopRecording()
-					CalculationMatching.instance.calculateSimilarity(activity!!,
-							doRetrieveModel().word.idWord, doRetrieveModel().file, this)
+					if (Common.instance.checkAudioDuration(activity!!, Uri.parse(Uri.fromFile(doRetrieveModel().file).toString()))) {
+						CalculationMatching.instance.calculateSimilarity(activity!!,
+								doRetrieveModel().word.idWord, doRetrieveModel().file, this)
+					} else {
+						presenter.presentState(WRONG_ANSWER)
+					}
 				}
 			}
 		}
@@ -328,6 +331,8 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		val folder = File(Environment.getExternalStorageDirectory().toString() + "/" + activity!!.getString(R.string.app_name))
 		if (!folder.exists()) folder.mkdir()
 		val filename = activity!!.getString(R.string.app_name) + "/" + System.currentTimeMillis().toString() + ".wav"
+
+		doRetrieveModel().file = null
 		doRetrieveModel().file = if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
 			File(Environment.getExternalStorageDirectory(), filename)
 		} else {

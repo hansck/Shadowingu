@@ -39,6 +39,9 @@ data class Lesson(
 		@ColumnInfo(name = "unlockedIcon")
 		var unlockedIcon: String,
 
+		@ColumnInfo(name = "arena")
+		var arena: String,
+
 		@ColumnInfo(name = "cleared")
 		var cleared: Boolean) {
 
@@ -46,19 +49,19 @@ data class Lesson(
 		fun populateData(): Array<Lesson> {
 			return arrayOf(
 					Lesson(0, "Pronoun", "Beginner", 0, 0, 500,
-							"bg_grey", "bg_purple", "ic_topic_home_disabled", "ic_topic_home", false),
+							"bg_grey", "bg_purple", "ic_topic_home_disabled", "ic_topic_home", "bg_home", false),
 					Lesson(1, "Things at School", "Beginner", 0, 0, 750,
-							"bg_grey", "bg_teal", "ic_topic_school_1_disabled", "ic_topic_school_1", false),
+							"bg_grey", "bg_teal", "ic_topic_school_1_disabled", "ic_topic_school_1", "bg_school", false),
 					Lesson(2, "School Activities", "Beginner", 0, 0, 1000,
-							"bg_grey", "bg_teal", "ic_topic_school_2_disabled", "ic_topic_school_2", false),
+							"bg_grey", "bg_teal", "ic_topic_school_2_disabled", "ic_topic_school_2", "bg_school", false),
 					Lesson(3, "At Canteen", "Beginner", 0, 0, 1250,
-							"bg_grey", "bg_blue", "ic_topic_canteen_1_disabled", "ic_topic_canteen_1", false),
+							"bg_grey", "bg_blue", "ic_topic_canteen_1_disabled", "ic_topic_canteen_1", "bg_canteen", false),
 					Lesson(4, "At Canteen 2", "Beginner", 0, 0, 1500,
-							"bg_grey", "bg_blue", "ic_topic_canteen_2_disabled", "ic_topic_canteen_2", false),
+							"bg_grey", "bg_blue", "ic_topic_canteen_2_disabled", "ic_topic_canteen_2", "bg_canteen", false),
 					Lesson(5, "Places", "Lower-Intermediate", 0, 0, 1750,
-							"bg_grey", "bg_purple", "ic_topic_places_disabled", "ic_topic_places", false),
+							"bg_grey", "bg_purple", "ic_topic_places_disabled", "ic_topic_places", "bg_city", false),
 					Lesson(6, "Travelling", "Lower-Intermediate", 0, 0, 2000,
-							"bg_grey", "bg_teal", "ic_topic_travelling_disabled", "ic_topic_travelling", false))
+							"bg_grey", "bg_teal", "ic_topic_travelling_disabled", "ic_topic_travelling", "bg_city", false))
 		}
 	}
 }

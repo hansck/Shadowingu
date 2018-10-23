@@ -8,7 +8,6 @@ import be.tarsos.dsp.AudioProcessor
 import be.tarsos.dsp.io.TarsosDSPAudioFormat
 import be.tarsos.dsp.io.UniversalAudioInputStream
 import be.tarsos.dsp.mfcc.MFCC
-import com.hansck.shadowingu.presentation.customview.SpeechCalculationListener
 import com.hansck.shadowingu.presentation.customview.SpeechSimilarityListener
 import java.io.File
 import java.io.FileInputStream
@@ -20,9 +19,8 @@ import kotlin.collections.ArrayList
 /**
  * Created by Hans CK on 04-Jun-18.
  */
-class CalculationMatching : SpeechCalculationListener {
+class CalculationMatching {
 
-	private lateinit var calculationListener: SpeechCalculationListener
 	private lateinit var similarityListener: SpeechSimilarityListener
 	private var feature = Feature()
 	private var index: Int = 0
@@ -31,6 +29,8 @@ class CalculationMatching : SpeechCalculationListener {
 	private var idWord: Int = 0
 	private lateinit var ctx: Context
 	private var referenceAudioId: Int = 0
+	private var wordsCount: Int = 0
+	private var distances: ArrayList<Double> = ArrayList()
 
 	// MFCC Parameters
 	val bufferOverlap = 0
@@ -49,22 +49,21 @@ class CalculationMatching : SpeechCalculationListener {
 		this.ctx = ctx
 		this.idWord = idWord
 		this.similarityListener = listener
-		calculationListener = this
 		feature = Feature()
-		index = 0
-		sum = 0.0
+		distances = ArrayList()
+		index = 0; sum = 0.0; compareDistance = 0.0; wordsCount = 0
 		val inStream = FileInputStream(testRecording)
 		calculateMFCC(inStream, 1)
 	}
 
-	fun calculateSimilarity(ctx: Context, idWord: Int, testAudioId: Int, referenceAudioId: Int, listener: SpeechCalculationListener) {
+	fun calculateSimilarity(ctx: Context, idWord: Int, testAudioId: Int, referenceAudioId: Int, listener: SpeechSimilarityListener) {
 		this.ctx = ctx
 		this.idWord = idWord
-		this.calculationListener = listener
+		this.similarityListener = listener
 		this.referenceAudioId = referenceAudioId
 		feature = Feature()
-		index = 0
-		sum = 0.0
+		distances = ArrayList()
+		index = 0; sum = 0.0; compareDistance = 0.0; wordsCount = 0
 		val inStream = ctx.resources.openRawResource(testAudioId)
 		calculateMFCC(inStream, 1)
 	}
@@ -115,19 +114,46 @@ class CalculationMatching : SpeechCalculationListener {
 
 		val dtw = DynamicTimeWrapping(feature.features1, feature.features2)
 		val distance = dtw.calDistance()
-		calculationListener.onSimilarityCalculated(distance)
+		calculateResult(distance)
 	}
 
-	override fun onSimilarityCalculated(distance: Double) {
+	private fun calculateResult(distance: Double) {
 		Log.e("SIMILARITY", distance.toString())
-		if (index == idWord) compareDistance = distance
-		sum += distance
+		if (index == idWord) {
+			compareDistance = if (distance < 100) {
+				distance
+			} else {
+				100.0
+			}
+		}
+		if (distance < 100) {
+			sum += distance
+			wordsCount++
+			distances.add(distance)
+		} else {
+			distances.add(0.0)
+			Log.e("ERROR DATA", "${DataManager.instance.words[index]}")
+		}
+//		Log.e("SUM", "$wordsCount $sum")
 		index++
-		if (index < 70) {
+		if (index < Constants.General.TOTAL_WORDS) {
 			calculateMFCCReferences()
 		} else {
-			val avgDistance = sum / 70
-			similarityListener.onSimilarityMatching(compareDistance <= avgDistance)
+			val avgDistance = sum / wordsCount
+			Log.e("COMPARE", "$compareDistance $sum $wordsCount $avgDistance")
+
+			var isSimilar = compareDistance <= avgDistance
+//			if (isSimilar) {
+//				var moreSimilarWords = 0
+//				for (x in distances) {
+//					if (x <= compareDistance) {
+//						moreSimilarWords++
+//					}
+//				}
+//				Log.e("WORDS", "$moreSimilarWords")
+//				if (moreSimilarWords > 25) isSimilar = false
+//			}
+			similarityListener.onSimilarityMatching(isSimilar)
 		}
 	}
 
@@ -150,13 +176,13 @@ internal class Feature {
 	fun setFeatures(iteration: Int, features: Array<DoubleArray>) {
 		if (iteration == 1) {
 			features1 = features
-//			for (i in features1.indices) {
-//				Log.e("Features $iteration", Arrays.toString(features1[i]))
+//			for (i in features1!!.indices) {
+//				Log.e("Features $iteration", Arrays.toString(features1!![i]))
 //			}
 		} else {
 			features2 = features
-//			for (i in features2.indices) {
-//				Log.e("Features $iteration", Arrays.toString(features2[i]))
+//			for (i in features2!!.indices) {
+//				Log.e("Features $iteration", Arrays.toString(features2!![i]))
 //			}
 		}
 	}
