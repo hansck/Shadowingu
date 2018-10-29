@@ -81,7 +81,7 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 		} else {
 			presenter.presentState(WRONG_ANSWER)
 		}
-//		doRetrieveModel().file?.delete()
+		doRetrieveModel().file?.delete()
 	}
 
 	private fun showWord() {

@@ -10,7 +10,10 @@ import com.hansck.shadowingu.model.LeaderboardUser
 import com.hansck.shadowingu.presentation.customview.QueryListener
 import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter
 import com.hansck.shadowingu.presentation.presenter.LeaderboardPresenter.LeaderboardView.ViewState.*
-import com.hansck.shadowingu.util.*
+import com.hansck.shadowingu.util.Constants
+import com.hansck.shadowingu.util.DataManager
+import com.hansck.shadowingu.util.FirebaseDB
+import com.hansck.shadowingu.util.PersistentManager
 import java.util.*
 
 /**
@@ -93,10 +96,7 @@ class LeaderboardPresenterImpl(val view: LeaderboardPresenter.LeaderboardView) :
 				for (postSnapshot in dataSnapshot.children) {
 					try {
 						val user = postSnapshot.getValue(LeaderboardUser::class.java)
-						if (count <= Constants.General.MAX_LEADERBOARD || user?.email == AuthManager.instance.account.email) {
-							DataManager.instance.addLeaderboardUser(user!!)
-						}
-						count++
+						DataManager.instance.addLeaderboardUser(user!!)
 					} catch (e: Exception) {
 						e.printStackTrace()
 					}
