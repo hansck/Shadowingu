@@ -118,7 +118,7 @@ class CalculationMatching {
 	}
 
 	private fun calculateResult(distance: Double) {
-		Log.e("SIMILARITY", distance.toString())
+//		Log.e("SIMILARITY", distance.toString())
 		if (index == idWord) {
 			compareDistance = if (distance < 100) {
 				distance
@@ -134,7 +134,6 @@ class CalculationMatching {
 			distances.add(0.0)
 			Log.e("ERROR DATA", "${DataManager.instance.words[index]}")
 		}
-//		Log.e("SUM", "$wordsCount $sum")
 		index++
 		if (index < Constants.General.TOTAL_WORDS) {
 			calculateMFCCReferences()
@@ -143,16 +142,6 @@ class CalculationMatching {
 			Log.e("COMPARE", "$compareDistance $sum $wordsCount $avgDistance")
 
 			var isSimilar = compareDistance <= avgDistance
-//			if (isSimilar) {
-//				var moreSimilarWords = 0
-//				for (x in distances) {
-//					if (x <= compareDistance) {
-//						moreSimilarWords++
-//					}
-//				}
-//				Log.e("WORDS", "$moreSimilarWords")
-//				if (moreSimilarWords > 25) isSimilar = false
-//			}
 			similarityListener.onSimilarityMatching(isSimilar)
 		}
 	}

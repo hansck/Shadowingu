@@ -64,7 +64,7 @@ class MainActivity : BaseActivity(), MainPresenter.MainView {
 	override fun doRetrieveModel(): MainViewModel = this.model
 
 	private fun loadTabFragment() {
-//		goToTest()
+		goToTest()
 		val fragment: BaseFragment = TabFragment()
 		navigateTo(fm, fragment)
 		presenter.presentState(IDLE)

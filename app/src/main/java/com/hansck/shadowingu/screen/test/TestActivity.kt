@@ -24,7 +24,7 @@ class TestActivity : BaseActivity(), SpeechSimilarityListener {
 					0, this)
 
 //			CalculationMatching.instance.calculateSimilarity(this,
-//					DataManager.instance.getWordByAudioName(file1).idWord,
+//					0,
 //					resources.getIdentifier(file1, "raw", packageName),
 //					resources.getIdentifier(file2, "raw", packageName),
 //					this)
