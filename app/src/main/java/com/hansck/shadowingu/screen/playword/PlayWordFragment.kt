@@ -1,7 +1,6 @@
 package com.hansck.shadowingu.screen.playword
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
 import android.media.AudioFormat
 import android.media.MediaRecorder
@@ -9,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
@@ -32,6 +30,11 @@ import com.hansck.shadowingu.screen.playword.ActiveAvatar.PLAYER
 import com.hansck.shadowingu.util.CalculationMatching
 import com.hansck.shadowingu.util.Common
 import com.hansck.shadowingu.util.PersistentManager
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.fragment_play_word.*
 import omrecorder.*
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
@@ -359,20 +362,21 @@ class PlayWordFragment : BaseFragment(), PlayWordPresenter.PlayWordView, SpeechS
 
 	//region Ask for Permission
 	private fun checkPermissions() {
-		when {
-			ContextCompat.checkSelfPermission(activity!!, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ->
-				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.RECORD_AUDIO), doRetrieveModel().REQUEST_RECORD_AUDIO_PERMISSION)
-			ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ->
-				ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), doRetrieveModel().REQUEST_WRITE_STORAGE_PERMISSION)
-			else -> startRecording()
-		}
-	}
+		Dexter.withActivity(activity)
+				.withPermissions(
+						Manifest.permission.RECORD_AUDIO,
+						Manifest.permission.WRITE_EXTERNAL_STORAGE
+				).withListener(object : MultiplePermissionsListener {
+					override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+						startRecording()
+					}
 
-	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-		when (requestCode) {
-			doRetrieveModel().REQUEST_RECORD_AUDIO_PERMISSION -> checkPermissions()
-			doRetrieveModel().REQUEST_WRITE_STORAGE_PERMISSION -> checkPermissions()
-		}
+					override fun onPermissionRationaleShouldBeShown(
+							permissions: MutableList<PermissionRequest>?,
+							token: PermissionToken?) {
+					}
+
+				}).check()
 	}
 	//endregion
 }

@@ -53,6 +53,7 @@ dependencies {
     //Others
     implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
     implementation 'com.github.mreram:ShowCaseView:1.0.5'
+    implementation 'com.karumi:dexter:5.0.0'
 
     //Testing
     testImplementation 'junit:junit:4.12'
