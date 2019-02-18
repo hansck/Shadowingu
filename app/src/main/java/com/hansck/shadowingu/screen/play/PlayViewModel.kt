@@ -111,33 +111,31 @@ class PlayViewModel(var context: Context?) {
 	private fun checkBadges() {
 		if (numOfHearts == hearts.size && !PersistentManager.instance.isPerfectPlay()) {
 			PersistentManager.instance.setPerfectPlay()
-			badges[0].unlock = true
-			updatedBadges.add(badges[0])
-			DataManager.instance.badges[0] = badges[0]
+			updateBadge(0)
 		}
 		if (lesson.idLesson == Constants.General.MAX_LESSON - 1 && !PersistentManager.instance.isAllStagesCleared()) {
 			PersistentManager.instance.setAllStagesCleared()
-			badges[1].unlock = true
-			updatedBadges.add(badges[1])
-			DataManager.instance.badges[1] = badges[1]
+			updateBadge(1)
 		}
 		if (user.level == Constants.General.MAX_LEVEL && !PersistentManager.instance.isMaxLevel()) {
 			PersistentManager.instance.setMaxLevel()
-			badges[3].unlock = true
-			updatedBadges.add(badges[3])
-			DataManager.instance.badges[3] = badges[3]
+			updateBadge(3)
 		}
 	}
 
 	fun checkGameOverBadge(): Boolean {
 		if (!PersistentManager.instance.isFirstGameOver()) {
 			PersistentManager.instance.setFirstGameOver()
-			badges[4].unlock = true
-			updatedBadges.add(badges[4])
-			DataManager.instance.badges[4] = badges[4]
+			updateBadge(4)
 			isGameOver = true
 		}
 		return isGameOver
+	}
+
+	private fun updateBadge(index: Int) {
+		badges[index].unlock = true
+		updatedBadges.add(badges[index])
+		DataManager.instance.badges[index] = badges[index]
 	}
 
 	private fun generateHearts() {
