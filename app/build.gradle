@@ -9,8 +9,8 @@ android {
         applicationId "com.hansck.shadowingu"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,10 +32,10 @@ dependencies {
 
     //Firebase
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-database:16.0.3'
-    implementation 'com.google.firebase:firebase-storage:16.0.3'
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-database:16.0.6'
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
 
     //Room
     implementation 'android.arch.persistence.room:runtime:1.1.1'
@@ -43,8 +43,8 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
     //Digital Signal Processing
     implementation files('libs/TarsosDSP-Android-latest.jar')

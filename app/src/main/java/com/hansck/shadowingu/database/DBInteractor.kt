@@ -46,10 +46,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { users ->
-					run {
-						DataManager.instance.user = users[0]
-						listener.onQuerySucceed(QueryEnum.GET_USERS)
-					}
+					DataManager.instance.user = users[0]
+					listener.onQuerySucceed(QueryEnum.GET_USERS)
 				}
 	}
 	//endregion
@@ -80,10 +78,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { lessons ->
-					run {
-						DataManager.instance.addLessons(lessons)
-						listener.onQuerySucceed(QueryEnum.GET_LESSONS)
-					}
+					DataManager.instance.addLessons(lessons)
+					listener.onQuerySucceed(QueryEnum.GET_LESSONS)
 				}
 	}
 	//endregion
@@ -95,10 +91,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { audios ->
-					run {
-						DataManager.instance.addWords(audios)
-						listener.onQuerySucceed(QueryEnum.GET_WORDS)
-					}
+					DataManager.instance.addWords(audios)
+					listener.onQuerySucceed(QueryEnum.GET_WORDS)
 				}
 	}
 	//endregion
@@ -129,10 +123,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { avatars ->
-					run {
-						DataManager.instance.addAvatars(avatars)
-						listener.onQuerySucceed(QueryEnum.GET_AVATARS)
-					}
+					DataManager.instance.addAvatars(avatars)
+					listener.onQuerySucceed(QueryEnum.GET_AVATARS)
 				}
 	}
 	//endregion
@@ -144,10 +136,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { titles ->
-					run {
-						DataManager.instance.addTitles(titles)
-						listener.onQuerySucceed(QueryEnum.GET_TITLES)
-					}
+					DataManager.instance.addTitles(titles)
+					listener.onQuerySucceed(QueryEnum.GET_TITLES)
 				}
 	}
 	//endregion
@@ -197,10 +187,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { badges ->
-					run {
-						DataManager.instance.addBadges(badges)
-						listener.onQuerySucceed(QueryEnum.GET_BADGES)
-					}
+					DataManager.instance.addBadges(badges)
+					listener.onQuerySucceed(QueryEnum.GET_BADGES)
 				}
 	}
 	//endregion
@@ -212,10 +200,8 @@ class DBInteractor(var listener: QueryListener) {
 				?.subscribeOn(Schedulers.io())
 				?.observeOn(AndroidSchedulers.mainThread())
 				?.subscribe { levels ->
-					run {
-						DataManager.instance.addLevels(levels)
-						listener.onQuerySucceed(QueryEnum.GET_LEVELS)
-					}
+					DataManager.instance.addLevels(levels)
+					listener.onQuerySucceed(QueryEnum.GET_LEVELS)
 				}
 	}
 	//endregion
